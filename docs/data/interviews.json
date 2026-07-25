@@ -1,0 +1,149 @@
+{
+  "interviews": [
+    {
+      "id": 1,
+      "interview_code": "INT-01",
+      "actor_code": "ACTOR-01",
+      "institution_type": "Secretaria Municipal de Saúde",
+      "sector_group": "Público",
+      "ccfla_dimension": "D1 - Planejamento e Política Climática",
+      "interview_date": "2026-03-10",
+      "instrument": "Entrevista Estruturada",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Ator reporta necessidade de integração entre a vigilância zoológica/epidemiológica e as ações de adaptação climática. Destaca impactos de eventos térmicos na saúde pública."
+    },
+    {
+      "id": 2,
+      "interview_code": "INT-02",
+      "actor_code": "ACTOR-02",
+      "institution_type": "Coordenadoria de Proteção e Defesa Civil",
+      "sector_group": "Público",
+      "ccfla_dimension": "D1 - Planejamento e Política Climática",
+      "interview_date": "2026-03-12",
+      "instrument": "Questionário Técnico",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Mapeamento de pontos críticos de alagamento e enxurradas urbanas. Ponto focal confirmou protocolos de emergência e integração de alertas com a SEMOB e SEINFRA."
+    },
+    {
+      "id": 3,
+      "interview_code": "INT-03",
+      "actor_code": "ACTOR-03",
+      "institution_type": "Universidade Estadual de Maringá (HUEM/GEMA)",
+      "sector_group": "Academia",
+      "ccfla_dimension": "D3 - Dados e Inteligência Climática",
+      "interview_date": "2026-03-15",
+      "instrument": "Entrevista de Profundidade",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Detecção de lacunas de dados microclimáticos e ilhas de calor. Proposta de parceria acadêmica para modelos de projeção climática de alta resolução."
+    },
+    {
+      "id": 4,
+      "interview_code": "INT-04",
+      "actor_code": "ACTOR-04",
+      "institution_type": "OAB & Instituto BiodiverCidade",
+      "sector_group": "Sociedade Civil",
+      "ccfla_dimension": "D4 - Governança e Participação",
+      "interview_date": "2026-03-18",
+      "instrument": "Entrevista Qualitativa",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Análise do Arcabouço Jurídico do FUNDEMA e instrumentos tributários verdes (IPTU Verde). Recomenda fortalecimento do controle social e assentos no COMDEMA."
+    },
+    {
+      "id": 5,
+      "interview_code": "INT-05",
+      "actor_code": "ACTOR-05",
+      "institution_type": "Secretaria de Urbanismo e Habitação (SEURBH)",
+      "sector_group": "Público",
+      "ccfla_dimension": "D1 - Planejamento e Política Climática",
+      "interview_date": "2026-03-20",
+      "instrument": "Entrevista Estruturada",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Projetos de habitação de interesse social resiliente e revisão do Plano Diretor. Destaque para regularização fundiária em áreas de vulnerabilidade socioambiental."
+    },
+    {
+      "id": 6,
+      "interview_code": "INT-06",
+      "actor_code": "ACTOR-06",
+      "institution_type": "Instituto Ambiental de Maringá (IAM)",
+      "sector_group": "Público",
+      "ccfla_dimension": "D1 - Planejamento e Política Climática",
+      "interview_date": "2026-03-22",
+      "instrument": "Questionário Técnico",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Gestão de unidades de conservação urbanas e licenciamento de empreendimentos. Relato de desafios no monitoramento de áreas de preservação permanente (APPs)."
+    },
+    {
+      "id": 7,
+      "interview_code": "INT-07",
+      "actor_code": "ACTOR-07",
+      "institution_type": "Secretaria de Limpeza Urbana (SELURB)",
+      "sector_group": "Público",
+      "ccfla_dimension": "D1 - Planejamento e Política Climática",
+      "interview_date": "2026-03-24",
+      "instrument": "Entrevista Estruturada",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Plano de arborização urbana e gestão de resíduos sólidos. Identificação de rotas prioritárias para sombreamento e mitigação de ilhas de calor."
+    },
+    {
+      "id": 8,
+      "interview_code": "INT-08",
+      "actor_code": "ACTOR-08",
+      "institution_type": "NAPI Agenda 2030 / COMDEMA / UEM",
+      "sector_group": "Academia",
+      "ccfla_dimension": "D4 - Governança e Participação",
+      "interview_date": "2026-03-26",
+      "instrument": "Entrevista de Profundidade",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Alinhamento com os Objetivos de Desenvolvimento Sustentável (ODS 11 e 13). Recomenda governança multinível entre Município, UEM e COMDEMA."
+    },
+    {
+      "id": 9,
+      "interview_code": "INT-09",
+      "actor_code": "ACTOR-09",
+      "institution_type": "Secretaria de Infraestrutura (SEINFRA)",
+      "sector_group": "Público",
+      "ccfla_dimension": "D2 - Financiamento e Capacidade Fiscal",
+      "interview_date": "2026-03-28",
+      "instrument": "Entrevista Estruturada",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Carteira de projetos de obras estruturantes de drenagem e pavimentação permeável. Necessidade de captação externa e apoio na estruturação de financiamento."
+    },
+    {
+      "id": 10,
+      "interview_code": "INT-10",
+      "actor_code": "ACTOR-10",
+      "institution_type": "Instituto de Pesquisa e Planejamento (IPPLAM)",
+      "sector_group": "Público",
+      "ccfla_dimension": "D3 - Dados e Inteligência Climática",
+      "interview_date": "2026-04-02",
+      "instrument": "Oficina Técnica",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Integração de dados cartográficos e supervisão do projeto de financiamento climático. IPPLAM atua como articulador central do ecossistema municipal."
+    },
+    {
+      "id": 11,
+      "interview_code": "INT-11",
+      "actor_code": "ACTOR-11",
+      "institution_type": "Secretaria de Governo (SEGOV)",
+      "sector_group": "Público",
+      "ccfla_dimension": "D4 - Governança e Participação",
+      "interview_date": "2026-04-05",
+      "instrument": "Entrevista Estruturada",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Articulação política e priorização de projetos no PPA (Plano Plurianual). Confirmação de suporte institucional à agenda de financiamento climático."
+    },
+    {
+      "id": 12,
+      "interview_code": "INT-12",
+      "actor_code": "ACTOR-12",
+      "institution_type": "CODEM / IDR-Paraná (EMATER)",
+      "sector_group": "Privado / Público",
+      "ccfla_dimension": "D2 - Financiamento e Capacidade Fiscal",
+      "interview_date": "2026-04-08",
+      "instrument": "Entrevista de Profundidade",
+      "status": "Concluída & Codificada",
+      "key_findings_coded": "Integração de cadeias produtivas sustentáveis, crédito rural verde e suporte a pequenos produtores periurbanos em técnicas de conservação de solo e água."
+    }
+  ],
+  "count": 12
+}

@@ -1,0 +1,1046 @@
+{
+  "yearly_stats": [
+    {
+      "year": 2021,
+      "total": 47,
+      "public_count": 21,
+      "private_count": 10,
+      "academia_count": 6,
+      "soc_civil_count": 10
+    },
+    {
+      "year": 2022,
+      "total": 50,
+      "public_count": 23,
+      "private_count": 10,
+      "academia_count": 7,
+      "soc_civil_count": 10
+    },
+    {
+      "year": 2023,
+      "total": 46,
+      "public_count": 22,
+      "private_count": 8,
+      "academia_count": 4,
+      "soc_civil_count": 12
+    },
+    {
+      "year": 2024,
+      "total": 53,
+      "public_count": 26,
+      "private_count": 11,
+      "academia_count": 4,
+      "soc_civil_count": 12
+    },
+    {
+      "year": 2025,
+      "total": 48,
+      "public_count": 22,
+      "private_count": 10,
+      "academia_count": 4,
+      "soc_civil_count": 12
+    },
+    {
+      "year": 2026,
+      "total": 27,
+      "public_count": 13,
+      "private_count": 5,
+      "academia_count": 3,
+      "soc_civil_count": 6
+    }
+  ],
+  "members": [
+    {
+      "id": 36,
+      "name": "Maria Antônia Barros Freire Silva",
+      "group_represented": "Público",
+      "affiliation": "IAT",
+      "years_present": "2021, 2022, 2023, 2024, 2025, 2026",
+      "is_six_years": 1
+    },
+    {
+      "id": 48,
+      "name": "Rodolfo Vassoler da Silva",
+      "group_represented": "Público",
+      "affiliation": "PROGE",
+      "years_present": "2021, 2022, 2023, 2024, 2025, 2026",
+      "is_six_years": 1
+    },
+    {
+      "id": 16,
+      "name": "Érica Khatlab Kuraoka",
+      "group_represented": "Público",
+      "affiliation": "SANEPAR",
+      "years_present": "2021, 2022, 2023, 2024, 2025, 2026",
+      "is_six_years": 1
+    },
+    {
+      "id": 58,
+      "name": "Adonai Vinícius Zamboti",
+      "group_represented": "Privado",
+      "affiliation": "CODEM",
+      "years_present": "2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 1,
+      "name": "Adriana Martines Garcia",
+      "group_represented": "Público",
+      "affiliation": "SEDUC",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 2,
+      "name": "Aline Cristina Ramos Gava",
+      "group_represented": "Público",
+      "affiliation": "SELURB",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 99,
+      "name": "Aline Priscila Bortolotto",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "CREA",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 59,
+      "name": "Aline Yukie Minasse Watanabe",
+      "group_represented": "Privado",
+      "affiliation": "FIEP",
+      "years_present": "2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 83,
+      "name": "Amanda Cristina O. C. Vecchi",
+      "group_represented": "Academia",
+      "affiliation": "Instituto Cidade Canção",
+      "years_present": "2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 3,
+      "name": "Ana Lucia Rodrigues",
+      "group_represented": "Público",
+      "affiliation": "CMM",
+      "years_present": "2021, 2022, 2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 4,
+      "name": "Ana Maria Alves Sapata Leme",
+      "group_represented": "Público",
+      "affiliation": "SEMUSP/SELURB",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 5,
+      "name": "Ana Paula do Carmo Donato",
+      "group_represented": "Público",
+      "affiliation": "SEDUC",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 7,
+      "name": "Andre Felipe Pereira Matos",
+      "group_represented": "Público",
+      "affiliation": "IAT",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 8,
+      "name": "Andrey Sergio Limonta",
+      "group_represented": "Público",
+      "affiliation": "SELURB",
+      "years_present": "2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 6,
+      "name": "André da Costa Martins",
+      "group_represented": "Público",
+      "affiliation": "SEPLAN",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 60,
+      "name": "Angélica Pelisson Franzin",
+      "group_represented": "Privado",
+      "affiliation": "Sindicato Rural de Maringá",
+      "years_present": "2021, 2022, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 9,
+      "name": "Antônio Carlos Cavalheiro Moreto",
+      "group_represented": "Público",
+      "affiliation": "IAP/IAT",
+      "years_present": "2021, 2022, 2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 61,
+      "name": "Bruna Caroline Altomani",
+      "group_represented": "Privado",
+      "affiliation": "COCAMAR",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 100,
+      "name": "Bruna Tais de Lima Moreira",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto Cidade Canção",
+      "years_present": "2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 101,
+      "name": "Bruno Grego dos Santos",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "OAB",
+      "years_present": "2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 62,
+      "name": "Bruno Tonial Knappmann",
+      "group_represented": "Privado",
+      "affiliation": "CODEM",
+      "years_present": "2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 84,
+      "name": "Claudia Costa Bonecker",
+      "group_represented": "Academia",
+      "affiliation": "UEM",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 104,
+      "name": "Claudinei José Vecchi",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto Funverde",
+      "years_present": "2021, 2022, 2023, 2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 103,
+      "name": "Cláudio José Jorge",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto Funverde",
+      "years_present": "2023, 2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 102,
+      "name": "César Augusto Moreno",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "OAB",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 63,
+      "name": "Diego Filipe Belloni",
+      "group_represented": "Privado",
+      "affiliation": "ACIM",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 10,
+      "name": "Douglas Fabiano Costa de Lima",
+      "group_represented": "Público",
+      "affiliation": "SEURBH",
+      "years_present": "2021, 2022, 2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 12,
+      "name": "Edi Junior Peliçon",
+      "group_represented": "Público",
+      "affiliation": "COPEL",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 11,
+      "name": "Edlaura Gutierrez Pires",
+      "group_represented": "Público",
+      "affiliation": "SEURBH",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 13,
+      "name": "Eduardo Alcântara Ribeiro",
+      "group_represented": "Público",
+      "affiliation": "Sec. Mun. de Saúde",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 64,
+      "name": "Eduardo Augustinho dos Santos",
+      "group_represented": "Privado",
+      "affiliation": "CODEM",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 14,
+      "name": "Eduardo Henrique de Araújo",
+      "group_represented": "Público",
+      "affiliation": "COPEL",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 15,
+      "name": "Elaine Massulo Biagi",
+      "group_represented": "Público",
+      "affiliation": "IAT",
+      "years_present": "2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 85,
+      "name": "Elenice Tavares Abreu",
+      "group_represented": "Academia",
+      "affiliation": "UEM",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 17,
+      "name": "Erick Franco de Ramos",
+      "group_represented": "Público",
+      "affiliation": "SELURB",
+      "years_present": "2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 18,
+      "name": "Fernanda Jasinski Marcato",
+      "group_represented": "Público",
+      "affiliation": "SELURB",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 86,
+      "name": "Fernando Henrique de Santana Novaes",
+      "group_represented": "Academia",
+      "affiliation": "UNICV",
+      "years_present": "2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 105,
+      "name": "Fernando Ursen Dias de Souza",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto BiodiverCidade",
+      "years_present": "2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 106,
+      "name": "Francielly Podanoschi de Castro",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "OAB",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 19,
+      "name": "Gabriel Borin Navachi",
+      "group_represented": "Público",
+      "affiliation": "Sec. Mun. de Saúde",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 65,
+      "name": "Gilson José Fagion",
+      "group_represented": "Privado",
+      "affiliation": "INTEGRADA Cooperativa Agroindustrial",
+      "years_present": "2021, 2022, 2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 66,
+      "name": "Gisele Visioli",
+      "group_represented": "Privado",
+      "affiliation": "Sindicato Rural de Maringá",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 107,
+      "name": "Gislaine Lara Bussolo",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "CREA",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 67,
+      "name": "Gustavo Henrique Marques Rocha",
+      "group_represented": "Privado",
+      "affiliation": "COCAMAR",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 87,
+      "name": "Heloisa Helena da Silva Machado",
+      "group_represented": "Academia",
+      "affiliation": "UEM",
+      "years_present": "2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 108,
+      "name": "Isadora Janolio de Oliveira",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "CRBio",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 109,
+      "name": "Jessica Cristine Gontijo",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto Cidade Canção",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 20,
+      "name": "Joel Carneiro do Santos Filho",
+      "group_represented": "Público",
+      "affiliation": "EMATER/IDR",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 21,
+      "name": "Jonson Rodrigues Farias Junior",
+      "group_represented": "Público",
+      "affiliation": "SEDUC",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 23,
+      "name": "Jose Roberto Francisco Behrend",
+      "group_represented": "Público",
+      "affiliation": "IAM",
+      "years_present": "2023, 2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 69,
+      "name": "Jose Roberto Francisco Behrend",
+      "group_represented": "Privado",
+      "affiliation": "ACIM",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 22,
+      "name": "José Evangelista dos Santos",
+      "group_represented": "Público",
+      "affiliation": "SEDUC",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 68,
+      "name": "João Batista Pereira da Silva",
+      "group_represented": "Privado",
+      "affiliation": "SINDUSCON",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 24,
+      "name": "Juliane Aparecida Kerkhoff",
+      "group_represented": "Público",
+      "affiliation": "IAM",
+      "years_present": "2022, 2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 88,
+      "name": "Julimari A. Bonvechio de Oliveira",
+      "group_represented": "Academia",
+      "affiliation": "UNIFAMMA",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 25,
+      "name": "Keilla/Keola Francieli Marana da Fonseca",
+      "group_represented": "Público",
+      "affiliation": "SEDUC",
+      "years_present": "2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 26,
+      "name": "Larissa Aparecida Webber Antunes",
+      "group_represented": "Público",
+      "affiliation": "SEMUSP/SELURB",
+      "years_present": "2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 89,
+      "name": "Laurice de Fátima Gobbi Ricardo",
+      "group_represented": "Academia",
+      "affiliation": "Unifamma",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 90,
+      "name": "Layla Gabrielly Jardim Olivatti",
+      "group_represented": "Academia",
+      "affiliation": "UNIFAMMA",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 27,
+      "name": "Leandro Cobre Sanches",
+      "group_represented": "Público",
+      "affiliation": "SEDUC",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 70,
+      "name": "Leonardo Sperandio Furtado",
+      "group_represented": "Privado",
+      "affiliation": "ACIM",
+      "years_present": "2023, 2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 110,
+      "name": "Lidia Maria da Fonseca Maróstica",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "CRBio",
+      "years_present": "2021, 2022, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 111,
+      "name": "Lorena Camila de Lima",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "CRBio",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 28,
+      "name": "Luciana Sgarbi",
+      "group_represented": "Público",
+      "affiliation": "PROGE",
+      "years_present": "2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 29,
+      "name": "Luciano Belato Alves",
+      "group_represented": "Público",
+      "affiliation": "Sec. Mun. de Saúde",
+      "years_present": "2023, 2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 112,
+      "name": "Luerti Gallina",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto Funverde",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 71,
+      "name": "Luiz Eduardo Borin Gonçalves",
+      "group_represented": "Privado",
+      "affiliation": "FIEP",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 30,
+      "name": "Luzia Mara M. F. Amorim",
+      "group_represented": "Público",
+      "affiliation": "CREA",
+      "years_present": "2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 113,
+      "name": "Luzia Mara Mendes Ferrer Amorim",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "CREA",
+      "years_present": "2023, 2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 73,
+      "name": "Marcelly Pereira de Araújo",
+      "group_represented": "Privado",
+      "affiliation": "FIEP",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 31,
+      "name": "Marcelo Celestino",
+      "group_represented": "Público",
+      "affiliation": "COPEL",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 32,
+      "name": "Marcelo Coelho Silva",
+      "group_represented": "Público",
+      "affiliation": "PROGE",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 72,
+      "name": "Marcelo Felix Frade",
+      "group_represented": "Privado",
+      "affiliation": "ACIM",
+      "years_present": "2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 33,
+      "name": "Marco Antônio Bosio",
+      "group_represented": "Público",
+      "affiliation": "PROGE",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 34,
+      "name": "Marco Antônio Lopes de Azevedo",
+      "group_represented": "Público",
+      "affiliation": "SEMA",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 114,
+      "name": "Marcos Bento Veshagem",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "OAB",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 35,
+      "name": "Marcos Queiroz da Silva",
+      "group_represented": "Público",
+      "affiliation": "COPEL",
+      "years_present": "2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 92,
+      "name": "Maria de Los Angeles Perez Lizama",
+      "group_represented": "Academia",
+      "affiliation": "Instituto Cesumar",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 115,
+      "name": "Mariana Prado Bernabé",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "OAB",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 74,
+      "name": "Marina Moura Baggio",
+      "group_represented": "Privado",
+      "affiliation": "Sindicato Rural de Maringá",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 37,
+      "name": "Marisa Emília Ereno",
+      "group_represented": "Público",
+      "affiliation": "SEMA",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 38,
+      "name": "Matheus Gimenez Buzo",
+      "group_represented": "Público",
+      "affiliation": "IAM",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 116,
+      "name": "Matheus Maximilian Ratz",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto BiodiverCidade",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 75,
+      "name": "Melissa Graciotto Silva Brambilla",
+      "group_represented": "Privado",
+      "affiliation": "Sindicato Rural de Maringá",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 76,
+      "name": "Michelle Yukari Tabada",
+      "group_represented": "Privado",
+      "affiliation": "COCAMAR",
+      "years_present": "2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 91,
+      "name": "Márcia Aparecida Andreazzi",
+      "group_represented": "Academia",
+      "affiliation": "Instituto Cesumar/ICETI",
+      "years_present": "2021, 2022, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 93,
+      "name": "Mônica Nicolau de Castro Mendonça",
+      "group_represented": "Academia",
+      "affiliation": "UNICV",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 77,
+      "name": "Natalia Cavalini Paganini",
+      "group_represented": "Privado",
+      "affiliation": "COCAMAR",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 117,
+      "name": "Nathan Bandiera Lopes",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto BiodiverCidade",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 39,
+      "name": "Olga Maria Mussnich Polidoro Couto",
+      "group_represented": "Público",
+      "affiliation": "COPEL",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 40,
+      "name": "Osvaldo Krulli Junior",
+      "group_represented": "Público",
+      "affiliation": "EMATER/IDR",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 41,
+      "name": "Patrícia Theodoro Santana",
+      "group_represented": "Público",
+      "affiliation": "IAT",
+      "years_present": "2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 94,
+      "name": "Paula Polastri",
+      "group_represented": "Academia",
+      "affiliation": "Instituto Cesumar",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 42,
+      "name": "Paulino Heitor Mexia",
+      "group_represented": "Público",
+      "affiliation": "IAM",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 43,
+      "name": "Paulo Henrique Biazon Santos",
+      "group_represented": "Público",
+      "affiliation": "CMM",
+      "years_present": "2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 44,
+      "name": "Paulo Roberto Milagres",
+      "group_represented": "Público",
+      "affiliation": "EMATER/IDR",
+      "years_present": "2021, 2022, 2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 45,
+      "name": "Pedro Henrique dos Santos",
+      "group_represented": "Público",
+      "affiliation": "SEURBH",
+      "years_present": "2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 118,
+      "name": "Raphael Farias Martins",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "OAB",
+      "years_present": "2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 119,
+      "name": "Rayane Monteiro dos Reis Silva",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto Cidade Canção",
+      "years_present": "2023",
+      "is_six_years": 0
+    },
+    {
+      "id": 46,
+      "name": "Regiane da Silva Santos",
+      "group_represented": "Público",
+      "affiliation": "SEDUC",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 47,
+      "name": "Roberto Ponce Martins",
+      "group_represented": "Público",
+      "affiliation": "COPEL",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 95,
+      "name": "Rodrigo Camilo",
+      "group_represented": "Academia",
+      "affiliation": "UEM",
+      "years_present": "2023, 2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 120,
+      "name": "Rogério Barbosa de Lima",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "CRBio",
+      "years_present": "2021, 2022, 2023, 2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 78,
+      "name": "Rogério Penteado de Souza",
+      "group_represented": "Privado",
+      "affiliation": "ACIM",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 49,
+      "name": "Rosa Cripa / Rosa Maria Cripa Moreno",
+      "group_represented": "Público",
+      "affiliation": "Sec. Mun. de Saúde",
+      "years_present": "2021, 2022, 2024, 2025, 2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 50,
+      "name": "Rosangela Marques de Oliveira",
+      "group_represented": "Público",
+      "affiliation": "COMDEMA",
+      "years_present": "2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 96,
+      "name": "Rosilene Nogueira Gonçalves",
+      "group_represented": "Academia",
+      "affiliation": "Unifamma",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 51,
+      "name": "Rúbia Irma Sales",
+      "group_represented": "Público",
+      "affiliation": "SELURB",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 80,
+      "name": "Sandra Mara Nepomuceno Cardoso",
+      "group_represented": "Privado/Soc. Civil",
+      "affiliation": "CODEM → CREA",
+      "years_present": "2021, 2022, 2023, 2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 79,
+      "name": "Sandra Margarete Brescansin Cantagalli",
+      "group_represented": "Privado",
+      "affiliation": "FIEP",
+      "years_present": "2021, 2022, 2023, 2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 121,
+      "name": "Sara Belini de Gois",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto Cidade Canção",
+      "years_present": "2023, 2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 52,
+      "name": "Selma Aparecida Carvalho Avelar",
+      "group_represented": "Público",
+      "affiliation": "SANEPAR",
+      "years_present": "2023, 2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 53,
+      "name": "Sidnei Telles Filho",
+      "group_represented": "Público",
+      "affiliation": "CMM",
+      "years_present": "2021, 2022, 2023, 2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 81,
+      "name": "Silvia Helena Podolan",
+      "group_represented": "Privado",
+      "affiliation": "COCAMAR",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 82,
+      "name": "Silvia Yukari Tabada",
+      "group_represented": "Privado",
+      "affiliation": "COCAMAR",
+      "years_present": "2026",
+      "is_six_years": 0
+    },
+    {
+      "id": 98,
+      "name": "Susicley Jati",
+      "group_represented": "Academia",
+      "affiliation": "UEM",
+      "years_present": "2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 97,
+      "name": "Sônia Trannin de Mello",
+      "group_represented": "Academia",
+      "affiliation": "UEM",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 54,
+      "name": "Telma Xavier do Nascimento",
+      "group_represented": "Público",
+      "affiliation": "SEDUC",
+      "years_present": "2024",
+      "is_six_years": 0
+    },
+    {
+      "id": 122,
+      "name": "Thayssa Priscila C. Santos",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "Instituto Cidade Canção",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 123,
+      "name": "Thiago Romagnolo Alves",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "OAB",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 55,
+      "name": "Valdirene Maria Nielsen de Castro",
+      "group_represented": "Público",
+      "affiliation": "SEDUC",
+      "years_present": "2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 56,
+      "name": "Vinicius Antônio Sanches Sismeiro",
+      "group_represented": "Público",
+      "affiliation": "SEURBH",
+      "years_present": "2024, 2025",
+      "is_six_years": 0
+    },
+    {
+      "id": 57,
+      "name": "Vitor Alécio Sevilha Gorzoni",
+      "group_represented": "Público",
+      "affiliation": "SANEPAR",
+      "years_present": "2021, 2022",
+      "is_six_years": 0
+    },
+    {
+      "id": 124,
+      "name": "Wesley Sanchez Pereira",
+      "group_represented": "Sociedade Civil",
+      "affiliation": "OAB",
+      "years_present": "2025, 2026",
+      "is_six_years": 0
+    }
+  ]
+}
