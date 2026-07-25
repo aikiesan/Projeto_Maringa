@@ -1,6 +1,6 @@
 /* ============================================================
    PROJETO MARINGÁ — ESTILO VISUAL TRANQUILO COM TONS TERROSOS E CLAROS
-   DESIGN MODERNO, ELEGANTE E SEM CANTOS EXAGERADAMENTE ARREDONDADOS
+   DESIGN MODERNO, ELEGANTE E BLOQUEIO OBRIGATÓRIO DE LOGIN LGPD
    ============================================================ */
 
 :root {
@@ -16,7 +16,7 @@
     --text-muted: #8C7B71;
     
     --border-color: #E2D7CC;
-    --border-radius: 4px; /* Cantos pouco arredondados, visual limpo e tranquilo */
+    --border-radius: 4px; /* Cantos suavemente alinhados, sem excesso de arredondamento */
     
     --accent-terracotta: #B86B43;
     --accent-terracotta-hover: #A05934;
@@ -25,7 +25,7 @@
     --accent-sage-bg: #EAF0EC;
     
     --shadow-sm: 0 1px 3px rgba(74, 59, 50, 0.06);
-    --shadow-md: 0 4px 12px rgba(74, 59, 50, 0.08);
+    --shadow-md: 0 4px 16px rgba(74, 59, 50, 0.12);
 }
 
 * {
@@ -40,6 +40,74 @@ body {
     color: var(--text-primary);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   FULL-PAGE MANDATORY LOGIN GATE
+   ============================================================ */
+.login-gate-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--bg-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.login-gate-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 460px;
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+}
+
+.gate-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.gate-header .brand-badge {
+    display: inline-block;
+    background-color: var(--accent-terracotta);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+}
+
+.gate-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--bg-header);
+}
+
+.gate-subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.gate-notice {
+    background-color: var(--bg-accent);
+    border-left: 4px solid var(--accent-terracotta);
+    padding: 12px 14px;
+    border-radius: var(--border-radius);
+    font-size: 12px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+/* APP CONTAINER */
+.app-container {
+    display: block;
 }
 
 /* ============================================================
@@ -607,9 +675,7 @@ body {
     background-color: rgba(255, 255, 255, 0.25);
 }
 
-/* ============================================================
-   MODAL LOGIN
-   ============================================================ */
+/* MODAL OVERLAY */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -625,7 +691,7 @@ body {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     width: 100%;
-    max-width: 440px;
+    max-width: 480px;
     padding: 24px;
     box-shadow: var(--shadow-md);
 }
@@ -648,12 +714,6 @@ body {
     font-size: 20px;
     cursor: pointer;
     color: var(--text-muted);
-}
-
-.modal-subtitle {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 20px;
 }
 
 .form-group {

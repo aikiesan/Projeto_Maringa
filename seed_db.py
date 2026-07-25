@@ -162,7 +162,7 @@ def init_and_seed_db():
     VALUES (?, ?, ?, ?, ?)
     ''', members_to_insert)
     
-    # 6. Encoded Interviews Table (LGPD Compliant)
+    # 6. Pipeline de Gestão e Codificação de Entrevistas (Limpo para Novas Entrevistas Reais)
     cursor.execute('''
     CREATE TABLE encoded_interviews (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -173,41 +173,22 @@ def init_and_seed_db():
         ccfla_dimension TEXT NOT NULL,
         interview_date TEXT NOT NULL,
         instrument TEXT NOT NULL,
-        status TEXT NOT NULL,
+        status TEXT NOT NULL, -- Convite Enviado, Agendada, Em Transcrição, Concluída & Codificada
         key_findings_coded TEXT NOT NULL
     )
     ''')
     
-    interviews_encoded_data = [
-        ('INT-01', 'ACTOR-01', 'Secretaria Municipal de Saúde', 'Público', 'D1 - Planejamento e Política Climática', '2026-03-10', 'Entrevista Estruturada', 'Concluída & Codificada', 
-         'Ator reporta necessidade de integração entre a vigilância zoológica/epidemiológica e as ações de adaptação climática. Destaca impactos de eventos térmicos na saúde pública.'),
-        ('INT-02', 'ACTOR-02', 'Coordenadoria de Proteção e Defesa Civil', 'Público', 'D1 - Planejamento e Política Climática', '2026-03-12', 'Questionário Técnico', 'Concluída & Codificada', 
-         'Mapeamento de pontos críticos de alagamento e enxurradas urbanas. Ponto focal confirmou protocolos de emergência e integração de alertas com a SEMOB e SEINFRA.'),
-        ('INT-03', 'ACTOR-03', 'Universidade Estadual de Maringá (HUEM/GEMA)', 'Academia', 'D3 - Dados e Inteligência Climática', '2026-03-15', 'Entrevista de Profundidade', 'Concluída & Codificada', 
-         'Detecção de lacunas de dados microclimáticos e ilhas de calor. Proposta de parceria acadêmica para modelos de projeção climática de alta resolução.'),
-        ('INT-04', 'ACTOR-04', 'OAB & Instituto BiodiverCidade', 'Sociedade Civil', 'D4 - Governança e Participação', '2026-03-18', 'Entrevista Qualitativa', 'Concluída & Codificada', 
-         'Análise do Arcabouço Jurídico do FUNDEMA e instrumentos tributários verdes (IPTU Verde). Recomenda fortalecimento do controle social e assentos no COMDEMA.'),
-        ('INT-05', 'ACTOR-05', 'Secretaria de Urbanismo e Habitação (SEURBH)', 'Público', 'D1 - Planejamento e Política Climática', '2026-03-20', 'Entrevista Estruturada', 'Concluída & Codificada', 
-         'Projetos de habitação de interesse social resiliente e revisão do Plano Diretor. Destaque para regularização fundiária em áreas de vulnerabilidade socioambiental.'),
-        ('INT-06', 'ACTOR-06', 'Instituto Ambiental de Maringá (IAM)', 'Público', 'D1 - Planejamento e Política Climática', '2026-03-22', 'Questionário Técnico', 'Concluída & Codificada', 
-         'Gestão de unidades de conservação urbanas e licenciamento de empreendimentos. Relato de desafios no monitoramento de áreas de preservação permanente (APPs).'),
-        ('INT-07', 'ACTOR-07', 'Secretaria de Limpeza Urbana (SELURB)', 'Público', 'D1 - Planejamento e Política Climática', '2026-03-24', 'Entrevista Estruturada', 'Concluída & Codificada', 
-         'Plano de arborização urbana e gestão de resíduos sólidos. Identificação de rotas prioritárias para sombreamento e mitigação de ilhas de calor.'),
-        ('INT-08', 'ACTOR-08', 'NAPI Agenda 2030 / COMDEMA / UEM', 'Academia', 'D4 - Governança e Participação', '2026-03-26', 'Entrevista de Profundidade', 'Concluída & Codificada', 
-         'Alinhamento com os Objetivos de Desenvolvimento Sustentável (ODS 11 e 13). Recomenda governança multinível entre Município, UEM e COMDEMA.'),
-        ('INT-09', 'ACTOR-09', 'Secretaria de Infraestrutura (SEINFRA)', 'Público', 'D2 - Financiamento e Capacidade Fiscal', '2026-03-28', 'Entrevista Estruturada', 'Concluída & Codificada', 
-         'Carteira de projetos de obras estruturantes de drenagem e pavimentação permeável. Necessidade de captação externa e apoio na estruturação de financiamento.'),
-        ('INT-10', 'ACTOR-10', 'Instituto de Pesquisa e Planejamento (IPPLAM)', 'Público', 'D3 - Dados e Inteligência Climática', '2026-04-02', 'Oficina Técnica', 'Concluída & Codificada', 
-         'Integração de dados cartográficos e supervisão do projeto de financiamento climático. IPPLAM atua como articulador central do ecossistema municipal.'),
-        ('INT-11', 'ACTOR-11', 'Secretaria de Governo (SEGOV)', 'Público', 'D4 - Governança e Participação', '2026-04-05', 'Entrevista Estruturada', 'Concluída & Codificada', 
-         'Articulação política e priorização de projetos no PPA (Plano Plurianual). Confirmação de suporte institucional à agenda de financiamento climático.'),
-        ('INT-12', 'ACTOR-12', 'CODEM / IDR-Paraná (EMATER)', 'Privado / Público', 'D2 - Financiamento e Capacidade Fiscal', '2026-04-08', 'Entrevista de Profundidade', 'Concluída & Codificada', 
-         'Integração de cadeias produtivas sustentáveis, crédito rural verde e suporte a pequenos produtores periurbanos em técnicas de conservação de solo e água.')
+    # Adicionar registros de exemplo do plano de ação (status de agendamento)
+    initial_pipeline = [
+        ('INT-01', 'ACTOR-01 (IPPLAM)', 'Instituto de Pesquisa e Planejamento Urbano', 'Público', 'D3 - Dados e Inteligência Climática', 'A agendar', 'Entrevista Estruturada', 'Pendente de Agendamento', 
+         'Ponto focal de acompanhamento da consultoria. Entrevista em fase de agendamento prioritário.'),
+        ('INT-02', 'ACTOR-02 (SEFAZ)', 'Secretaria Municipal de Fazenda', 'Público', 'D2 - Financiamento Climático e Capacidade Fiscal', 'A agendar', 'Entrevista Estruturada', 'Convite Enviado', 
+         'Entrevista para levantamento da capacidade fiscal, execução orçamentária (PPA/LOA) e saúde financeira do município.')
     ]
     cursor.executemany('''
     INSERT INTO encoded_interviews (interview_code, actor_code, institution_type, sector_group, ccfla_dimension, interview_date, instrument, status, key_findings_coded)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', interviews_encoded_data)
+    ''', initial_pipeline)
     
     # 7. Audit Logs Table (LGPD compliance)
     cursor.execute('''
@@ -220,11 +201,11 @@ def init_and_seed_db():
         details TEXT NOT NULL
     )
     ''')
-    cursor.execute('INSERT INTO audit_logs (user_id, username, action, details) VALUES (1, "admin", "SISTEMA_INICIADO", "Banco de dados inicializado com contas autenticadas e regras de privacidade LGPD.")')
+    cursor.execute('INSERT INTO audit_logs (user_id, username, action, details) VALUES (1, "admin", "SISTEMA_INICIADO", "Modulo de Gestao de Entrevistas e Bloqueio Obrigatorio de Login Ativados.")')
     
     conn.commit()
     conn.close()
-    print('Banco de dados maringa_project.db inicializado com logins e senhas estabelecidos!')
+    print('Banco de dados maringa_project.db atualizado com Pipeline de Entrevistas limpo e pronto!')
 
 if __name__ == '__main__':
     init_and_seed_db()
