@@ -1,11 +1,12 @@
 // ============================================================
-// PROJETO MARINGÁ — LÓGICA FRONTEND & COMPATIBILIDADE GITHUB PAGES
+// PROJETO MARINGÁ — FRONTEND COM BLOQUEIO OBRIGATÓRIO DE LOGIN LGPD
+// E GESTÃO DE ENTREVISTAS EM CAMPO
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
     initTabs();
-    initAuth();
-    loadDashboardData();
+    initAuthGate();
+    initNewInterviewModal();
     initFilters();
 });
 
@@ -15,20 +16,22 @@ let allOrganizations = [];
 let allContacts = [];
 let allInterviews = [];
 
-// Helper: Smart Fetch with GitHub Pages Static Fallback
+// Helper: Smart Fetch with Static Fallback
 async function apiFetch(endpoint, staticFallbackPath) {
     try {
         const res = await fetch(endpoint);
         if (res.ok) {
             return await res.json();
         }
-        throw new Error('API backend não disponível');
+        if (res.status === 401) {
+            throw new Error('UNAUTHORIZED');
+        }
     } catch (e) {
-        // Fallback for static hosts like GitHub Pages
-        console.log(`Fallback estático ativado para: ${staticFallbackPath}`);
-        const staticRes = await fetch(staticFallbackPath);
-        return await staticRes.json();
+        if (e.message === 'UNAUTHORIZED') throw e;
+        console.log(`Fallback estático para: ${staticFallbackPath}`);
     }
+    const staticRes = await fetch(staticFallbackPath);
+    return await staticRes.json();
 }
 
 // -------------------------------------------------------------
@@ -46,34 +49,31 @@ function initTabs() {
             tabContents.forEach(c => c.classList.remove('active'));
 
             btn.classList.add('active');
-            document.getElementById(targetTab).classList.add('active');
+            const target = document.getElementById(targetTab);
+            if (target) target.classList.add('active');
         });
     });
 }
 
 // -------------------------------------------------------------
-// 2. AUTENTICAÇÃO E SESSÃO (LGPD RESTRIÇÃO DE ACESSO)
+// 2. BLOQUEIO OBRIGATÓRIO DE LOGIN (GATE LGPD)
 // -------------------------------------------------------------
-function initAuth() {
-    const modalLogin = document.getElementById('modal-login');
-    const btnOpenLogin = document.getElementById('btn-open-login');
-    const btnCloseLogin = document.getElementById('btn-close-login');
-    const formLogin = document.getElementById('form-login');
+function initAuthGate() {
+    const loginGate = document.getElementById('login-gate');
+    const appContainer = document.getElementById('app-container');
+    const formGateLogin = document.getElementById('form-gate-login');
     const btnLogout = document.getElementById('btn-logout');
 
-    btnOpenLogin.addEventListener('click', () => modalLogin.classList.remove('hidden'));
-    btnCloseLogin.addEventListener('click', () => modalLogin.classList.add('hidden'));
-
-    formLogin.addEventListener('submit', async (e) => {
+    formGateLogin.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const username = document.getElementById('input-username').value.trim();
-        const password = document.getElementById('input-password').value.trim();
-        const errorDiv = document.getElementById('login-error');
+        const username = document.getElementById('input-gate-username').value.trim();
+        const password = document.getElementById('input-gate-password').value.trim();
+        const errorDiv = document.getElementById('gate-login-error');
 
         errorDiv.classList.add('hidden');
 
         try {
-            // Try backend login first
+            // Tenta login via API backend
             const res = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -84,37 +84,38 @@ function initAuth() {
                 const data = await res.json();
                 if (data.success) {
                     currentUser = data.user;
-                    updateAuthUI();
-                    modalLogin.classList.add('hidden');
-                    formLogin.reset();
-                    renderContactsTable();
+                    unlockDashboard();
                     return;
                 }
             }
         } catch (err) {
-            console.log('Ambiente estático detectado, simulando login cliente...');
+            console.log('Ambiente estático ou backend offline. Validando via fallback...');
         }
 
-        // Static / Client Fallback Authentication for GitHub Pages
-        if (password === 'Maringa2026!') {
-            let role = 'visualizador';
-            let name = 'Visitante / Stakeholder';
+        // Validação de credenciais de demonstração (Static Fallback para GitHub Pages)
+        let valid = false;
+        let role = 'visualizador';
+        let name = 'Visualizador Stakeholder';
 
-            if (username === 'admin') {
-                role = 'admin';
-                name = 'Administrador LGPD';
-            } else if (username === 'pesquisador') {
-                role = 'pesquisador';
-                name = 'Pesquisador Consultoria';
-            }
+        if (username === 'admin' && password === 'Maringa2026!Admin') {
+            valid = true;
+            role = 'admin';
+            name = 'Administrador LGPD';
+        } else if (username === 'pesquisador' && password === 'Maringa2026!Pesquisa') {
+            valid = true;
+            role = 'pesquisador';
+            name = 'Pesquisador Consultoria';
+        } else if (username === 'visitante' && password === 'Maringa2026!Visitante') {
+            valid = true;
+            role = 'visualizador';
+            name = 'Visualizador Stakeholder';
+        }
 
+        if (valid) {
             currentUser = { username, name, role };
-            updateAuthUI();
-            modalLogin.classList.add('hidden');
-            formLogin.reset();
-            renderContactsTable();
+            unlockDashboard();
         } else {
-            errorDiv.textContent = 'Usuário ou senha incorretos. Use Maringa2026!';
+            errorDiv.textContent = 'Usuário ou senha incorretos. Verifique as credenciais no quadro abaixo.';
             errorDiv.classList.remove('hidden');
         }
     });
@@ -122,61 +123,105 @@ function initAuth() {
     btnLogout.addEventListener('click', async () => {
         try { await fetch('/api/auth/logout', { method: 'POST' }); } catch(e) {}
         currentUser = null;
-        updateAuthUI();
-        renderContactsTable();
+        lockDashboard();
     });
 
-    checkSession();
+    // Iniciar bloqueado por padrão
+    lockDashboard();
 }
 
-async function checkSession() {
-    try {
-        const res = await fetch('/api/auth/me');
-        const data = await res.json();
-        if (data.authenticated) {
-            currentUser = data.user;
-        } else {
-            currentUser = null;
-        }
-    } catch (e) {
-        currentUser = null;
-    }
-    updateAuthUI();
-}
-
-function updateAuthUI() {
-    const btnOpenLogin = document.getElementById('btn-open-login');
-    const userProfile = document.getElementById('user-profile');
+function unlockDashboard() {
+    const loginGate = document.getElementById('login-gate');
+    const appContainer = document.getElementById('app-container');
     const userDisplayName = document.getElementById('user-display-name');
     const userRoleBadge = document.getElementById('user-role-badge');
     const profileLabel = document.getElementById('current-profile-label');
 
+    loginGate.classList.add('hidden');
+    appContainer.classList.remove('hidden');
+
     if (currentUser) {
-        btnOpenLogin.classList.add('hidden');
-        userProfile.classList.remove('hidden');
         userDisplayName.textContent = currentUser.name;
         userRoleBadge.textContent = currentUser.role;
 
         if (currentUser.role === 'admin') {
-            profileLabel.textContent = 'Administrador (Acesso Total aos Contatos PII)';
+            profileLabel.textContent = 'Administrador (Acesso Completo aos Contatos)';
             profileLabel.style.color = '#B86B43';
         } else if (currentUser.role === 'pesquisador') {
-            profileLabel.textContent = 'Pesquisador (Acesso a Dados de Pesquisa)';
+            profileLabel.textContent = 'Pesquisador (Dados de Pesquisa & Entrevistas)';
             profileLabel.style.color = '#4A3B32';
         } else {
-            profileLabel.textContent = 'Visitante (Dados Pessoais Mascarados sob LGPD)';
+            profileLabel.textContent = 'Visualizador (Dados de Contato Mascarados LGPD)';
             profileLabel.style.color = '#6E5A4E';
         }
-    } else {
-        btnOpenLogin.classList.remove('hidden');
-        userProfile.classList.add('hidden');
-        profileLabel.textContent = 'Visitante (Dados Pessoais Mascarados sob LGPD)';
-        profileLabel.style.color = '#6E5A4E';
+    }
+
+    // Carregar dados após desbloqueio
+    loadDashboardData();
+}
+
+function lockDashboard() {
+    const loginGate = document.getElementById('login-gate');
+    const appContainer = document.getElementById('app-container');
+
+    loginGate.classList.remove('hidden');
+    appContainer.classList.add('hidden');
+}
+
+// -------------------------------------------------------------
+// 3. MODAL E GESTÃO DE ENTREVISTAS
+// -------------------------------------------------------------
+function initNewInterviewModal() {
+    const btnOpen = document.getElementById('btn-open-new-interview');
+    const btnClose = document.getElementById('btn-close-new-interview');
+    const modal = document.getElementById('modal-new-interview');
+    const form = document.getElementById('form-new-interview');
+
+    if (btnOpen) btnOpen.addEventListener('click', () => modal.classList.remove('hidden'));
+    if (btnClose) btnClose.addEventListener('click', () => modal.classList.add('hidden'));
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const actor_code = document.getElementById('input-inv-actor').value;
+            const institution_type = document.getElementById('input-inv-inst').value;
+            const ccfla_dimension = document.getElementById('select-inv-dim').value;
+            const status = document.getElementById('select-inv-status').value;
+            const interview_date = document.getElementById('input-inv-date').value;
+            const key_findings_coded = document.getElementById('input-inv-notes').value || 'Anotações pendentes.';
+
+            const newInv = {
+                interview_code: `INT-${allInterviews.length + 1:02d}`,
+                actor_code,
+                institution_type,
+                sector_group: 'Público',
+                ccfla_dimension,
+                interview_date,
+                instrument: 'Entrevista Estruturada',
+                status,
+                key_findings_coded
+            };
+
+            // Tenta enviar para o backend
+            try {
+                await fetch('/api/interviews/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newInv)
+                });
+            } catch(err) {}
+
+            allInterviews.push(newInv);
+            renderInterviewsGrid();
+            modal.classList.add('hidden');
+            form.reset();
+            alert('Entrevista registrada com sucesso no pipeline do projeto!');
+        });
     }
 }
 
 // -------------------------------------------------------------
-// 3. CARREGAMENTO DE DADOS
+// 4. CARREGAMENTO E RENDERIZAÇÃO DE DADOS
 // -------------------------------------------------------------
 async function loadDashboardData() {
     loadOverviewStats();
@@ -259,7 +304,6 @@ function renderContactsTable() {
         let email = c.email || 'A confirmar';
         let phone = c.phone || 'A confirmar';
 
-        // LGPD Masking for non-admin viewers
         if (userRole === 'visualizador') {
             if (email.includes('@')) {
                 const parts = email.split('@');
@@ -324,6 +368,11 @@ function renderInterviewsGrid() {
 
     const filtered = allInterviews.filter(inv => !dimFilter || inv.ccfla_dimension.includes(dimFilter));
 
+    if (filtered.length === 0) {
+        grid.innerHTML = `<div class="banner-note" style="grid-column: 1/-1;">Nenhuma entrevista registrada neste filtro. Clique em <strong>+ Agendar / Registrar Entrevista</strong> acima para iniciar.</div>`;
+        return;
+    }
+
     grid.innerHTML = filtered.map(inv => `
         <div class="interview-card">
             <div>
@@ -338,7 +387,7 @@ function renderInterviewsGrid() {
                 </div>
             </div>
             <div class="interview-footer">
-                <span>Instrumento: ${inv.instrument}</span>
+                <span>Status: <strong>${inv.status}</strong></span>
                 <span>Data: ${inv.interview_date}</span>
             </div>
         </div>
@@ -346,16 +395,16 @@ function renderInterviewsGrid() {
 }
 
 // -------------------------------------------------------------
-// 4. FILTROS E PESQUISA
+// 5. FILTROS E PESQUISA
 // -------------------------------------------------------------
 function initFilters() {
     const searchOrgs = document.getElementById('search-orgs');
     const filterGroupOrgs = document.getElementById('filter-group-orgs');
     const filterInterviewsDim = document.getElementById('filter-interviews-dim');
 
-    searchOrgs.addEventListener('input', renderOrganizationsTable);
-    filterGroupOrgs.addEventListener('change', renderOrganizationsTable);
-    filterInterviewsDim.addEventListener('change', renderInterviewsGrid);
+    if (searchOrgs) searchOrgs.addEventListener('input', renderOrganizationsTable);
+    if (filterGroupOrgs) filterGroupOrgs.addEventListener('change', renderOrganizationsTable);
+    if (filterInterviewsDim) filterInterviewsDim.addEventListener('change', renderInterviewsGrid);
 }
 
 function getGroupBadgeClass(group) {

@@ -18,7 +18,7 @@ def login_required(f):
     @functools.wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
-            return jsonify({'error': 'Não autenticado', 'code': 'UNAUTHORIZED'}), 401
+            return jsonify({'error': 'Acesso Restrito: Faça login para visualizar as informações.', 'code': 'UNAUTHORIZED'}), 401
         return f(*args, **kwargs)
     return decorated_function
 
@@ -101,8 +101,9 @@ def me():
         })
     return jsonify({'authenticated': False})
 
-# Stats Overview
+# Protected Stats Overview
 @app.route('/api/stats/overview', methods=['GET'])
+@login_required
 def stats_overview():
     conn = get_db()
     cursor = conn.cursor()
@@ -134,11 +135,12 @@ def stats_overview():
         'confirmed_contacts': confirmed_contacts,
         'comdema_members': comdema_members,
         'total_interviews': total_interviews,
-        'lgpd_status': '100% Codificado & Em Conformidade'
+        'lgpd_status': '100% Protegido & Em Conformidade'
     })
 
-# Organizations Endpoint
+# Protected Organizations Endpoint
 @app.route('/api/organizations', methods=['GET'])
+@login_required
 def get_organizations():
     conn = get_db()
     cursor = conn.cursor()
@@ -164,15 +166,15 @@ def get_organizations():
     
     return jsonify({'organizations': orgs, 'count': len(orgs)})
 
-# People and Contacts Endpoint (LGPD Masking for Viewers)
+# Protected People and Contacts Endpoint (LGPD Masking for Viewers)
 @app.route('/api/contacts', methods=['GET'])
+@login_required
 def get_contacts():
     user_role = session.get('role', 'visualizador')
     
     conn = get_db()
     cursor = conn.cursor()
     
-    # Priority contacts first
     cursor.execute('SELECT * FROM people_contacts ORDER BY is_top_priority DESC, id ASC')
     raw_contacts = [dict(row) for row in cursor.fetchall()]
     conn.close()
@@ -180,9 +182,7 @@ def get_contacts():
     processed_contacts = []
     for c in raw_contacts:
         contact_item = dict(c)
-        # Apply LGPD Masking if viewer or unauthenticated
         if user_role == 'visualizador':
-            # Mask emails and phone numbers for non-admin viewers
             if contact_item['email'] and '@' in contact_item['email']:
                 parts = contact_item['email'].split('@')
                 contact_item['email'] = parts[0][:2] + '***@' + parts[1]
@@ -194,11 +194,12 @@ def get_contacts():
         'contacts': processed_contacts,
         'count': len(processed_contacts),
         'user_role': user_role,
-        'lgpd_notice': 'Dados de contato protegidos e mascarados para perfil Visualizador conforme LGPD.' if user_role == 'visualizador' else 'Acesso autorizado a contatos institucionais.'
+        'lgpd_notice': 'Dados de contato protegidos sob a LGPD.'
     })
 
-# COMDEMA Endpoint
+# Protected COMDEMA Endpoint
 @app.route('/api/comdema', methods=['GET'])
+@login_required
 def get_comdema():
     conn = get_db()
     cursor = conn.cursor()
@@ -216,8 +217,9 @@ def get_comdema():
         'members_count': len(members)
     })
 
-# Encoded Interviews Endpoint (LGPD Compliant)
+# Protected Encoded Interviews Endpoint (LGPD Compliant)
 @app.route('/api/interviews', methods=['GET'])
+@login_required
 def get_interviews():
     conn = get_db()
     cursor = conn.cursor()
@@ -243,16 +245,55 @@ def get_interviews():
     return jsonify({
         'interviews': interviews,
         'count': len(interviews),
-        'lgpd_status': 'Codificação Sistemática Ativa (Sem Exposição de PII)'
+        'lgpd_status': 'Modulo de Gestão & Codificação Ativo'
     })
+
+# Endpoint: Adicionar Nova Entrevista no Pipeline
+@app.route('/api/interviews/add', methods=['POST'])
+@login_required
+def add_interview():
+    if session.get('role') not in ['admin', 'pesquisador']:
+        return jsonify({'error': 'Permissão negada. Apenas Administradores e Pesquisadores podem agendar/codificar entrevistas.'}), 403
+        
+    data = request.json or {}
+    actor_code = data.get('actor_code', '').strip()
+    institution_type = data.get('institution_type', '').strip()
+    sector_group = data.get('sector_group', 'Público').strip()
+    ccfla_dimension = data.get('ccfla_dimension', 'D1 - Planejamento').strip()
+    interview_date = data.get('interview_date', 'A agendar').strip()
+    instrument = data.get('instrument', 'Entrevista Estruturada').strip()
+    status = data.get('status', 'Pendente de Agendamento').strip()
+    key_findings = data.get('key_findings_coded', '').strip()
+    
+    if not actor_code or not institution_type:
+        return jsonify({'error': 'Informe a organização/ator e a instituição.'}), 400
+        
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute('SELECT COUNT(*) FROM encoded_interviews')
+    next_num = cursor.fetchone()[0] + 1
+    interview_code = f"INT-{next_num:02d}"
+    
+    cursor.execute('''
+    INSERT INTO encoded_interviews (interview_code, actor_code, institution_type, sector_group, ccfla_dimension, interview_date, instrument, status, key_findings_coded)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (interview_code, actor_code, institution_type, sector_group, ccfla_dimension, interview_date, instrument, status, key_findings))
+    
+    conn.commit()
+    conn.close()
+    
+    log_audit(session['user_id'], session['username'], 'CRIAR_ENTREVISTA', f"Entrevista {interview_code} registrada para {actor_code}")
+    return jsonify({'success': True, 'interview_code': interview_code})
 
 # Downloads
 @app.route('/download/excel')
+@login_required
 def download_excel():
     excel_path = os.path.join(os.path.dirname(__file__), 'P3_Base_Mapeamento_Atores_Maringa.xlsx')
     return send_file(excel_path, as_attachment=True, download_name='P3_Base_Mapeamento_Atores_Maringa.xlsx')
 
 @app.route('/download/word')
+@login_required
 def download_word():
     word_path = os.path.join(os.path.dirname(__file__), 'P3_Relatorio_Mapeamento_Atores_Maringa.docx')
     return send_file(word_path, as_attachment=True, download_name='P3_Relatorio_Mapeamento_Atores_Maringa.docx')
