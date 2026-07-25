@@ -25,7 +25,7 @@
             
             <div class="gate-body">
                 <div class="gate-notice">
-                    🔒 <strong>Acesso Restrito LGPD:</strong> Informe seu usuário e senha para acessar o painel e os contatos.
+                    🔒 <strong>Acesso Restrito LGPD:</strong> Informe seu usuário e senha para acessar o painel de gestão do projeto.
                 </div>
 
                 <form id="form-gate-login">
@@ -38,7 +38,7 @@
                         <input type="password" id="input-gate-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
                     </div>
                     <div id="gate-login-error" class="login-error hidden"></div>
-                    <button type="submit" id="btn-submit-gate-login" class="btn-primary-block">Entrar no Sistema</button>
+                    <button type="submit" id="btn-submit-gate-login" class="btn-primary-block">Acessar o Dashboard</button>
                 </form>
 
                 <div class="credentials-hint">
@@ -85,6 +85,10 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                     Painel Geral
                 </button>
+                <button class="tab-btn" data-tab="tab-roadmap">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    Produtos & Cronograma
+                </button>
                 <button class="tab-btn" data-tab="tab-organizacoes">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-3"/></svg>
                     Organizações (34)
@@ -93,12 +97,16 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     Pessoas e Busca Ativa
                 </button>
+                <button class="tab-btn" data-tab="tab-evidencias">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Matriz de Evidências Documentais
+                </button>
                 <button class="tab-btn" data-tab="tab-comdema">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     Governança COMDEMA
                 </button>
                 <button class="tab-btn" data-tab="tab-entrevistas">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
                     Gestão de Entrevistas
                 </button>
                 <button class="tab-btn" data-tab="tab-relatorios">
@@ -131,9 +139,9 @@
                             <span class="kpi-sub">Registros de Membros (2021–2026)</span>
                         </div>
                         <div class="kpi-card">
-                            <span class="kpi-title">Pipeline de Entrevistas</span>
-                            <div class="kpi-value" id="kpi-interviews">2</div>
-                            <span class="kpi-sub">Em agendamento / campo</span>
+                            <span class="kpi-title">Fase Atual do Projeto</span>
+                            <div class="kpi-value" style="font-size:20px; color:#B86B43; margin-top:8px;">PRODUTO 3</div>
+                            <span class="kpi-sub">Transição para Produto 4 (Entrevistas)</span>
                         </div>
                     </div>
 
@@ -155,12 +163,24 @@
                     <div class="banner-note">
                         <div class="note-icon">ℹ️</div>
                         <div class="note-text">
-                            <strong>Nota Técnica de Reestruturação Institucional:</strong> A estrutura da Secretaria de Planejamento e Orçamento (SEPLAN) foi officially incorporada pela Secretaria Municipal de Fazenda (SEFAZ). O mapeamento de organizações foi consolidado em 34 entidades.
+                            <strong>Consultoria BRISA Soluções Ambientais — Contraparte IPPLAM & CEPAL:</strong> O projeto "Caminhos para o Financiamento Climático em Maringá" está finalizando o <strong>Produto 3 (Mapeamento de Atores e Base de Evidências)</strong> e iniciando a fase de entrevistas semiestruturadas do <strong>Produto 4 (Diagnóstico das Condições Habilitantes)</strong>. Nota: A SEPLAN foi oficialmente incorporada pela Secretaria de Fazenda (SEFAZ).
                         </div>
                     </div>
                 </section>
 
-                <!-- TAB 2: ORGANIZAÇÕES -->
+                <!-- TAB 2: CRONOGRAMA & PRODUTOS DO PROJETO -->
+                <section id="tab-roadmap" class="tab-content">
+                    <div class="section-title-box">
+                        <h2>Cronograma de Produtos & Etapas do Projeto</h2>
+                        <p>Acompanhamento do status de desenvolvimento dos 6 Produtos pactuados no Plano de Trabalho com o IPPLAM e a CEPAL.</p>
+                    </div>
+
+                    <div class="download-cards-grid" id="grid-roadmap">
+                        <!-- JS Populated Cards -->
+                    </div>
+                </section>
+
+                <!-- TAB 3: ORGANIZAÇÕES -->
                 <section id="tab-organizacoes" class="tab-content">
                     <div class="table-header-bar">
                         <h2>Mapa Institucional de Organizações (34)</h2>
@@ -196,7 +216,7 @@
                     </div>
                 </section>
 
-                <!-- TAB 3: PESSOAS E BUSCA ATIVA -->
+                <!-- TAB 4: PESSOAS E BUSCA ATIVA -->
                 <section id="tab-contatos" class="tab-content">
                     <div class="table-header-bar">
                         <div>
@@ -228,7 +248,33 @@
                     </div>
                 </section>
 
-                <!-- TAB 4: GOVERNANÇA COMDEMA -->
+                <!-- TAB 5: MATRIZ DE EVIDÊNCIAS DOCUMENTAIS -->
+                <section id="tab-evidencias" class="tab-content">
+                    <div class="section-title-box">
+                        <h2>Matriz de Evidências Documentais (Levantamento A2.2)</h2>
+                        <p>Mapeamento das leis, planos municipais e documentos técnicos de suporte às 4 dimensões CCFLA/CEPAL.</p>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Documento / Peça Técnica</th>
+                                    <th>Categoria CCFLA</th>
+                                    <th>Tipo de Documento</th>
+                                    <th>Órgão Custódio</th>
+                                    <th>Status da Coleta</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-evidence">
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- TAB 6: GOVERNANÇA COMDEMA -->
                 <section id="tab-comdema" class="tab-content">
                     <div class="section-title-box">
                         <h2>Conselho Municipal de Defesa do Meio Ambiente (COMDEMA)</h2>
@@ -270,12 +316,12 @@
                     </div>
                 </section>
 
-                <!-- TAB 5: GESTÃO E CODIFICAÇÃO DE ENTREVISTAS -->
+                <!-- TAB 7: GESTÃO E CODIFICAÇÃO DE ENTREVISTAS -->
                 <section id="tab-entrevistas" class="tab-content">
                     <div class="table-header-bar">
                         <div>
-                            <h2>Gestão e Codificação de Entrevistas em Campo</h2>
-                            <p class="subtitle-text">Acompanhe o agendamento, realização e codificação LGPD das entrevistas dos atores.</p>
+                            <h2>Gestão de Campo e Entrevistas do Produto 4</h2>
+                            <p class="subtitle-text">Acompanhe o agendamento, realização e codificação LGPD das entrevistas semiestruturadas com os atores.</p>
                         </div>
                         <div class="filters-group">
                             <button id="btn-open-new-interview" class="btn-primary-sm">+ Agendar / Registrar Entrevista</button>
@@ -294,7 +340,7 @@
                     </div>
                 </section>
 
-                <!-- TAB 6: RELATÓRIO & DOWNLOADS -->
+                <!-- TAB 8: RELATÓRIO & DOWNLOADS -->
                 <section id="tab-relatorios" class="tab-content">
                     <div class="section-title-box">
                         <h2>Entregáveis do Projeto Maringá (Produto 3)</h2>
