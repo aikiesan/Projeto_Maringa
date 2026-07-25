@@ -1,6 +1,6 @@
 // ============================================================
-// PROJETO MARINGÁ — FRONTEND COM BLOQUEIO OBRIGATÓRIO DE LOGIN LGPD
-// E SUPORTE A CREDEENCIAIS DE TESTE (admin/admin)
+// PROJETO MARINGÁ — PAINEL DE GESTÃO DO PROJETO (PRODUTOS 1 A 6)
+// CONSULTORIA BRISA SOLUÇÕES AMBIENTAIS | IPPLAM / CEPAL CCFLA
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,9 +15,22 @@ let currentUser = null;
 let allOrganizations = [];
 let allContacts = [];
 let allInterviews = [];
+let projectRoadmap = [];
+let docEvidenceMatrix = [];
 
-// Helper: Smart Fetch with Static Fallback
+// Environment Check: Detect GitHub Pages or Static Host to prevent 404/405 console logs
+const isStaticHost = window.location.hostname.includes('github.io') || 
+                     window.location.protocol === 'file:' || 
+                     !window.location.port;
+
+// Helper: Smart Fetch without Console 404 Errors on GitHub Pages
 async function apiFetch(endpoint, staticFallbackPath) {
+    if (isStaticHost) {
+        // Direct static fetch for GitHub Pages (no 404 console errors)
+        const staticRes = await fetch(staticFallbackPath);
+        return await staticRes.json();
+    }
+    
     try {
         const res = await fetch(endpoint);
         if (res.ok) {
@@ -28,7 +41,7 @@ async function apiFetch(endpoint, staticFallbackPath) {
         }
     } catch (e) {
         if (e.message === 'UNAUTHORIZED') throw e;
-        console.log(`Fallback estático para: ${staticFallbackPath}`);
+        console.log(`Fallback estático ativado para: ${staticFallbackPath}`);
     }
     const staticRes = await fetch(staticFallbackPath);
     return await staticRes.json();
@@ -67,7 +80,6 @@ function initAuthGate() {
     const passwordInput = document.getElementById('input-gate-password');
     const errorDiv = document.getElementById('gate-login-error');
 
-    // Limpar mensagem de erro ao digitar
     if (usernameInput) usernameInput.addEventListener('input', () => errorDiv.classList.add('hidden'));
     if (passwordInput) passwordInput.addEventListener('input', () => errorDiv.classList.add('hidden'));
 
@@ -85,29 +97,31 @@ function initAuthGate() {
                 return;
             }
 
-            try {
-                // Tenta login via API backend (Flask)
-                const res = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
+            // Se for ambiente estático (GitHub Pages), pula chamada a /api/auth/login para evitar erro 405
+            if (!isStaticHost) {
+                try {
+                    const res = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
 
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success) {
-                        currentUser = data.user;
-                        unlockDashboard();
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.success) {
+                            currentUser = data.user;
+                            unlockDashboard();
+                            return;
+                        }
+                    } else if (res.status === 401) {
+                        const data = await res.json();
+                        errorDiv.textContent = data.error || 'Usuário ou senha incorretos.';
+                        errorDiv.classList.remove('hidden');
                         return;
                     }
-                } else if (res.status === 401) {
-                    const data = await res.json();
-                    errorDiv.textContent = data.error || 'Usuário ou senha incorretos.';
-                    errorDiv.classList.remove('hidden');
-                    return;
+                } catch (err) {
+                    console.log('Ambiente estático. Usando validação cliente...');
                 }
-            } catch (err) {
-                console.log('Ambiente estático detectado (GitHub Pages). Validando via fallback...');
             }
 
             // Validação de credenciais cliente (GitHub Pages)
@@ -141,13 +155,14 @@ function initAuthGate() {
 
     if (btnLogout) {
         btnLogout.addEventListener('click', async () => {
-            try { await fetch('/api/auth/logout', { method: 'POST' }); } catch(e) {}
+            if (!isStaticHost) {
+                try { await fetch('/api/auth/logout', { method: 'POST' }); } catch(e) {}
+            }
             currentUser = null;
             lockDashboard();
         });
     }
 
-    // Iniciar bloqueado por padrão
     lockDashboard();
 }
 
@@ -167,7 +182,7 @@ function unlockDashboard() {
 
         if (profileLabel) {
             if (currentUser.role === 'admin') {
-                profileLabel.textContent = 'Administrador (Acesso Completo aos Contatos)';
+                profileLabel.textContent = 'Administrador (Acesso Completo aos Contatos PII)';
                 profileLabel.style.color = '#B86B43';
             } else if (currentUser.role === 'pesquisador') {
                 profileLabel.textContent = 'Pesquisador (Dados de Pesquisa & Entrevistas)';
@@ -179,7 +194,6 @@ function unlockDashboard() {
         }
     }
 
-    // Carregar dados após desbloqueio
     loadDashboardData();
 }
 
@@ -226,19 +240,21 @@ function initNewInterviewModal() {
                 key_findings_coded
             };
 
-            try {
-                await fetch('/api/interviews/add', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newInv)
-                });
-            } catch(err) {}
+            if (!isStaticHost) {
+                try {
+                    await fetch('/api/interviews/add', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newInv)
+                    });
+                } catch(err) {}
+            }
 
             allInterviews.push(newInv);
             renderInterviewsGrid();
             modal.classList.add('hidden');
             form.reset();
-            alert('Entrevista registrada com sucesso no pipeline do projeto!');
+            alert('Entrevista registrada com sucesso no pipeline de campo!');
         });
     }
 }
@@ -263,6 +279,12 @@ async function loadOverviewStats() {
             if (document.getElementById('kpi-comdema')) document.getElementById('kpi-comdema').textContent = data.comdema_members;
             if (document.getElementById('kpi-interviews')) document.getElementById('kpi-interviews').textContent = data.total_interviews;
 
+            projectRoadmap = data.project_products || [];
+            docEvidenceMatrix = data.doc_evidence_matrix || [];
+
+            renderProjectRoadmap();
+            renderEvidenceMatrix();
+
             if (window.renderCharts) {
                 window.renderCharts(data.orgs_by_group);
             }
@@ -270,6 +292,36 @@ async function loadOverviewStats() {
     } catch (e) {
         console.error('Erro ao carregar estatísticas:', e);
     }
+}
+
+function renderProjectRoadmap() {
+    const grid = document.getElementById('grid-roadmap');
+    if (!grid) return;
+
+    grid.innerHTML = projectRoadmap.map(p => `
+        <div class="roadmap-card ${p.status === 'EM FINALIZAÇÃO' ? 'roadmap-card-active' : ''}">
+            <div class="roadmap-badge ${getRoadmapBadgeClass(p.status)}">${p.status}</div>
+            <h4>${p.id}: ${p.name}</h4>
+            <span class="roadmap-phase">${p.phase}</span>
+            <p>${p.desc}</p>
+        </div>
+    `).join('');
+}
+
+function renderEvidenceMatrix() {
+    const tbody = document.getElementById('tbody-evidence');
+    if (!tbody) return;
+
+    tbody.innerHTML = docEvidenceMatrix.map(doc => `
+        <tr>
+            <td><strong>${doc.code}</strong></td>
+            <td><strong>${doc.name}</strong></td>
+            <td><span class="badge-group badge-public">${doc.category}</span></td>
+            <td>${doc.type}</td>
+            <td>${doc.org}</td>
+            <td><span class="badge-status-confirmed">${doc.status}</span></td>
+        </tr>
+    `).join('');
 }
 
 async function loadOrganizations() {
@@ -452,5 +504,14 @@ function getGroupBadgeClass(group) {
         case 'Academia': return 'badge-academia';
         case 'Sociedade Civil': return 'badge-civil';
         default: return 'badge-public';
+    }
+}
+
+function getRoadmapBadgeClass(status) {
+    switch (status) {
+        case 'CONCLUÍDO': return 'badge-status-confirmed';
+        case 'EM FINALIZAÇÃO': return 'badge-group badge-private';
+        case 'PRÓXIMO PASSO': return 'badge-group badge-civil';
+        default: return 'badge-status-pending';
     }
 }

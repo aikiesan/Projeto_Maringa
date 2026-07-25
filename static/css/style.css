@@ -1,6 +1,6 @@
 /* ============================================================
    PROJETO MARINGÁ — ESTILO VISUAL TRANQUILO COM TONS TERROSOS E CLAROS
-   DESIGN MODERNO, ELEGANTE E BLOQUEIO OBRIGATÓRIO DE LOGIN LGPD
+   DESIGN MODERNO, ELEGANTE E PAINEL DE GESTÃO DO PROJETO (BRISA/IPPLAM)
    ============================================================ */
 
 :root {
@@ -16,7 +16,7 @@
     --text-muted: #8C7B71;
     
     --border-color: #E2D7CC;
-    --border-radius: 4px; /* Cantos suavemente alinhados, sem excesso de arredondamento */
+    --border-radius: 4px;
     
     --accent-terracotta: #B86B43;
     --accent-terracotta-hover: #A05934;
@@ -42,9 +42,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* ============================================================
-   FULL-PAGE MANDATORY LOGIN GATE
-   ============================================================ */
+/* FULL-PAGE MANDATORY LOGIN GATE */
 .login-gate-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -110,9 +108,7 @@ body {
     display: block;
 }
 
-/* ============================================================
-   HEADER & NAVBAR
-   ============================================================ */
+/* HEADER & NAVBAR */
 .app-header {
     background-color: var(--bg-header);
     color: var(--text-light);
@@ -240,9 +236,7 @@ body {
     background-color: #FBF9F5;
 }
 
-/* ============================================================
-   MAIN CONTENT CONTAINER
-   ============================================================ */
+/* MAIN CONTENT CONTAINER */
 .main-content {
     padding: 32px 24px;
     min-height: calc(100vh - 150px);
@@ -267,9 +261,37 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================================================
-   KPI CARDS & GRID
-   ============================================================ */
+/* ROADMAP CARDS */
+.roadmap-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.roadmap-card-active {
+    border-left: 4px solid var(--accent-terracotta);
+    background-color: #FDFBF8;
+}
+
+.roadmap-badge {
+    align-self: flex-start;
+    margin-bottom: 12px;
+}
+
+.roadmap-phase {
+    font-size: 12px;
+    color: var(--accent-earth-med);
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* KPI CARDS & GRID */
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -348,9 +370,7 @@ body {
     color: var(--text-primary);
 }
 
-/* ============================================================
-   TABLES & FILTERS
-   ============================================================ */
+/* TABLES & FILTERS */
 .table-header-bar {
     display: flex;
     justify-content: space-between;
@@ -468,9 +488,7 @@ body {
     color: var(--text-secondary);
 }
 
-/* ============================================================
-   ENTREVISTAS CODIFICADAS GRID
-   ============================================================ */
+/* ENTREVISTAS GRID */
 .interviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -542,9 +560,7 @@ body {
     padding-top: 10px;
 }
 
-/* ============================================================
-   DOWNLOAD CARDS & RELATÓRIOS
-   ============================================================ */
+/* DOWNLOAD CARDS & RELATÓRIOS */
 .section-title-box {
     margin-bottom: 24px;
 }
@@ -631,9 +647,7 @@ body {
     margin: 24px 0 12px 0;
 }
 
-/* ============================================================
-   BUTTONS
-   ============================================================ */
+/* BUTTONS */
 .btn-primary-sm, .btn-primary-block {
     background-color: var(--accent-terracotta);
     color: #FFFFFF;
