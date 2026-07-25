@@ -25,27 +25,27 @@
             
             <div class="gate-body">
                 <div class="gate-notice">
-                    🔒 <strong>Acesso Restrito LGPD:</strong> Por razões de privacidade e controle institucional, faça login para acessar os dados do mapeamento e a gestão de contatos.
+                    🔒 <strong>Acesso Restrito LGPD:</strong> Informe seu usuário e senha para acessar o painel e os contatos.
                 </div>
 
                 <form id="form-gate-login">
                     <div class="form-group">
                         <label for="input-gate-username">Usuário</label>
-                        <input type="text" id="input-gate-username" class="form-input" placeholder="admin / pesquisador / visitante" required>
+                        <input type="text" id="input-gate-username" class="form-input" placeholder="admin / pesquisador / visitante" required autocomplete="username">
                     </div>
                     <div class="form-group">
                         <label for="input-gate-password">Senha</label>
-                        <input type="password" id="input-gate-password" class="form-input" placeholder="••••••••" required>
+                        <input type="password" id="input-gate-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
                     </div>
                     <div id="gate-login-error" class="login-error hidden"></div>
-                    <button type="submit" class="btn-primary-block">Acessar o Dashboard</button>
+                    <button type="submit" id="btn-submit-gate-login" class="btn-primary-block">Entrar no Sistema</button>
                 </form>
 
                 <div class="credentials-hint">
-                    <strong>Contas de Acesso Disponíveis:</strong><br>
-                    • <strong>Administrador:</strong> <code>admin</code> / <code>Maringa2026!Admin</code> (Contatos PII sem máscara)<br>
-                    • <strong>Pesquisador:</strong> <code>pesquisador</code> / <code>Maringa2026!Pesquisa</code> (Dados de pesquisa)<br>
-                    • <strong>Visualizador:</strong> <code>visitante</code> / <code>Maringa2026!Visitante</code> (Contatos mascarados sob LGPD)
+                    <strong>Contas de Acesso Rápido para Teste:</strong><br>
+                    • <strong>Administrador:</strong> <code>admin</code> / <code>admin</code> (Contatos PII sem máscara)<br>
+                    • <strong>Pesquisador:</strong> <code>pesquisador</code> / <code>pesquisador</code> (Dados de pesquisa)<br>
+                    • <strong>Visualizador:</strong> <code>visitante</code> / <code>visitante</code> (Contatos mascarados sob LGPD)
                 </div>
             </div>
         </div>
@@ -155,7 +155,7 @@
                     <div class="banner-note">
                         <div class="note-icon">ℹ️</div>
                         <div class="note-text">
-                            <strong>Nota Técnica de Reestruturação Institucional:</strong> A estrutura da Secretaria de Planejamento e Orçamento (SEPLAN) foi oficialmente incorporada pela Secretaria Municipal de Fazenda (SEFAZ). O mapeamento de organizações foi consolidado em 34 entidades.
+                            <strong>Nota Técnica de Reestruturação Institucional:</strong> A estrutura da Secretaria de Planejamento e Orçamento (SEPLAN) foi officially incorporada pela Secretaria Municipal de Fazenda (SEFAZ). O mapeamento de organizações foi consolidado em 34 entidades.
                         </div>
                     </div>
                 </section>

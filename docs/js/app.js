@@ -1,6 +1,6 @@
 // ============================================================
 // PROJETO MARINGÁ — FRONTEND COM BLOQUEIO OBRIGATÓRIO DE LOGIN LGPD
-// E GESTÃO DE ENTREVISTAS EM CAMPO
+// E SUPORTE A CREDEENCIAIS DE TESTE (admin/admin)
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -63,18 +63,30 @@ function initAuthGate() {
     const appContainer = document.getElementById('app-container');
     const formGateLogin = document.getElementById('form-gate-login');
     const btnLogout = document.getElementById('btn-logout');
+    const usernameInput = document.getElementById('input-gate-username');
+    const passwordInput = document.getElementById('input-gate-password');
+    const errorDiv = document.getElementById('gate-login-error');
+
+    // Limpar mensagem de erro ao digitar
+    if (usernameInput) usernameInput.addEventListener('input', () => errorDiv.classList.add('hidden'));
+    if (passwordInput) passwordInput.addEventListener('input', () => errorDiv.classList.add('hidden'));
 
     if (formGateLogin) {
         formGateLogin.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const username = document.getElementById('input-gate-username').value.trim();
-            const password = document.getElementById('input-gate-password').value.trim();
-            const errorDiv = document.getElementById('gate-login-error');
+            const username = usernameInput.value.trim().toLowerCase();
+            const password = passwordInput.value.trim();
 
             errorDiv.classList.add('hidden');
 
+            if (!username || !password) {
+                errorDiv.textContent = 'Por favor, preencha o usuário e a senha.';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
             try {
-                // Tenta login via API backend
+                // Tenta login via API backend (Flask)
                 const res = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -88,25 +100,30 @@ function initAuthGate() {
                         unlockDashboard();
                         return;
                     }
+                } else if (res.status === 401) {
+                    const data = await res.json();
+                    errorDiv.textContent = data.error || 'Usuário ou senha incorretos.';
+                    errorDiv.classList.remove('hidden');
+                    return;
                 }
             } catch (err) {
-                console.log('Ambiente estático ou backend offline. Validando via fallback...');
+                console.log('Ambiente estático detectado (GitHub Pages). Validando via fallback...');
             }
 
-            // Validação de credenciais de demonstração (Static Fallback para GitHub Pages)
+            // Validação de credenciais cliente (GitHub Pages)
             let valid = false;
             let role = 'visualizador';
             let name = 'Visualizador Stakeholder';
 
-            if (username === 'admin' && password === 'Maringa2026!Admin') {
+            if (username === 'admin' && (password === 'admin' || password === 'Maringa2026!Admin')) {
                 valid = true;
                 role = 'admin';
                 name = 'Administrador LGPD';
-            } else if (username === 'pesquisador' && password === 'Maringa2026!Pesquisa') {
+            } else if (username === 'pesquisador' && (password === 'pesquisador' || password === 'Maringa2026!Pesquisa')) {
                 valid = true;
                 role = 'pesquisador';
                 name = 'Pesquisador Consultoria';
-            } else if (username === 'visitante' && password === 'Maringa2026!Visitante') {
+            } else if (username === 'visitante' && (password === 'visitante' || password === 'Maringa2026!Visitante')) {
                 valid = true;
                 role = 'visualizador';
                 name = 'Visualizador Stakeholder';
@@ -116,7 +133,7 @@ function initAuthGate() {
                 currentUser = { username, name, role };
                 unlockDashboard();
             } else {
-                errorDiv.textContent = 'Usuário ou senha incorretos. Verifique as credenciais no quadro abaixo.';
+                errorDiv.textContent = '❌ Usuário ou senha incorretos! Tente admin / admin';
                 errorDiv.classList.remove('hidden');
             }
         });
@@ -209,7 +226,6 @@ function initNewInterviewModal() {
                 key_findings_coded
             };
 
-            // Tenta enviar para o backend
             try {
                 await fetch('/api/interviews/add', {
                     method: 'POST',
