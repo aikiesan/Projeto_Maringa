@@ -25,11 +25,11 @@ def init_and_seed_db():
     )
     ''')
     
-    # Insert initial users with hashed passwords
+    # Established Accounts with Secure Passwords
     users_data = [
-        ('admin', 'Administrador LGPD', generate_password_hash('Maringa2026!'), 'admin'),
-        ('pesquisador', 'Pesquisador Consultoria', generate_password_hash('Maringa2026!'), 'pesquisador'),
-        ('visitante', 'Visualizador / Stakeholder', generate_password_hash('Maringa2026!'), 'visualizador')
+        ('admin', 'Administrador LGPD', generate_password_hash('Maringa2026!Admin'), 'admin'),
+        ('pesquisador', 'Pesquisador Consultoria', generate_password_hash('Maringa2026!Pesquisa'), 'pesquisador'),
+        ('visitante', 'Visualizador Stakeholder', generate_password_hash('Maringa2026!Visitante'), 'visualizador')
     ]
     cursor.executemany('INSERT INTO users (username, name, password_hash, role) VALUES (?, ?, ?, ?)', users_data)
     
@@ -51,7 +51,6 @@ def init_and_seed_db():
     )
     ''')
     
-    # Load orgs from generated excel base
     wb = openpyxl.load_workbook('P3_Base_Mapeamento_Atores_Maringa.xlsx', data_only=True)
     ws_orgs = wb['Organizações (34)']
     orgs_to_insert = []
@@ -148,9 +147,7 @@ def init_and_seed_db():
     )
     ''')
     ws_com = wb['COMDEMA']
-    # Extract members from tab 3
     members_to_insert = []
-    # Roster starts at row 21 in COMDEMA sheet
     for r in range(21, ws_com.max_row+1):
         m_name = ws_com.cell(r, 1).value
         m_grp = ws_com.cell(r, 2).value
@@ -223,11 +220,11 @@ def init_and_seed_db():
         details TEXT NOT NULL
     )
     ''')
-    cursor.execute('INSERT INTO audit_logs (user_id, username, action, details) VALUES (1, "admin", "SISTEMA_INICIADO", "Banco de dados inicializado com criptografia e regras de privacidade LGPD.")')
+    cursor.execute('INSERT INTO audit_logs (user_id, username, action, details) VALUES (1, "admin", "SISTEMA_INICIADO", "Banco de dados inicializado com contas autenticadas e regras de privacidade LGPD.")')
     
     conn.commit()
     conn.close()
-    print('Banco de dados SQLite maringa_project.db inicializado e povoado com sucesso!')
+    print('Banco de dados maringa_project.db inicializado com logins e senhas estabelecidos!')
 
 if __name__ == '__main__':
     init_and_seed_db()
