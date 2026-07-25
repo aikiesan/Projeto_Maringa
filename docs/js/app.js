@@ -64,67 +64,71 @@ function initAuthGate() {
     const formGateLogin = document.getElementById('form-gate-login');
     const btnLogout = document.getElementById('btn-logout');
 
-    formGateLogin.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const username = document.getElementById('input-gate-username').value.trim();
-        const password = document.getElementById('input-gate-password').value.trim();
-        const errorDiv = document.getElementById('gate-login-error');
+    if (formGateLogin) {
+        formGateLogin.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('input-gate-username').value.trim();
+            const password = document.getElementById('input-gate-password').value.trim();
+            const errorDiv = document.getElementById('gate-login-error');
 
-        errorDiv.classList.add('hidden');
+            errorDiv.classList.add('hidden');
 
-        try {
-            // Tenta login via API backend
-            const res = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
-            });
+            try {
+                // Tenta login via API backend
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
 
-            if (res.ok) {
-                const data = await res.json();
-                if (data.success) {
-                    currentUser = data.user;
-                    unlockDashboard();
-                    return;
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success) {
+                        currentUser = data.user;
+                        unlockDashboard();
+                        return;
+                    }
                 }
+            } catch (err) {
+                console.log('Ambiente estático ou backend offline. Validando via fallback...');
             }
-        } catch (err) {
-            console.log('Ambiente estático ou backend offline. Validando via fallback...');
-        }
 
-        // Validação de credenciais de demonstração (Static Fallback para GitHub Pages)
-        let valid = false;
-        let role = 'visualizador';
-        let name = 'Visualizador Stakeholder';
+            // Validação de credenciais de demonstração (Static Fallback para GitHub Pages)
+            let valid = false;
+            let role = 'visualizador';
+            let name = 'Visualizador Stakeholder';
 
-        if (username === 'admin' && password === 'Maringa2026!Admin') {
-            valid = true;
-            role = 'admin';
-            name = 'Administrador LGPD';
-        } else if (username === 'pesquisador' && password === 'Maringa2026!Pesquisa') {
-            valid = true;
-            role = 'pesquisador';
-            name = 'Pesquisador Consultoria';
-        } else if (username === 'visitante' && password === 'Maringa2026!Visitante') {
-            valid = true;
-            role = 'visualizador';
-            name = 'Visualizador Stakeholder';
-        }
+            if (username === 'admin' && password === 'Maringa2026!Admin') {
+                valid = true;
+                role = 'admin';
+                name = 'Administrador LGPD';
+            } else if (username === 'pesquisador' && password === 'Maringa2026!Pesquisa') {
+                valid = true;
+                role = 'pesquisador';
+                name = 'Pesquisador Consultoria';
+            } else if (username === 'visitante' && password === 'Maringa2026!Visitante') {
+                valid = true;
+                role = 'visualizador';
+                name = 'Visualizador Stakeholder';
+            }
 
-        if (valid) {
-            currentUser = { username, name, role };
-            unlockDashboard();
-        } else {
-            errorDiv.textContent = 'Usuário ou senha incorretos. Verifique as credenciais no quadro abaixo.';
-            errorDiv.classList.remove('hidden');
-        }
-    });
+            if (valid) {
+                currentUser = { username, name, role };
+                unlockDashboard();
+            } else {
+                errorDiv.textContent = 'Usuário ou senha incorretos. Verifique as credenciais no quadro abaixo.';
+                errorDiv.classList.remove('hidden');
+            }
+        });
+    }
 
-    btnLogout.addEventListener('click', async () => {
-        try { await fetch('/api/auth/logout', { method: 'POST' }); } catch(e) {}
-        currentUser = null;
-        lockDashboard();
-    });
+    if (btnLogout) {
+        btnLogout.addEventListener('click', async () => {
+            try { await fetch('/api/auth/logout', { method: 'POST' }); } catch(e) {}
+            currentUser = null;
+            lockDashboard();
+        });
+    }
 
     // Iniciar bloqueado por padrão
     lockDashboard();
@@ -137,22 +141,24 @@ function unlockDashboard() {
     const userRoleBadge = document.getElementById('user-role-badge');
     const profileLabel = document.getElementById('current-profile-label');
 
-    loginGate.classList.add('hidden');
-    appContainer.classList.remove('hidden');
+    if (loginGate) loginGate.classList.add('hidden');
+    if (appContainer) appContainer.classList.remove('hidden');
 
     if (currentUser) {
-        userDisplayName.textContent = currentUser.name;
-        userRoleBadge.textContent = currentUser.role;
+        if (userDisplayName) userDisplayName.textContent = currentUser.name;
+        if (userRoleBadge) userRoleBadge.textContent = currentUser.role;
 
-        if (currentUser.role === 'admin') {
-            profileLabel.textContent = 'Administrador (Acesso Completo aos Contatos)';
-            profileLabel.style.color = '#B86B43';
-        } else if (currentUser.role === 'pesquisador') {
-            profileLabel.textContent = 'Pesquisador (Dados de Pesquisa & Entrevistas)';
-            profileLabel.style.color = '#4A3B32';
-        } else {
-            profileLabel.textContent = 'Visualizador (Dados de Contato Mascarados LGPD)';
-            profileLabel.style.color = '#6E5A4E';
+        if (profileLabel) {
+            if (currentUser.role === 'admin') {
+                profileLabel.textContent = 'Administrador (Acesso Completo aos Contatos)';
+                profileLabel.style.color = '#B86B43';
+            } else if (currentUser.role === 'pesquisador') {
+                profileLabel.textContent = 'Pesquisador (Dados de Pesquisa & Entrevistas)';
+                profileLabel.style.color = '#4A3B32';
+            } else {
+                profileLabel.textContent = 'Visualizador (Dados de Contato Mascarados LGPD)';
+                profileLabel.style.color = '#6E5A4E';
+            }
         }
     }
 
@@ -164,8 +170,8 @@ function lockDashboard() {
     const loginGate = document.getElementById('login-gate');
     const appContainer = document.getElementById('app-container');
 
-    loginGate.classList.remove('hidden');
-    appContainer.classList.add('hidden');
+    if (loginGate) loginGate.classList.remove('hidden');
+    if (appContainer) appContainer.classList.add('hidden');
 }
 
 // -------------------------------------------------------------
@@ -190,8 +196,9 @@ function initNewInterviewModal() {
             const interview_date = document.getElementById('input-inv-date').value;
             const key_findings_coded = document.getElementById('input-inv-notes').value || 'Anotações pendentes.';
 
+            const nextNum = String(allInterviews.length + 1).padStart(2, '0');
             const newInv = {
-                interview_code: `INT-${allInterviews.length + 1:02d}`,
+                interview_code: `INT-${nextNum}`,
                 actor_code,
                 institution_type,
                 sector_group: 'Público',
@@ -234,13 +241,15 @@ async function loadDashboardData() {
 async function loadOverviewStats() {
     try {
         const data = await apiFetch('/api/stats/overview', './data/overview.json');
-        document.getElementById('kpi-orgs').textContent = data.total_orgs;
-        document.getElementById('kpi-contacts').textContent = data.confirmed_contacts;
-        document.getElementById('kpi-comdema').textContent = data.comdema_members;
-        document.getElementById('kpi-interviews').textContent = data.total_interviews;
+        if (data) {
+            if (document.getElementById('kpi-orgs')) document.getElementById('kpi-orgs').textContent = data.total_orgs;
+            if (document.getElementById('kpi-contacts')) document.getElementById('kpi-contacts').textContent = data.confirmed_contacts;
+            if (document.getElementById('kpi-comdema')) document.getElementById('kpi-comdema').textContent = data.comdema_members;
+            if (document.getElementById('kpi-interviews')) document.getElementById('kpi-interviews').textContent = data.total_interviews;
 
-        if (window.renderCharts) {
-            window.renderCharts(data.orgs_by_group);
+            if (window.renderCharts) {
+                window.renderCharts(data.orgs_by_group);
+            }
         }
     } catch (e) {
         console.error('Erro ao carregar estatísticas:', e);
@@ -258,9 +267,14 @@ async function loadOrganizations() {
 }
 
 function renderOrganizationsTable() {
-    const groupFilter = document.getElementById('filter-group-orgs').value;
-    const searchVal = document.getElementById('search-orgs').value.toLowerCase();
+    const groupFilterEl = document.getElementById('filter-group-orgs');
+    const searchValEl = document.getElementById('search-orgs');
     const tbody = document.getElementById('tbody-orgs');
+
+    if (!tbody) return;
+
+    const groupFilter = groupFilterEl ? groupFilterEl.value : '';
+    const searchVal = searchValEl ? searchValEl.value.toLowerCase() : '';
 
     const filtered = allOrganizations.filter(org => {
         const matchGroup = !groupFilter || org.group_type === groupFilter;
@@ -298,6 +312,8 @@ async function loadContacts() {
 
 function renderContactsTable() {
     const tbody = document.getElementById('tbody-contacts');
+    if (!tbody) return;
+
     const userRole = currentUser ? currentUser.role : 'visualizador';
 
     tbody.innerHTML = allContacts.map(c => {
@@ -335,14 +351,16 @@ async function loadComdema() {
         const data = await apiFetch('/api/comdema', './data/comdema.json');
         const tbody = document.getElementById('tbody-comdema');
 
-        tbody.innerHTML = (data.members || []).map(m => `
-            <tr>
-                <td><strong>${m.name}</strong> ${m.is_six_years ? '<span class="badge-status-confirmed" style="margin-left:6px;">6 Anos (2021-2026)</span>' : ''}</td>
-                <td><span class="badge-group ${getGroupBadgeClass(m.group_represented)}">${m.group_represented}</span></td>
-                <td>${m.affiliation}</td>
-                <td>${m.years_present}</td>
-            </tr>
-        `).join('');
+        if (tbody) {
+            tbody.innerHTML = (data.members || []).map(m => `
+                <tr>
+                    <td><strong>${m.name}</strong> ${m.is_six_years ? '<span class="badge-status-confirmed" style="margin-left:6px;">6 Anos (2021-2026)</span>' : ''}</td>
+                    <td><span class="badge-group ${getGroupBadgeClass(m.group_represented)}">${m.group_represented}</span></td>
+                    <td>${m.affiliation}</td>
+                    <td>${m.years_present}</td>
+                </tr>
+            `).join('');
+        }
 
         if (window.renderComdemaTimeline) {
             window.renderComdemaTimeline(data.yearly_stats || []);
@@ -363,8 +381,12 @@ async function loadInterviews() {
 }
 
 function renderInterviewsGrid() {
-    const dimFilter = document.getElementById('filter-interviews-dim').value;
+    const dimFilterEl = document.getElementById('filter-interviews-dim');
     const grid = document.getElementById('grid-interviews');
+
+    if (!grid) return;
+
+    const dimFilter = dimFilterEl ? dimFilterEl.value : '';
 
     const filtered = allInterviews.filter(inv => !dimFilter || inv.ccfla_dimension.includes(dimFilter));
 
