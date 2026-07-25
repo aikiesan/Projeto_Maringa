@@ -31,11 +31,11 @@ class TestBackendAPI(unittest.TestCase):
         conn.close()
 
     def test_02_authentication_login_success_and_failure(self):
-        """Testa o endpoint de login com credenciais válidas e inválidas."""
+        """Testa o endpoint de login com credenciais válidas (admin/admin) e inválidas."""
         # Login Válido Admin
         res_admin = self.client.post('/api/auth/login', json={
             'username': 'admin',
-            'password': 'Maringa2026!Admin'
+            'password': 'admin'
         })
         self.assertEqual(res_admin.status_code, 200)
         data_admin = res_admin.get_json()
@@ -54,17 +54,15 @@ class TestBackendAPI(unittest.TestCase):
 
     def test_03_strict_login_gate_and_lgpd_masking(self):
         """Verifica se o acesso deslogado é bloqueado (401) e se visitantes recebem dados mascarados."""
-        # Acesso deslogado deve ser bloqueado com 401
         res_unauth = self.client.get('/api/contacts')
         self.assertEqual(res_unauth.status_code, 401, "Acesso deslogado a /api/contacts deve ser bloqueado com 401.")
 
         # Login como Visitante
         self.client.post('/api/auth/login', json={
             'username': 'visitante',
-            'password': 'Maringa2026!Visitante'
+            'password': 'visitante'
         })
 
-        # Acesso como Visitante (Devolve contatos com máscara LGPD)
         res_vis = self.client.get('/api/contacts')
         self.assertEqual(res_vis.status_code, 200)
         contacts_vis = res_vis.get_json()['contacts']
@@ -75,10 +73,10 @@ class TestBackendAPI(unittest.TestCase):
         # Logout
         self.client.post('/api/auth/logout')
 
-        # Login como Admin (Devolve contatos sem máscara PII)
+        # Login como Admin
         self.client.post('/api/auth/login', json={
             'username': 'admin',
-            'password': 'Maringa2026!Admin'
+            'password': 'admin'
         })
         res_admin = self.client.get('/api/contacts')
         contacts_admin = res_admin.get_json()['contacts']
@@ -86,11 +84,10 @@ class TestBackendAPI(unittest.TestCase):
         self.assertNotIn('***', first_contact_admin['email'], "O email de contato não deve ter máscara para Administrador.")
 
     def test_04_stats_overview_and_downloads(self):
-        """Verifica os endpoints protegidos de estatísticas e downloads de arquivos após autenticação."""
-        # Login primeiro
+        """Verifica os endpoints protegidos de estatísticas e downloads após autenticação."""
         self.client.post('/api/auth/login', json={
             'username': 'admin',
-            'password': 'Maringa2026!Admin'
+            'password': 'admin'
         })
 
         res_stats = self.client.get('/api/stats/overview')

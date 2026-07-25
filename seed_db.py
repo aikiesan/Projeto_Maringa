@@ -25,11 +25,11 @@ def init_and_seed_db():
     )
     ''')
     
-    # Established Accounts with Secure Passwords
+    # Established Accounts with Easy Testing Passwords (admin/admin, etc.)
     users_data = [
-        ('admin', 'Administrador LGPD', generate_password_hash('Maringa2026!Admin'), 'admin'),
-        ('pesquisador', 'Pesquisador Consultoria', generate_password_hash('Maringa2026!Pesquisa'), 'pesquisador'),
-        ('visitante', 'Visualizador Stakeholder', generate_password_hash('Maringa2026!Visitante'), 'visualizador')
+        ('admin', 'Administrador LGPD', generate_password_hash('admin'), 'admin'),
+        ('pesquisador', 'Pesquisador Consultoria', generate_password_hash('pesquisador'), 'pesquisador'),
+        ('visitante', 'Visualizador Stakeholder', generate_password_hash('visitante'), 'visualizador')
     ]
     cursor.executemany('INSERT INTO users (username, name, password_hash, role) VALUES (?, ?, ?, ?)', users_data)
     
@@ -162,7 +162,7 @@ def init_and_seed_db():
     VALUES (?, ?, ?, ?, ?)
     ''', members_to_insert)
     
-    # 6. Pipeline de Gestão e Codificação de Entrevistas (Limpo para Novas Entrevistas Reais)
+    # 6. Pipeline de Gestão e Codificação de Entrevistas
     cursor.execute('''
     CREATE TABLE encoded_interviews (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -173,12 +173,11 @@ def init_and_seed_db():
         ccfla_dimension TEXT NOT NULL,
         interview_date TEXT NOT NULL,
         instrument TEXT NOT NULL,
-        status TEXT NOT NULL, -- Convite Enviado, Agendada, Em Transcrição, Concluída & Codificada
+        status TEXT NOT NULL,
         key_findings_coded TEXT NOT NULL
     )
     ''')
     
-    # Adicionar registros de exemplo do plano de ação (status de agendamento)
     initial_pipeline = [
         ('INT-01', 'ACTOR-01 (IPPLAM)', 'Instituto de Pesquisa e Planejamento Urbano', 'Público', 'D3 - Dados e Inteligência Climática', 'A agendar', 'Entrevista Estruturada', 'Pendente de Agendamento', 
          'Ponto focal de acompanhamento da consultoria. Entrevista em fase de agendamento prioritário.'),
@@ -201,11 +200,11 @@ def init_and_seed_db():
         details TEXT NOT NULL
     )
     ''')
-    cursor.execute('INSERT INTO audit_logs (user_id, username, action, details) VALUES (1, "admin", "SISTEMA_INICIADO", "Modulo de Gestao de Entrevistas e Bloqueio Obrigatorio de Login Ativados.")')
+    cursor.execute('INSERT INTO audit_logs (user_id, username, action, details) VALUES (1, "admin", "SISTEMA_INICIADO", "Banco de dados inicializado com login admin/admin.")')
     
     conn.commit()
     conn.close()
-    print('Banco de dados maringa_project.db atualizado com Pipeline de Entrevistas limpo e pronto!')
+    print('Banco de dados maringa_project.db atualizado com login admin/admin!')
 
 if __name__ == '__main__':
     init_and_seed_db()
