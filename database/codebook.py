@@ -184,7 +184,6 @@ MISSING_INSTITUTIONS = {
     "Limpeza urbana e mobilidade": ["2.1.6"],
     "Órgão ambiental estadual": ["1.1.2", "1.1.6"],
     "Conselho municipal de meio ambiente (COMDEMA)": ["4.2.3"],
-    "Universidade pública": ["3.2.1"],
 }
 
 

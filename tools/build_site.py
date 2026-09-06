@@ -21,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from tools import project_base  # noqa: E402
+from database import codebook as cb  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / "site" / "template.html"
@@ -40,6 +41,146 @@ def sub1(html: str, old: str, new: str, label: str) -> str:
     return html.replace(old, new)
 
 
+def diagnostico(d: dict) -> str:
+    """Seção «Diagnóstico da cobertura», gerada a partir do estado atual do acervo."""
+    dims = {x["code"]: x for x in d["dimensions"]}
+    live = [i for i in d["interviews"] if not i["duplicate"]]
+    tocadas = {c for v in d["triage"].values() for c, n in v.items() if n > 0}
+    com_ev = {e["dim"] for e in d["evidence"]}
+    mudas = sorted(set(dims) - tocadas - com_ev)
+    criticas = [c for c in mudas if dims[c]["rank"] == 4]
+
+    ouvidas: dict[str, int] = {}
+    for i in live:
+        for t in (i.get("institution_type") or "—").split("; "):
+            ouvidas[t] = ouvidas.get(t, 0) + 1
+
+    ausentes = {k: v for k, v in cb.MISSING_INSTITUTIONS.items()
+                if not any(cb._fold(k.split(" (")[0][:12]) in cb._fold(o) for o in ouvidas)}
+
+    li_ok = "\n".join(
+        f'        <li>{t}{f" <em>({n} sessões)</em>" if n > 1 else ""}</li>'
+        for t, n in sorted(ouvidas.items(), key=lambda x: (-x[1], x[0])))
+    li_no = "\n".join(
+        f'        <li><strong>{k}</strong> <em>→ '
+        + ", ".join(f'{c} {dims[c]["name"].lower()}' for c in v if c in dims)
+        + "</em></li>" for k, v in ausentes.items())
+
+    lista_criticas = ", ".join(
+        f'<span class="c">{c}</span> {dims[c]["name"].lower()}' for c in criticas) or "nenhuma"
+
+    return f"""<section>
+  <p class="eyebrow">Diagnóstico da cobertura</p>
+  <div class="col">
+    <h2>Os silêncios têm um endereço institucional</h2>
+    <p>{len(mudas)} das 55 dimensões atravessaram as {len(live)} sessões sem uma única menção na
+    pré-triagem e sem evidência codificada — {len(criticas)} delas com prioridade «Muito alta»:
+    {lista_criticas}. Não é coincidência: são as dimensões cuja fonte primária, segundo a
+    própria Matriz 1, são órgãos que não aparecem nos registros de entrevista.</p>
+  </div>
+
+  <div class="two">
+    <div class="card ok">
+      <div class="t">Com registro de entrevista · {len(live)} sessões</div>
+      <ul>
+{li_ok}
+      </ul>
+    </div>
+    <div class="card no">
+      <div class="t">Sem registro — e fonte primária de dimensão prioritária</div>
+      <ul>
+{li_no}
+      </ul>
+    </div>
+  </div>
+
+  <div class="note alert">
+    <h3>O que isso significa para o diagnóstico</h3>
+    <p>O eixo <strong>Orçamento e Finanças</strong> concentra 25 das 55 dimensões e é onde a
+    metodologia atribuiu mais prioridade «Muito alta» — e é o eixo cuja fonte primária segue
+    ausente. As menções financeiras que aparecem no corpus vêm de quem <em>usa</em> o orçamento,
+    não de quem o <em>monta</em>. Isso não invalida a evidência coletada; delimita o que ela pode
+    sustentar.</p>
+    <p>Duas saídas: sessões adicionais com fazenda/planejamento, planejamento urbano e
+    procuradoria cobririam a maior parte do vazio; ou essas dimensões são sustentadas por
+    evidência documental na Matriz 2 (PPA, LDO, LOA, QDD, relatórios de execução), que não
+    depende de entrevista.</p>
+  </div>
+</section>
+
+"""
+
+
+def integridade(d: dict) -> str:
+    """Seção «Integridade», gerada a partir do estado atual do acervo."""
+    live = [i for i in d["interviews"] if not i["duplicate"]]
+    dup = [i for i in d["interviews"] if i["duplicate"]]
+    sem_tcle = [i["code"] for i in live if not i["tcle"]]
+    conjuntas = [i["code"] for i in live if (i.get("n_participants") or 1) > 1]
+    cod = lambda xs: ", ".join(f'<span class="c">{x}</span>' for x in xs)  # noqa: E731
+
+    linhas = []
+    if sem_tcle:
+        linhas.append(f"""        <tr>
+          <td><span class="pill crit">Sem TCLE</span></td>
+          <td>{len(sem_tcle)} de {len(live)} sessões sem termo assinado localizado na pasta
+              de termos: {cod(sem_tcle)}.</td>
+          <td>Aparecem na matriz, mas não devem alimentar o diagnóstico até o termo ser
+              localizado. O campo <span class="c">tcle</span> nunca é marcado por inferência.</td>
+        </tr>""")
+    linhas.append(f"""        <tr>
+          <td><span class="pill warn">Fora da Lista</span></td>
+          <td>Em <span class="c">ENT-009</span> e <span class="c">ENT-017-ENT-018</span> há falante
+              que não consta da Lista de Entrevistas.</td>
+          <td>O casamento falante × participante ficou manual nesses dois casos; o tipo de
+              instituição foi atribuído por conferência, não pelo cruzamento automático.</td>
+        </tr>""")
+    if conjuntas:
+        linhas.append(f"""        <tr>
+          <td><span class="pill warn">Sessões conjuntas</span></td>
+          <td>{cod(conjuntas)} reúnem dois participantes na mesma sessão.</td>
+          <td>Contadas como uma sessão. A codificação separa por falante na leitura — a
+              diarização automática não separa: em <span class="c">ENT-001-ENT-002</span> ela
+              atribui todos os turnos a um único nome.</td>
+        </tr>""")
+    linhas.append(f"""        <tr>
+          <td><span class="pill acc">Corrigido</span></td>
+          <td>A duplicata registrada em 01/09 entre <span class="c">ENT-011</span> e
+              <span class="c">ENT-012</span> <strong>não se confirma</strong>: no acervo atual
+              a pasta ENT-011 contém a sessão conjunta
+              <span class="c">ENT-010-ENT-011</span> e <span class="c">ENT-012</span> tem
+              registro próprio, com md5 distinto.</td>
+          <td>Nenhuma duplicata no acervo atual{" (" + cod([i["code"] for i in dup]) + ")" if dup else ""}.
+              O total é {len(live)} sessões distintas.</td>
+        </tr>""")
+    linhas.append("""        <tr>
+          <td><span class="pill warn">Reidentificação</span></td>
+          <td>Instituições singulares — órgão ambiental, liderança do Executivo, Legislativo —
+              são identificáveis pelo próprio rótulo genérico.</td>
+          <td>Risco residual assumido e registrado. A proteção vale contra leitura casual, não
+              contra quem conhece a estrutura da prefeitura.</td>
+        </tr>""")
+
+    return f"""<section>
+  <p class="eyebrow">Integridade</p>
+  <div class="col">
+    <h2>As ressalvas que acompanham estes números</h2>
+    <p>Levantadas por <span class="c">tools/ingest_registros.py</span>, que confere cada registro
+    contra a Lista de Entrevistas e a pasta de termos assinados, e detecta duplicata por md5 do
+    texto da transcrição — não por nome de pasta.</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Item</th><th>Situação</th><th>Como está tratado aqui</th></tr></thead>
+      <tbody>
+{chr(10).join(linhas)}
+      </tbody>
+    </table>
+  </div>
+</section>
+"""
+
+
 def main() -> int:
     html = TEMPLATE.read_text(encoding="utf-8")
     d = json.loads(DATA.read_text(encoding="utf-8"))
@@ -52,6 +193,10 @@ def main() -> int:
     tri = sorted({c for c in dims_cov
                   if len({e["interview"] for e in ev if e["dim"] == c}) > 1})
     div = [e for e in ev if e.get("alignment") == "divergente" or e["type"] == "divergencia"]
+    codigos = sum(len(i["code"].split("-")) // 2 for i in live)
+    minutos = sum(i.get("minutes") or 0 for i in live)
+    horas = f"{minutos // 60}h{minutos % 60:02d}"
+    setores = sorted({i.get("sector") for i in live if i.get("sector")})
     hoje = date.today()
     stamp = f"{MESES[hoje.month - 1].capitalize()} de {hoje.year}"
 
@@ -133,10 +278,23 @@ def main() -> int:
     html = sub1(html,
         "Onze horas e meia de escuta institucional, lidas contra as 55 dimensões da metodologia. "
         "Onde o corpus fala, onde ele silencia — e por quê.",
-        f"Onze horas e meia de escuta institucional, lidas contra as 55 dimensões da metodologia. "
-        f"{len(coded)} sessões já codificadas, {len(ev)} evidências rastreáveis até o trecho que as "
-        f"sustenta — e os silêncios que continuam de pé.",
+        f"{horas} de escuta institucional em {len(live)} sessões, lidas contra as 55 dimensões da "
+        f"metodologia. {len(coded)} já codificadas, {len(ev)} evidências rastreáveis até o trecho "
+        f"que as sustenta — e os silêncios que continuam de pé.",
         "linha de apoio do cabeçalho")
+
+    html = sub1(html, '[NI, "sessões distintas<br>(em 16 códigos)"],',
+                f'[NI, "sessões distintas<br>(em {codigos} códigos)"],',
+                "KPI de sessões")
+
+    html = sub1(html,
+        "A barra conta entrevistas, não menções — quatorze é o máximo.",
+        f"A barra conta entrevistas, não menções — {len(live)} é o máximo.",
+        "legenda da cobertura")
+
+    html = sub1(html, "<h2>Quatorze sessões, quatro setores</h2>",
+                f"<h2>{len(live)} sessões, {len(setores)} setores</h2>",
+                "título da seção do corpus")
 
     html = sub1(html,
         '<h2>O que a codificação produz, em concreto</h2>',
@@ -164,6 +322,21 @@ def main() -> int:
         f'<p>Gerado por <span class="c">tools/build_site.py</span> a partir de '
         f'<span class="c">codebook/dashboard.json</span> ({d["generated"]}). {stamp}.</p>',
         "rodapé")
+
+    # A seção de diagnóstico da cobertura é regerada por inteiro: as listas de
+    # instituições ouvidas e ausentes mudam a cada nova sessão do acervo.
+    ini = html.find('<section>\n  <p class="eyebrow">Diagnóstico da cobertura</p>')
+    fim = html.find('<section>\n  <p class="eyebrow">Evidência codificada</p>')
+    if ini < 0 or fim < 0 or fim <= ini:
+        raise SystemExit("build_site: não localizei a seção de diagnóstico da cobertura")
+    html = html[:ini] + diagnostico(d) + html[fim:]
+
+    # seção de integridade, também regerada
+    ini = html.find('<section>\n  <p class="eyebrow">Integridade</p>')
+    if ini < 0:
+        raise SystemExit("build_site: não localizei a seção de integridade")
+    fim = html.find("\n</main>", ini)
+    html = html[:ini] + integridade(d) + html[fim:]
 
     # nota de impacto na seção de diagnóstico da cobertura
     nota = (

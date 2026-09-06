@@ -29,9 +29,6 @@ saida_triagem/
 pgdata/
 *.log
 
-# arquivos avulsos que caem na pasta e nao pertencem ao repositorio
-Claude outputs/
-*.exe
-*.winmd
-*.msi
-show*.pdf
+# identificação dos participantes (participants_vault) e saída de triagem
+vault/
+saida_triagem/
