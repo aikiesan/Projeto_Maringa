@@ -1,0 +1,16 @@
+code,canonical,duplicate,sector,institution_type,block,date,n_participants,tcle,status,minutes,turns,chars,participant_share,n_dim_candidates,n_hits,notes
+ENT-001-ENT-002,ENT-001-ENT-002,False,Publico,Secretaria municipal de governo,PUB,2026-08-07,2,True,Codificada,49,487,48515,63,27,195,"Sessão conjunta de dois códigos; inclui responsável por captação de recursos. A transcrição automática atribui todos os turnos a um único falante — os dois participantes não estão separados na diarização; a codificação por falante foi feita por leitura, não por rótulo."
+ENT-003,ENT-003,False,Publico,Órgão ambiental municipal,PUB,2026-08-07,1,True,Codificada,46,497,34801,43,27,106,Piloto de codificação
+ENT-004,ENT-004,False,Publico,Secretaria municipal de infraestrutura,PUB,2026-08-07,1,True,Transcrita,45,425,37445,50,21,119,
+ENT-005,ENT-005,False,Sociedade Civil,Entidade profissional de arquitetura e urbanismo,SOC,2026-08-07,1,True,Transcrita,45,557,39562,66,21,111,
+ENT-006,ENT-006,False,Academia,Universidade privada,ACA,2026-08-10,1,True,Transcrita,48,717,40609,50,23,119,
+ENT-007,ENT-007,False,Sociedade Civil,Conselho profissional de arquitetura e urbanismo,SOC,2026-08-10,1,True,Transcrita,56,691,47522,59,22,123,
+ENT-008,ENT-008,False,Especial,Direção de órgão ambiental municipal,PUB,2026-08-13,1,True,Transcrita,57,486,42185,51,30,147,Nível de direção; risco residual de reidentificação
+ENT-009,ENT-009,False,Privado,Empresa de mercado de carbono,PRI,2026-08-13,1,False,Transcrita,55,431,40100,76,19,107,Participante não consta da Lista de Entrevistas nem dos termos assinados
+ENT-010,ENT-010,False,Sociedade Civil,Organização técnica ambiental,SOC,2026-08-14,2,True,Transcrita,51,729,47565,54,27,164,Duas participantes da mesma organização
+ENT-011,ENT-011,False,Especial,Poder Legislativo municipal,PUB,2026-08-14,1,True,Transcrita,52,373,39085,69,22,123,
+ENT-012,ENT-011,True,Especial,Poder Legislativo municipal,PUB,2026-08-14,1,True,Duplicata,52,373,39085,69,0,0,Arquivos idênticos a ENT-011 (mesmo hash); código sem registro próprio
+ENT-013,ENT-013,False,Publico,Órgão municipal de proteção e defesa civil,PUB,2026-08-18,1,True,Transcrita,49,498,41476,63,17,124,
+ENT-014,ENT-014,False,Sociedade Civil,Conselho profissional de arquitetura e urbanismo,SOC,2026-08-19,1,True,Transcrita,41,525,31827,55,19,84,
+ENT-015,ENT-015,False,Especial,Liderança política do Executivo municipal,PUB,2026-08-27,2,True,Transcrita,59,291,46581,68,28,169,Sessão com assessoria; risco residual de reidentificação
+ENT-016,ENT-016,False,Privado,Conselho de desenvolvimento econômico,PRI,2026-08-27,1,True,Transcrita,33,262,32043,69,18,124,
