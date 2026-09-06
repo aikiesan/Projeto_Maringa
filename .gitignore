@@ -32,3 +32,6 @@ pgdata/
 # identificação dos participantes (participants_vault) e saída de triagem
 vault/
 saida_triagem/
+
+# senha do painel publicado (usada por tools/lock.py)
+.senha
