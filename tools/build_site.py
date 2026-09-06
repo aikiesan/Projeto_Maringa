@@ -20,6 +20,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from tools import lock  # noqa: E402
 from tools import project_base  # noqa: E402
 from database import codebook as cb  # noqa: E402
 
@@ -382,9 +383,15 @@ def main() -> int:
                     "scripts da base do projeto")
 
     OUT.write_text(html, encoding="utf-8")
-    OUT_PUBLIC.parent.mkdir(exist_ok=True)
-    OUT_PUBLIC.write_text(html, encoding="utf-8")
 
+    # A saída publicada vai cifrada quando há senha configurada (PAINEL_SENHA ou
+    # o arquivo .senha). O index.html local fica em claro — é o seu disco.
+    senha = lock.senha_configurada(ROOT)
+    publicada = lock.trancar(html, senha) if senha else html
+    OUT_PUBLIC.parent.mkdir(exist_ok=True)
+    OUT_PUBLIC.write_text(publicada, encoding="utf-8")
+
+    print(f"public/index.html: {'CIFRADA com senha' if senha else 'EM CLARO — sem senha configurada'}")
     print(f"{OUT.relative_to(ROOT)}: {len(html) // 1024} KB · {len(ev)} evidências "
           f"de {len(coded)} sessões · {len(dims_cov)}/{len(d['dimensions'])} dimensões com evidência "
           f"· {len(tri)} trianguladas · {len(div)} divergência(s)")

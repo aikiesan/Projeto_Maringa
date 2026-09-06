@@ -42,6 +42,49 @@ acesso, use `site/artifact.html`, que não tem contatos.
 Enquanto o Access não estiver configurado e testado, o deploy fica público.
 Configure o Access **antes** de compartilhar o link.
 
+## Senha do painel publicado
+
+A saída `public/index.html` vai **cifrada** quando há senha configurada. O que o
+servidor entrega é o cabeçalho, o CSS e uma tela de senha; todo o resto — corpus,
+evidências, contatos, base do Produto 3 e o código que renderiza — está dentro de
+um bloco AES-256-GCM. A chave é derivada no navegador por PBKDF2-HMAC-SHA256 com
+250 mil iterações e sal aleatório.
+
+Isso é diferente de esconder a tabela com JavaScript: sem a senha o dado **não
+está** no arquivo, nem no código-fonte, nem no cache do navegador.
+
+Defina a senha por variável de ambiente:
+
+```powershell
+$env:PAINEL_SENHA = "sua senha longa aqui"
+python -m tools.build_site
+```
+
+Ou grave-a em `.senha` na raiz — o arquivo está no `.gitignore` e nunca vai ao
+repositório. Mínimo de 12 caracteres; o build recusa menos que isso.
+
+O `build_site` informa em qual modo gerou:
+
+```
+public/index.html: CIFRADA com senha
+public/index.html: EM CLARO — sem senha configurada
+```
+
+Se aparecer **EM CLARO**, a variável não estava definida naquele terminal. Não
+publique nesse estado.
+
+### Limites, ditos com clareza
+
+- A força é a da senha. Quem baixar o arquivo pode tentar senhas offline; as 250
+  mil iterações encarecem o ataque, não o impedem. Quatro ou cinco palavras
+  aleatórias valem mais que doze caracteres embaralhados.
+- Combine a senha por um canal **diferente** do que leva o link. Mandar link e
+  senha no mesmo e-mail anula as duas camadas.
+- Trocar a senha exige rodar o build de novo e publicar; quem já abriu a página
+  continua com o conteúdo aberto naquela aba até recarregar.
+- O `index.html` da raiz **não** é cifrado — é o seu arquivo local, no seu disco.
+
+
 ## Alternativas consideradas
 
 - **Vercel / Netlify (free)**: aceitam repositório privado, mas proteção por senha
