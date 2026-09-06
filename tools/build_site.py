@@ -19,10 +19,15 @@ from collections import Counter
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from tools import project_base  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / "site" / "template.html"
 DATA = ROOT / "codebook" / "dashboard.json"
+BASE = ROOT / "data"          # base de mapeamento do Produto 3
 OUT = ROOT / "index.html"
+OUT_PUBLIC = ROOT / "public" / "index.html"   # diretório de saída para hospedagem
 
 MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho",
          "agosto", "setembro", "outubro", "novembro", "dezembro"]
@@ -183,13 +188,29 @@ def main() -> int:
         nota + '</section>\n\n<section>\n  <p class="eyebrow">Evidência codificada</p>',
         "nota de impacto")
 
-    OUT.write_text(html, encoding="utf-8")
-
-    # variante para publicar como Artifact: sem doctype/head/body — o serviço
-    # embrulha o conteúdo por conta própria.
-    inner = html.split("<body>", 1)[1]
-    inner = inner.rsplit("</body>", 1)[0].strip()
+    # Variante para publicar como Artifact — sem doctype/head/body (o serviço
+    # embrulha o conteúdo) e SEM a base do projeto: o artefato é compartilhável,
+    # então leva só a camada anonimizada, nunca os pontos focais nominais.
+    inner = html.split("<body>", 1)[1].rsplit("</body>", 1)[0].strip()
     (ROOT / "site" / "artifact.html").write_text(inner, encoding="utf-8")
+
+    # ------------------------------------------- base do projeto (Produto 3)
+    pb = project_base.load(BASE)
+    if pb:
+        html = sub1(html, '<script type="application/json" id="ds">',
+                    '<script type="application/json" id="pb">'
+                    + json.dumps(pb, ensure_ascii=False)
+                    + '</script>\n<script type="application/json" id="ds">',
+                    "payload da base do projeto")
+        html = sub1(html, "\n</main>", project_base.HTML + "\n</main>",
+                    "seções da base do projeto")
+        html = sub1(html, "renderEv();\nrenderHeat();",
+                    "renderEv();\nrenderHeat();\n" + project_base.JS,
+                    "scripts da base do projeto")
+
+    OUT.write_text(html, encoding="utf-8")
+    OUT_PUBLIC.parent.mkdir(exist_ok=True)
+    OUT_PUBLIC.write_text(html, encoding="utf-8")
 
     print(f"{OUT.relative_to(ROOT)}: {len(html) // 1024} KB · {len(ev)} evidências "
           f"de {len(coded)} sessões · {len(dims_cov)}/{len(d['dimensions'])} dimensões com evidência "
