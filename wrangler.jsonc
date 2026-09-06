@@ -1,0 +1,17 @@
+{
+  // Painel interno da consultoria IPPLAM–CEPAL — Maringá.
+  //
+  // Worker apenas de assets estáticos: não há código de servidor. Ele serve
+  // exclusivamente o conteúdo de ./public, que é gerado por
+  // `python -m tools.build_site`.
+  //
+  // ATENÇÃO: public/index.html contém os pontos focais nominais (nome, e-mail,
+  // telefone). Este Worker SÓ pode ficar no ar com Cloudflare Access ativo em
+  // "All traffic". Enquanto o Access não estiver testado, mantenha em ./public
+  // apenas o placeholder.
+  "name": "maringa-painel",
+  "compatibility_date": "2026-09-06",
+  "assets": {
+    "directory": "./public"
+  }
+}
