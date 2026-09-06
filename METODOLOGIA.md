@@ -6,9 +6,10 @@ Conditions for Urban Climate Finance* (CCFLA / Urban-Act, 2024), priorizada para
 no Produto 2.
 
 > Documento reconstruído em 06/09/2026 a partir do protocolo publicado e do
-> `dashboard.json` recuperado (versão de 01/09/2026), e atualizado no mesmo dia
-> contra o acervo completo (17 sessões). Substitui o artefato como registro
-> versionável do método.
+> `dashboard.json` recuperado (versão de 01/09/2026), atualizado no mesmo dia
+> contra o acervo completo (17 sessões) e **revisado ao fim da codificação
+> integral** — as 17 sessões estão codificadas, com 494 evidências. Substitui o
+> artefato como registro versionável do método.
 
 ---
 
@@ -197,32 +198,54 @@ Distribuição: público 4 sessões, sociedade civil 4, academia 3, especial 3, 
 
 ---
 
-## 7. Lacuna de cobertura institucional
+## 7. Cobertura ao fim da codificação
 
-Oito dimensões atravessaram as 17 sessões sem menção na pré-triagem e sem evidência
-codificada: `1.1.2`, `1.1.6`, **`2.2.1` orçamento verde**, **`2.2.2` rastreamento de
-gastos**, **`2.2.3` integração PPA/LDO/LOA**, `2.6.4`, **`3.1.3` inventário municipal de
-GEE** e `3.2.4` — as três em negrito com prioridade «Muito alta».
+**51 das 55 dimensões têm evidência codificada.** As quatro restantes são todas de
+prioridade «Média»: `1.1.2` alinhamento da mitigação com NDC/plano estadual, `1.1.3` MRV
+para mitigação, `2.5.4` acesso a mercado de capitais e `2.5.5` títulos verdes.
 
-*(A codificação é mais fina que a triagem: `ENT-001-ENT-002` produziu evidência para
-`2.2.1` e `2.2.3` por leitura, ainda que o léxico não as tenha alcançado. As dimensões
-que seguem sem qualquer evidência codificada de prioridade «Muito alta» são `2.2.2`,
-`2.3.2` e `3.1.3`.)*
+As três dimensões «Muito alta» que atravessavam o corpus sem evidência foram fechadas pela
+leitura integral — nenhuma delas havia sido alcançada pela pré-triagem por palavra-chave:
 
-A causa é institucional. Não há registro de entrevista para: Fazenda/Planejamento,
-planejamento urbano (IPPLAM), obras públicas, urbanismo e habitação, procuradoria,
-limpeza urbana, mobilidade, órgão ambiental estadual e COMDEMA. O eixo 2 concentra 25
-das 55 dimensões e é justamente o eixo cuja fonte primária está ausente — **as menções
-financeiras vêm de quem usa o orçamento, não de quem o monta.**
+| Dimensão | O que a codificação encontrou | Fonte |
+|---|---|---|
+| **`3.1.3`** inventário municipal de GEE | Existe como etapa contratada do plano de enfrentamento; já entregue ao município e aguardando validação | ENT-008, ENT-010-ENT-011 |
+| **`2.3.2`** uso do fundo municipal de meio ambiente | Fonte ativa, alimentada por autuação e por repasse contratual da concessionária de saneamento; é o que custeia hoje o planejamento climático. Alegação não verificada de saldo expressivo não executado | ENT-008, ENT-009 |
+| **`2.2.2`** rastreamento de gastos climáticos | Não existe na administração. A capacidade está instalada **fora** dela: observatório social financiado pela associação comercial acompanha todas as contas públicas e já impugnou licitação | ENT-005, ENT-012, ENT-015 |
 
-A universidade pública, que constava como ausente no levantamento de 01/09, passou a ter
-registro: `ENT-019` e `ENT-020`, ambas na UEM, cobrem `3.2.1`.
+**A lacuna institucional permanece, e mudou de natureza.** Continua sem registro de entrevista:
+Fazenda/Planejamento, planejamento urbano (IPPLAM), obras públicas, urbanismo e habitação,
+procuradoria, limpeza urbana, mobilidade, órgão ambiental estadual e COMDEMA. Mas o eixo 2
+deixou de ser silencioso: `2.2.1` orçamento verde tem agora evidência direta do Legislativo
+(«nenhuma» priorização climática identificável na peça orçamentária) e do Executivo (orçamento
+transversal, sem unidade orçamentária), e a resistência à vinculação de receita foi nomeada e
+localizada na área fazendária. O que falta não é mais evidência sobre o eixo 2 — é a
+contraparte de quem monta o orçamento.
 
-**Duas saídas:** três sessões adicionais (fazenda/planejamento, planejamento urbano,
-procuradoria) cobririam a maior parte do vazio; ou sustentar essas dimensões por
-evidência documental na Matriz 2 (PPA, LDO, LOA, QDD, relatórios de execução).
+### O achado mais convergente do corpus
 
----
+Cinco fontes independentes, de quatro setores, apontam a **ausência de projetos estruturados**
+— e não a ausência de recurso — como barreira número um: ENT-004 («não temos a ideia pronta»),
+ENT-007 («o município tem superávit e não consegue executar»), ENT-008 («sem projeto eu só
+tenho uma ideia»), ENT-010-ENT-011 («tem fundos disponíveis, mas não se tem projetos que se
+adequam») e ENT-017-ENT-018 («estruturação de projetos é uma fragilidade dos municípios como
+um todo»).
+
+**Divergência preservada:** ENT-015 sustenta que o gargalo está resolvido por via não
+institucional — a prefeitura não elabora, e recebe projetos doados pelo setor privado, «milhões
+nos últimos dois anos». As duas leituras se conciliam, e o resultado é o achado: a capacidade
+de preparar projeto existe em Maringá, existe fora da prefeitura, por doação, sem
+previsibilidade nem escala garantida.
+
+### A convergência mais forte
+
+Nove das 17 sessões, em quatro setores, apontam a **gestão da arborização** como vulnerabilidade
+central: plano existente e não aplicado na etapa de reposição (ENT-006, ENT-007, ENT-009,
+ENT-014, ENT-019, ENT-020), ausência de unidade de parques e jardins e viveiro sem porte
+(ENT-019, ENT-020), fila de poda que empurra o morador para a poda clandestina (ENT-007) e
+oito meses de espera por autorização de supressão (ENT-016). O mecanismo hidrológico foi
+triangulado: a folha obstrui a rede e produz o alagamento (ENT-008, confirmado em campo por
+ENT-010-ENT-011 e ENT-019).
 
 ## 8. Piloto ENT-003
 
@@ -263,14 +286,40 @@ diagnósticos concorrentes sobre a mesma cidade.
 
 ## 9. Decisões pendentes
 
-1. **O nível de detalhe do piloto serve?** Trinta evidências por entrevista, com trecho
-   literal e paráfrase analítica. Se for demais, o corte natural é abandonar a paráfrase nas
-   evidências de confiança baixa.
-2. **`ENT-012` é qual entrevista?** Ou o código está vago e deve sair da matriz de controle.
-3. **O termo de `ENT-009` existe?** Sem ele, a entrevista fica fora do diagnóstico.
-4. **Completar o crosswalk das 13 perguntas sem vínculo?** Não bloqueia a codificação, mas é
-   entregável do Produto 2 e a lacuna vai aparecer na revisão.
-5. **Codificar por falante nas entrevistas com mais de um participante?** Recomendado para
-   `ENT-010` e `ENT-015`.
-6. **As três sessões complementares** (fazenda/planejamento, planejamento urbano,
-   procuradoria) serão realizadas, ou o eixo 2 será sustentado documentalmente?
+1. **As quatro sessões sem TCLE** — `ENT-009`, `ENT-012`, `ENT-014` e `ENT-016` foram
+   codificadas e cada evidência delas traz a marca «sessão sem TCLE» no próprio texto. Não
+   alimentam o diagnóstico enquanto o termo não for localizado. São 106 evidências em
+   suspenso, incluindo achados que não têm substituto no restante do corpus (a resistência
+   fazendária à vinculação de receita, o IPTU Verde empresarial, o poço de infiltração
+   testado, a transferência de potencial construtivo). **Localizar esses termos é a pendência
+   de maior retorno do projeto.**
+
+2. **A divergência sobre ocupação irregular.** Cinco posições sobre o mesmo fato: o registro
+   oficial informa zero ocupações (ENT-010-ENT-011), ENT-008 e ENT-015 negam ocupação em fundo
+   de vale, e ENT-007, ENT-009 e ENT-014 relatam áreas irregulares, passivo fundiário e um
+   movimento organizado de moradores de fundo de vale surgido na revisão do plano diretor. Se
+   o número oficial for zero por ausência de registro e não por ausência do fenômeno, o recorte
+   de sensibilidade do plano de adaptação em elaboração está sendo construído sobre uma lacuna.
+   **Verificação documental na Matriz 2, antes do Roadmap.**
+
+3. **O que verificar na Matriz 2**, a partir das alegações de sessões sem TCLE, registradas
+   como divergência ou percepção de confiança baixa e nunca como fato: o decreto que teria
+   dispensado EIA/RIMA e EIV; o saldo do fundo ambiental; o aporte público no data center;
+   a lei que financia o conselho de desenvolvimento econômico; a adesão de Maringá ao programa
+   federal de planos de adaptação, que nem o órgão contratante nem a consultoria conheciam.
+
+4. **Produtos técnicos que existem e não circulam** — o inventário arbóreo premiado, a que a
+   consultoria do plano de adaptação não teve acesso (ENT-010-ENT-011); o plano de manejo da
+   arborização, elaborado com participação acadêmica e não aplicado (ENT-019); o plano de
+   manejo do parque, entregue e engavetado (ENT-020); o plano municipal de resíduos, de quinze
+   anos atrás (ENT-020); o mapa colaborativo de ocorrências, de estado desconhecido (ENT-007).
+   **Antes de encomendar estudo novo, levantar o que já foi produzido sobre Maringá** — e o
+   mesmo vale para o levantamento das normas municipais que incidem sobre a agenda climática,
+   que nunca foi feito (ENT-020).
+
+5. **Completar o crosswalk das 13 perguntas sem vínculo** — não bloqueia mais a codificação,
+   que está encerrada, mas segue sendo entregável do Produto 2.
+
+6. **As três sessões complementares** (fazenda/planejamento, planejamento urbano, procuradoria)
+   serão realizadas, ou o eixo 2 será sustentado documentalmente? A codificação reduziu o custo
+   de não fazê-las, sem eliminá-lo.
