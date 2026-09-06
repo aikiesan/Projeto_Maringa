@@ -55,6 +55,12 @@ CSS = """
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  /* Aliases do tema antigo. A tela de senha de tools/lock.py é injetada DEPOIS
+     deste bloco de estilo e usa estes nomes; sem eles o cartão da senha fica
+     sem fundo e sem contraste — literalmente transparente. */
+  --paper:var(--bg); --surface:var(--card); --ink:var(--fg); --muted:var(--mut);
+  --accent:var(--acc); --accent-bg:var(--acc-bg); --line-strong:var(--mut);
+  --crit-ink:var(--crit); --shadow:0 1px 2px rgba(0,0,0,.05),0 8px 28px rgba(0,0,0,.07);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#131519; --fg:#e9e8e4; --mut:#a2a6b0; --line:#2b2f36; --card:#191c21;
