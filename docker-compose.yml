@@ -1,0 +1,51 @@
+# Ambiente local do banco analítico — Projeto CEPAL/IPPLAM Maringá.
+#
+#   docker compose up -d          sobe postgres + adminer
+#   docker compose down           para (o volume pgdata sobrevive)
+#   docker compose down -v        apaga o banco
+#
+# Depois de subir, na primeira vez:
+#   set DATABASE_URL=postgresql://maringa:maringa@localhost:55432/maringa
+#   python -m database.migrate
+#   python -m tools.load_evidence --all
+#
+# Adminer em http://localhost:8080  (sistema PostgreSQL, servidor `db`,
+# usuário e senha conforme .env).
+#
+# O banco NÃO é fonte de verdade: ele é derivado dos CSV de codebook/.
+# Pode ser destruído e reconstruído a qualquer momento.
+
+services:
+  db:
+    image: postgres:16
+    container_name: maringa_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-maringa}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-maringa}
+      POSTGRES_DB: ${POSTGRES_DB:-maringa}
+      # acentuação correta em nomes de dimensão e trechos
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      # porta alta no host para não colidir com um postgres local em 5432
+      - "${DB_PORT:-55432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-maringa} -d ${POSTGRES_DB:-maringa}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  adminer:
+    image: adminer:4
+    container_name: maringa_adminer
+    restart: unless-stopped
+    ports:
+      - "${ADMINER_PORT:-8080}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

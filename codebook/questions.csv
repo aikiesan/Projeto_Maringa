@@ -1,0 +1,38 @@
+id,block,text
+PUB1,PUB,"Como as mudanças climáticas estão incorporadas às políticas, planos, instrumentos e atividades sob responsabilidade da instituição? Qual é o estágio de implementação dessas iniciativas?"
+PUB2,PUB,"Quais riscos, vulnerabilidades e impactos climáticos são relevantes para a atuação da instituição? Como essas informações influenciam o planejamento, a definição de prioridades e a tomada de decisão?"
+PUB3,PUB,"Quais dados, estudos e sistemas de informação são utilizados para apoiar essas decisões? Como você avalia sua qualidade, atualização, cobertura, integração entre órgãos e utilização? Quais são as principais lacunas?"
+PUB4,PUB,"Quais metas, indicadores e mecanismos de monitoramento são utilizados para acompanhar a implementação e os resultados das ações climáticas?"
+PUB5,PUB,"Como as prioridades climáticas são incorporadas ao planejamento governamental, ao orçamento e à definição dos investimentos municipais?"
+PUB6,PUB,"Quais projetos climáticos foram financiados recentemente, estão em execução ou em preparação? Quais foram as fontes de recursos e quais dificuldades foram encontradas na preparação, captação ou execução?"
+PUB7,PUB,"Além das fontes já utilizadas, quais mecanismos poderiam ampliar e diversificar os recursos disponíveis para investimentos climáticos? Qual é a capacidade do Município de ampliar receitas, oferecer contrapartidas ou acessar novas formas de financiamento?"
+PUB8,PUB,"Como estão distribuídas as responsabilidades e como ocorre a coordenação entre os órgãos municipais para planejar, financiar, implementar e monitorar a agenda climática?"
+PUB9,PUB,"Como Maringá se articula com Estado, União, outros municípios e instâncias regionais, instituições financeiras, setor privado, academia e sociedade civil para desenvolver e financiar ações climáticas?"
+PUB10,PUB,Quais são hoje as principais barreiras para ampliar a implementação e o financiamento da agenda climática de Maringá? O que deveria ser prioritariamente fortalecido?
+PRI1,PRI,Quais riscos e impactos das mudanças climáticas considera mais relevantes para Maringá e suas atividades econômicas?
+PRI2,PRI,Como avalia as políticas e ações atualmente desenvolvidas pelo Município para enfrentar as mudanças climáticas? O que funciona e o que precisa avançar?
+PRI3,PRI,"Quais áreas, serviços, infraestruturas ou ações deveriam ser priorizados nos investimentos climáticos de Maringá?"
+PRI4,PRI,"Os dados e informações disponíveis são suficientes para avaliar riscos e apoiar decisões de investimento? Como avalia sua qualidade, atualização e acesso e quais são as principais lacunas?"
+PRI5,PRI,"Sua instituição ou setor já participou, financiou ou investiu em projetos relacionados ao clima, sustentabilidade ou resiliência? O que facilitou ou dificultou essas experiências?"
+PRI6,PRI,"Que oportunidades e mecanismos poderiam ampliar a participação privada no financiamento e na implementação de projetos climáticos em Maringá, incluindo PPPs, concessões e outras formas de parceria?"
+PRI7,PRI,Como avalia o diálogo e a cooperação entre Prefeitura e setor privado para desenvolver e financiar projetos climáticos? Como poderiam ser fortalecidos?
+PRI8,PRI,"Como a cooperação entre Maringá, outros municípios e instituições da região poderia contribuir para ampliar oportunidades de projetos e investimentos climáticos?"
+PRI9,PRI,Quais são as principais barreiras para ampliar o investimento privado em ações climáticas em Maringá e o que deveria ser prioritariamente fortalecido?
+ACA1,ACA,"Quais riscos, vulnerabilidades e impactos das mudanças climáticas considera mais relevantes para Maringá?"
+ACA2,ACA,Como avalia as políticas e ações atualmente desenvolvidas pelo Município para enfrentar as mudanças climáticas? O que funciona e o que precisa avançar?
+ACA3,ACA,"Quais temas, territórios, grupos, serviços ou infraestruturas deveriam ser priorizados nos investimentos climáticos do Município?"
+ACA4,ACA,"Os dados e estudos existentes são suficientes para compreender os riscos climáticos e orientar políticas e investimentos? Como avalia sua qualidade, atualização, cobertura e integração e quais são as principais lacunas?"
+ACA5,ACA,"Que estudos, conhecimentos, tecnologias ou soluções disponíveis na academia poderiam apoiar o planejamento, a estruturação e a avaliação de projetos climáticos em Maringá?"
+ACA6,ACA,"Como poderia ser fortalecida a cooperação entre Prefeitura e instituições de ensino e pesquisa para produzir dados, desenvolver projetos e avaliar seus resultados?"
+ACA7,ACA,"De que forma sua instituição poderia contribuir concretamente para o planejamento, estruturação, implementação ou monitoramento das ações climáticas de Maringá?"
+ACA8,ACA,"Como a cooperação entre Maringá, outros municípios e instituições da região poderia fortalecer a produção de conhecimento, o desenvolvimento de projetos e o acesso a financiamento climático?"
+ACA9,ACA,Quais são as principais lacunas de conhecimento e capacidade técnica que hoje limitam a agenda climática de Maringá e o que deveria ser prioritariamente fortalecido?
+SOC1,SOC,Quais riscos e impactos das mudanças climáticas considera mais importantes para Maringá? Quais grupos ou áreas da cidade são mais afetados?
+SOC2,SOC,Como avalia as ações que o Município desenvolve para enfrentar esses riscos? O que funciona e o que precisa melhorar?
+SOC3,SOC,As ações e investimentos climáticos atendem às necessidades dos grupos e territórios mais vulneráveis? Quais deveriam receber maior atenção?
+SOC4,SOC,"Quais ações, serviços ou infraestruturas deveriam ser priorizados nos próximos investimentos climáticos?"
+SOC5,SOC,"As informações sobre riscos, políticas, projetos e investimentos climáticos são suficientes e acessíveis à sociedade? O que deveria ser melhorado?"
+SOC6,SOC,Como a sociedade civil participa atualmente da definição das prioridades e do acompanhamento das ações e recursos climáticos? Como essa participação poderia ser fortalecida?
+SOC7,SOC,"De que forma sua organização ou o segmento que representa poderia contribuir para o planejamento, implementação ou acompanhamento das ações climáticas?"
+SOC8,SOC,"Como a cooperação entre Maringá, outros municípios e organizações da região poderia contribuir para enfrentar problemas climáticos comuns?"
+SOC9,SOC,Quais são hoje as principais dificuldades para que os investimentos climáticos produzam resultados para a população e o que deveria ser prioritariamente fortalecido?

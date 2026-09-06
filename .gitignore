@@ -3,3 +3,35 @@ __pycache__/
 .DS_Store
 *.tmp
 database/maringa_project.db
+
+# ---------------------------------------------------------------------------
+# Acervo sob TCLE — NUNCA versionar. Contém nomes, cargos e instituições
+# nominais dos participantes (Anexo 02). A camada anonimizada autoritativa é
+# codebook/interviews.csv; a identificação vive apenas em participants_vault,
+# no banco local.
+# ---------------------------------------------------------------------------
+transcricoes/
+DRIVE_FILES/
+Termos*/
+Registros*/
+*_Transcrição.docx
+*_Transcricao.docx
+*_Resumo.docx
+*_Gravação.mp4
+*_Gravacao.mp4
+Lista de Entrevistas.xlsx
+lista de convidados*
+saida_triagem/
+*.triagem.md
+
+# ambiente local
+.env
+pgdata/
+*.log
+
+# arquivos avulsos que caem na pasta e nao pertencem ao repositorio
+Claude outputs/
+*.exe
+*.winmd
+*.msi
+show*.pdf
