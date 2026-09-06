@@ -6,8 +6,9 @@ Conditions for Urban Climate Finance* (CCFLA / Urban-Act, 2024), priorizada para
 no Produto 2.
 
 > Documento reconstruído em 06/09/2026 a partir do protocolo publicado e do
-> `dashboard.json` recuperado (versão de 01/09/2026). Substitui o artefato como
-> registro versionável do método.
+> `dashboard.json` recuperado (versão de 01/09/2026), e atualizado no mesmo dia
+> contra o acervo completo (17 sessões). Substitui o artefato como registro
+> versionável do método.
 
 ---
 
@@ -30,7 +31,7 @@ minutos produz dezenas dessas unidades, espalhadas pelos quatro eixos. Um mesmo 
 pode gerar duas evidências em dimensões diferentes.
 
 **A ausência de evidência é resultado, não falha.** Quando uma dimensão de prioridade
-«Muito alta» atravessa quatorze entrevistas sem produzir uma única evidência, isso é um
+«Muito alta» atravessa o corpus inteiro sem produzir uma única evidência, isso é um
 achado do diagnóstico.
 
 ### Cadeia da evidência
@@ -178,39 +179,48 @@ leitura sem âncora.
 
 ## 6. Estado do acervo e ressalvas
 
-**14 sessões distintas ocupando 16 códigos ENT · 11h26 de registro · 6.969 turnos.**
-Tempo por setor: sociedade civil 193 min (4 sessões), público 189 min (4), especial 180 min
-(3), privado 88 min (2), academia 48 min (1).
+**17 sessões distintas ocupando 20 códigos ENT · 13h05 de registro · 7.778 turnos.**
+Levantamento automático por `tools/ingest_registros.py`, que cruza os falantes de cada
+transcrição com a Lista de Entrevistas, confere a pasta de termos assinados e detecta
+duplicata por md5 do texto — não por nome de pasta.
+
+Distribuição: público 4 sessões, sociedade civil 4, academia 3, especial 3, privado 3.
 
 | Situação | Constatação | Tratamento |
 |---|---|---|
-| **Duplicata** | `ENT-011` e `ENT-012` têm transcrição e resumo com md5 idêntico, gravações idênticas, mesma data e mesmo convidado — é o mesmo registro sob dois códigos | `ENT-012` excluído de toda contagem e da matriz |
-| **Sem TCLE** | `ENT-009` (empresa de mercado de carbono) não consta da Lista de Entrevistas nem dos termos assinados | Aparece na matriz, não deve alimentar o diagnóstico até o termo ser localizado |
-| **Cobertura de termos** | 14 dos 26 termos localizados assinados | `tcle_signed` nunca por inferência |
-| **Sessões mistas** | `ENT-001-ENT-002`, `ENT-010` e `ENT-015` têm dois participantes; em `ENT-015` os setores divergem | Contadas como uma sessão; codificar por falante |
-| **Reidentificação** | Instituições singulares são identificáveis pelo rótulo genérico | Risco residual assumido e registrado (§3) |
+| **Sem TCLE** | `ENT-009`, `ENT-012`, `ENT-014` e `ENT-016` não têm termo assinado localizado | Aparecem na matriz; não devem alimentar o diagnóstico até o termo ser localizado. `tcle` nunca por inferência |
+| **Fora da Lista** | Em `ENT-009` e `ENT-017-ENT-018` há falante que não consta da Lista de Entrevistas | Casamento manual; tipo de instituição atribuído por conferência |
+| **Sessões conjuntas** | `ENT-001-ENT-002`, `ENT-010-ENT-011` e `ENT-017-ENT-018` têm dois participantes | Contadas como uma sessão; codificar por falante na leitura |
+| **Diarização** | A transcrição automática de `ENT-001-ENT-002` atribui todos os turnos a um único nome | Separação feita por leitura, registrada em `notes` |
+| **Duplicata — corrigido** | O registro de 01/09 dava `ENT-011` e `ENT-012` como o mesmo arquivo | **Não se confirma** no acervo atual: a pasta ENT-011 traz a sessão conjunta `ENT-010-ENT-011` e `ENT-012` tem registro próprio, com md5 distinto |
+| **Reidentificação** | Instituições singulares são identificáveis pelo rótulo genérico | Risco residual assumido (§3) |
 
 ---
 
 ## 7. Lacuna de cobertura institucional
 
-Sete dimensões atravessaram as 14 sessões sem uma única menção: `1.1.2`, `1.1.6`, `2.1.3`,
-**`2.2.1` orçamento verde**, **`2.2.2` rastreamento de gastos climáticos**,
-**`3.1.3` inventário municipal de GEE** e `3.2.4` — as três em negrito com prioridade
-«Muito alta».
+Oito dimensões atravessaram as 17 sessões sem menção na pré-triagem e sem evidência
+codificada: `1.1.2`, `1.1.6`, **`2.2.1` orçamento verde**, **`2.2.2` rastreamento de
+gastos**, **`2.2.3` integração PPA/LDO/LOA**, `2.6.4`, **`3.1.3` inventário municipal de
+GEE** e `3.2.4` — as três em negrito com prioridade «Muito alta».
+
+*(A codificação é mais fina que a triagem: `ENT-001-ENT-002` produziu evidência para
+`2.2.1` e `2.2.3` por leitura, ainda que o léxico não as tenha alcançado. As dimensões
+que seguem sem qualquer evidência codificada de prioridade «Muito alta» são `2.2.2`,
+`2.3.2` e `3.1.3`.)*
 
 A causa é institucional. Não há registro de entrevista para: Fazenda/Planejamento,
-planejamento urbano (IPPLAM), obras públicas, urbanismo e habitação, procuradoria, limpeza
-urbana, mobilidade, órgão ambiental estadual, COMDEMA e universidade pública. O eixo 2 é
-justamente o eixo cuja fonte primária está ausente — **as menções financeiras vêm de quem
-usa o orçamento, não de quem o monta.**
+planejamento urbano (IPPLAM), obras públicas, urbanismo e habitação, procuradoria,
+limpeza urbana, mobilidade, órgão ambiental estadual e COMDEMA. O eixo 2 concentra 25
+das 55 dimensões e é justamente o eixo cuja fonte primária está ausente — **as menções
+financeiras vêm de quem usa o orçamento, não de quem o monta.**
 
-Isso não invalida a evidência coletada; delimita o que ela pode sustentar.
+A universidade pública, que constava como ausente no levantamento de 01/09, passou a ter
+registro: `ENT-019` e `ENT-020`, ambas na UEM, cobrem `3.2.1`.
 
 **Duas saídas:** três sessões adicionais (fazenda/planejamento, planejamento urbano,
-procuradoria) cobririam a maior parte do vazio; ou sustentar essas dimensões por evidência
-documental na Matriz 2 (PPA, LDO, LOA, QDD, relatórios de execução), que não depende de
-entrevista.
+procuradoria) cobririam a maior parte do vazio; ou sustentar essas dimensões por
+evidência documental na Matriz 2 (PPA, LDO, LOA, QDD, relatórios de execução).
 
 ---
 

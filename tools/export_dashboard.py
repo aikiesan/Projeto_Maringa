@@ -42,6 +42,19 @@ def load_evidence() -> list[dict]:
 
 
 def load_triage() -> dict:
+    """Matriz entrevista × dimensão, de `codebook/triage_matrix.csv`.
+
+    Gerada por `python -m tools.triage --all`. Se o arquivo não existir, cai para
+    a triagem embutida na versão anterior do dashboard.
+    """
+    import csv
+    path = ROOT / "codebook" / "triage_matrix.csv"
+    if path.exists():
+        out: dict[str, dict[str, int]] = {}
+        with path.open(encoding="utf-8-sig", newline="") as f:
+            for r in csv.DictReader(f):
+                out.setdefault(r["interview"], {})[r["dimension_code"]] = int(r["hits"])
+        return out
     if OUT.exists():
         try:
             return json.loads(OUT.read_text(encoding="utf-8")).get("triage", {})

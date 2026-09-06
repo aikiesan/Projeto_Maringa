@@ -41,12 +41,22 @@ def paragraphs(path: str | Path) -> list[str]:
 
 
 def turns(path: str | Path) -> list[Turn]:
+    """Turnos da transcrição.
+
+    Tudo que vem antes da primeira marca de tempo é cabeçalho (data e título da
+    reunião) e é descartado — senão uma linha como «Reunião em 2 de set. às 12:30»
+    é lida como falante por causa dos dois-pontos.
+    """
     ts = "00:00:00"
     out: list[Turn] = []
+    comecou = False
     for p in paragraphs(path):
         m = TS_RE.match(p)
         if m:
             ts = m.group(1)
+            comecou = True
+            continue
+        if not comecou:
             continue
         m = TURN_RE.match(p)
         if m:

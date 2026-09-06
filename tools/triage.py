@@ -61,13 +61,61 @@ def scan(code: str, only_dim: str | None = None) -> dict[str, list]:
     return found
 
 
+def scan_all() -> dict[str, dict[str, int]]:
+    """Triagem de todas as transcrições: código → {dimensão: ocorrências}."""
+    out = {}
+    for path in sorted(TRANSCRIPTS.glob("*_Transcrição.docx")):
+        code = path.name.replace("_Transcrição.docx", "")
+        found = scan(code)
+        out[code] = {d: len(rows) for d, rows in sorted(found.items())}
+    return out
+
+
+def commit_matrix() -> None:
+    """Grava codebook/triage_matrix.csv e atualiza as contagens em interviews.csv."""
+    import csv
+    m = scan_all()
+    mp = ROOT / "codebook" / "triage_matrix.csv"
+    with mp.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["interview", "dimension_code", "hits"])
+        for code, dims in m.items():
+            for dim, n in sorted(dims.items()):
+                w.writerow([code, dim, n])
+
+    ip = ROOT / "codebook" / "interviews.csv"
+    rows = list(csv.DictReader(ip.open(encoding="utf-8-sig")))
+    cols = list(rows[0])
+    for r in rows:
+        d = m.get(r["code"])
+        if d is not None:
+            r["n_dim_candidates"] = len(d)
+            r["n_hits"] = sum(d.values())
+    with ip.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
+        w.writeheader()
+        w.writerows(rows)
+    tot = sum(sum(d.values()) for d in m.values())
+    print(f"{len(m)} sessões triadas · {tot} ocorrências · "
+          f"{len({d for v in m.values() for d in v})} dimensões com ao menos um candidato")
+    print(f"gravado: {mp.relative_to(ROOT)} e {ip.relative_to(ROOT)}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("code")
+    ap.add_argument("code", nargs="?")
     ap.add_argument("--md", action="store_true", help="saída em markdown, com os trechos")
     ap.add_argument("--dim", help="restringe a uma dimensão")
     ap.add_argument("--min", type=int, default=1, help="mínimo de ocorrências para listar")
+    ap.add_argument("--all", action="store_true",
+                    help="tria todas as transcrições e grava a matriz")
     args = ap.parse_args()
+
+    if args.all:
+        commit_matrix()
+        return 0
+    if not args.code:
+        ap.error("informe um código ou use --all")
 
     found = scan(args.code, args.dim)
     dims = cb.dimension_index()
