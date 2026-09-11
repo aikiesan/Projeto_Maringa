@@ -256,6 +256,11 @@ def preservar(sessoes: list[dict]) -> list[dict]:
         for campo in ("sector", "institution_type", "block"):
             if not s.get(campo) and a.get(campo):
                 s[campo] = a[campo]
+        # n_participants é curado à mão: a contagem automática é por falante
+        # distinto, e onde a diarização funde dois participantes num só rótulo
+        # (ENT-001-ENT-002) ela devolve menos gente do que esteve na sessão.
+        if a.get("n_participants"):
+            s["n_participants"] = a["n_participants"]
         for campo in ("n_dim_candidates", "n_hits", "notes"):
             if a.get(campo):
                 s.setdefault(campo, a[campo])
