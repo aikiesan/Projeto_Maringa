@@ -33,5 +33,23 @@ pgdata/
 vault/
 saida_triagem/
 
+# saída da anonimização das transcrições (tools/anonimizar_transcricoes.py).
+# Os anexos são anonimizados, mas o relatório e o revisar.csv citam nomes e
+# trechos do texto original — nada disso vai ao repositório.
+saida_anonimizacao/
+
+# contatos nominais dos pontos focais (Produto 3) e saídas do painel que os embutem
+data/contacts.json
+docs/data/contacts.json
+static/data/contacts.json
+/index.html
+public/index.html
+P3_Base_Mapeamento_Atores_Maringa.xlsx
+
+# binários sem relação com o projeto
+*.exe
+*.winmd
+show*.pdf
+
 # senha do painel publicado (usada por tools/lock.py)
 .senha

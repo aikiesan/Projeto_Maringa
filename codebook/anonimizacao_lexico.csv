@@ -1,0 +1,99 @@
+termo,tipo,substituto,escopo,nota
+Instituto de Pesquisa e Planejamento Urbano de Maringá,nominal,[instituto de planejamento],sempre,IPPLAM
+IPPLAM,acronimo,[instituto de planejamento],sempre,IPPLAM
+IPLAN,asr,[instituto de planejamento],sempre,IPPLAM
+IPLAM,asr,[instituto de planejamento],sempre,IPPLAM
+IPLÃ,asr,[instituto de planejamento],sempre,IPPLAM
+IPAN,asr,[instituto de planejamento],sempre,IPPLAM
+IPLU,asr,[instituto de planejamento],sempre,IPPLAM
+EPLU,asr,[instituto de planejamento],sempre,IPPLAM
+IPL,asr,[instituto de planejamento],sempre,IPPLAM
+Instituto Ambiental de Maringá,nominal,[órgão ambiental municipal],sempre,IAM
+IAM,acronimo,[órgão ambiental municipal],sempre,IAM
+IAN,asr,[órgão ambiental municipal],sempre,IAM
+Secretaria Municipal de Obras Públicas,nominal,[secretaria de obras],proprio,SEMOP
+Secretaria de Obras Públicas,nominal,[secretaria de obras],proprio,SEMOP
+SEMOP,acronimo,[secretaria de obras],proprio,SEMOP
+CMOP,asr,[secretaria de obras],proprio,SEMOP
+Secretaria Municipal de Infraestrutura,nominal,[secretaria de infraestrutura],proprio,SEINFRA
+Secretaria de Infraestrutura,nominal,[secretaria de infraestrutura],proprio,SEINFRA
+SEINFRA,acronimo,[secretaria de infraestrutura],proprio,SEINFRA
+Secretaria de Urbanismo e Habitação,nominal,[secretaria de urbanismo],proprio,SEURBH
+SEURBH,acronimo,[secretaria de urbanismo],proprio,SEURBH
+SEURB,asr,[secretaria de urbanismo],proprio,SEURBH
+CURB,asr,[secretaria de urbanismo],proprio,SEURBH
+Secretaria Municipal de Governo,nominal,[secretaria municipal de governo],proprio,SEGOV
+Secretaria de Governo,nominal,[secretaria municipal de governo],proprio,SEGOV
+SEGOV,acronimo,[secretaria municipal de governo],proprio,SEGOV
+Cegóvia,asr,[secretaria municipal de governo],proprio,SEGOV
+Secretaria Municipal de Fazenda,nominal,[secretaria municipal de fazenda],proprio,SEFAZ
+SEFAZ,acronimo,[secretaria municipal de fazenda],proprio,SEFAZ
+SEPRA,asr,[secretaria municipal de fazenda],proprio,SEFAZ
+SEFRA,asr,[secretaria municipal de fazenda],proprio,SEFAZ
+Secretaria Municipal de Educação,nominal,[secretaria de educação],proprio,SEDUC
+SEDUC,acronimo,[secretaria de educação],proprio,SEDUC
+Secretaria de Limpeza Urbana,nominal,[secretaria de limpeza urbana],proprio,SELURB
+SELURB,acronimo,[secretaria de limpeza urbana],proprio,SELURB
+Secretaria de Comunicação,nominal,[secretaria de comunicação],proprio,SECOM
+SECOM,acronimo,[secretaria de comunicação],proprio,SECOM
+Coordenadoria Municipal de Proteção e Defesa Civil,nominal,[órgão de proteção e defesa civil],proprio,Defesa Civil
+Defesa Civil,nominal,[órgão de proteção e defesa civil],proprio,Defesa Civil
+COMPEDEC,asr,[órgão de proteção e defesa civil],proprio,Defesa Civil
+Câmara de Vereadores,nominal,[Poder Legislativo municipal],proprio,Câmara
+Câmara Municipal,nominal,[Poder Legislativo municipal],proprio,Câmara
+Universidade Estadual de Maringá,nominal,[universidade pública],proprio,UEM
+UEM,acronimo,[universidade pública],proprio,UEM
+UniCesumar,nominal,[universidade privada],proprio,UniCesumar
+Cesumar,nominal,[universidade privada],proprio,UniCesumar
+Universidade Livre do Meio Ambiente,nominal,[organização técnica ambiental],proprio,UNILIVRE
+UNILIVRE,acronimo,[organização técnica ambiental],proprio,UNILIVRE
+Unilivre,nominal,[organização técnica ambiental],proprio,UNILIVRE
+Banco Regional de Desenvolvimento do Extremo Sul,nominal,[banco público de desenvolvimento regional],proprio,BRDE
+BRDE,acronimo,[banco público de desenvolvimento regional],proprio,BRDE
+BRD,asr,[banco público de desenvolvimento regional],proprio,BRDE
+Conselho de Desenvolvimento Econômico de Maringá,nominal,[conselho de desenvolvimento econômico],proprio,CODEM
+CODEM,acronimo,[conselho de desenvolvimento econômico],proprio,CODEM
+CODEN,asr,[conselho de desenvolvimento econômico],proprio,CODEM
+CODENM,asr,[conselho de desenvolvimento econômico],proprio,CODEM
+Conselho de Arquitetura e Urbanismo,nominal,[conselho profissional de arquitetura e urbanismo],proprio,CAU
+CAU/PR,acronimo,[conselho profissional de arquitetura e urbanismo],proprio,CAU
+CAU/BR,acronimo,[conselho profissional de arquitetura e urbanismo],proprio,CAU
+CAU,acronimo,[conselho profissional de arquitetura e urbanismo],proprio,CAU
+CAL,asr,[conselho profissional de arquitetura e urbanismo],proprio,CAU
+Carl Paraná,asr,[conselho profissional de arquitetura e urbanismo],proprio,CAU
+Instituto de Arquitetos do Brasil,nominal,[entidade profissional de arquitetura e urbanismo],proprio,IAB
+IAB,acronimo,[entidade profissional de arquitetura e urbanismo],proprio,IAB
+EAB,asr,[entidade profissional de arquitetura e urbanismo],proprio,IAB
+Trevo Carbon,nominal,[empresa de mercado de carbono],proprio,Trevo
+Trevo,nominal,[empresa de mercado de carbono],proprio,Trevo
+Escritório de Cooperação Internacional,nominal,[escritório de cooperação internacional],proprio,ECI
+BiodeverCidade,nominal,[organização de sociedade civil],proprio,BiodeverCidade
+Sanepar,nominal,[companhia de saneamento],sempre,concessionária de saneamento
+Sandepar,asr,[companhia de saneamento],sempre,ASR de Sanepar
+Sanepá,asr,[companhia de saneamento],sempre,ASR de Sanepar
+CEPAR,asr,[companhia de saneamento],sempre,ASR de Sanepar
+Cinear,asr,[companhia de saneamento],sempre,ASR de Sanepar
+Sindicato da Indústria da Construção Civil,nominal,[sindicato da construção civil],sempre,Sinduscon
+SINDUSCON,acronimo,[sindicato da construção civil],sempre,Sinduscon
+BNDES,acronimo,,nunca,§3 — banco federal de fomento
+FINEP,acronimo,,nunca,§3 — agência federal
+BID,acronimo,,nunca,§3 — organismo multilateral
+FONPLATA,acronimo,,nunca,§3 — organismo multilateral
+CAF,acronimo,,nunca,§3 — organismo multilateral
+Banco do Brasil,nominal,,nunca,§3 — banco público
+Caixa Econômica Federal,nominal,,nunca,§3 — banco público
+IAT,acronimo,,nunca,§3 — órgão ambiental estadual
+Instituto Água e Terra,nominal,,nunca,§3 — órgão ambiental estadual
+COMDEMA,acronimo,,nunca,§3 — conselho municipal; composição é ato público
+CONDEMA,acronimo,,nunca,§3 — conselho municipal; composição é ato público
+AMUSEP,acronimo,,nunca,§3 — associação de municípios
+CREA,acronimo,,nunca,§3 — conselho profissional
+ACIM,acronimo,,nunca,§3 — associação comercial
+OAB,acronimo,,nunca,§3 — conselho profissional
+Ordem dos Advogados do Brasil,nominal,,nunca,§3 — conselho profissional
+IBGE,acronimo,,nunca,§3 — órgão federal de estatística
+CEPAL,acronimo,,nunca,§3 — contratante do projeto
+ONU,acronimo,,nunca,§3 — organismo multilateral
+CCFLA,acronimo,,nunca,§3 — metodologia pública
+Observatório Social,nominal,,nunca,§3 — entidade de controle social
+Brisa Soluções Ambientais,nominal,,nunca,§3 — consultoria executora; nomeada na capa
