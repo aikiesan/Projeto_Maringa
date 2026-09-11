@@ -138,18 +138,35 @@ def base() -> dict:
         s["prioridade_max"] = max((RANK.get(dims[c]["priority"], 0)
                                    for c in s["dimensoes"]), default=0)
         if notas:
+            # O rótulo sai da MODA, não de média nem de mediana. A escala é ordinal e
+            # a distribuição é tipicamente bimodal: 1.2 tem 28 evidências em
+            # «inexistente» e 18 em «em_implementacao», e a média dessas duas pontas
+            # cai em 1,54 — «Formalizado» —, estágio que só 2 das 52 evidências
+            # sustentam. A média descreveria um estado que o corpus não registra.
+            dist = Counter(notas)
+            moda = max(dist, key=lambda v: (dist[v], -v))
             s["maturidade_media"] = round(statistics.mean(notas), 2)
             s["maturidade_mediana"] = statistics.median(notas)
-            # O rótulo sai da média, não da mediana. Com dispersão perto de 2 — que é
-            # o caso de quase toda subcategoria aqui — a mediana cai no valor mais
-            # repetido e não no centro: 4.2 tem média 1.92 e mediana 0, e chamar isso
-            # de «Inexistente» apagaria metade das evidências.
-            s["maturidade_rotulo"] = ROTULO[round(statistics.mean(notas))]
+            s["maturidade_moda"] = moda
+            s["maturidade_rotulo"] = ROTULO[moda]
             s["dispersao"] = round(statistics.pstdev(notas), 2) if len(notas) > 1 else 0.0
+            s["share_inexistente"] = round(100 * dist.get(0, 0) / len(notas))
+            # Duas concentrações afastadas na escala não descrevem estágio
+            # intermediário: descrevem condição que existe numa frente e não existe
+            # noutra. Isso é achado, e o relatório precisa dizê-lo em vez de mediar.
+            top = dist.most_common(2)
+            s["perfil"] = ("bimodal" if len(top) > 1
+                           and top[1][1] >= 0.25 * len(notas)
+                           and abs(top[0][0] - top[1][0]) >= 2
+                           else "concentrado" if s["dispersao"] < 1.2 else "disperso")
+            s["perfil_polos"] = ([ROTULO[top[0][0]], ROTULO[top[1][0]]]
+                                 if s["perfil"] == "bimodal" else [])
         else:
-            s["maturidade_media"] = s["maturidade_mediana"] = None
+            s["maturidade_media"] = s["maturidade_mediana"] = s["maturidade_moda"] = None
             s["maturidade_rotulo"] = "Sem evidência"
-            s["dispersao"] = None
+            s["dispersao"] = s["share_inexistente"] = None
+            s["perfil"] = "sem evidência"
+            s["perfil_polos"] = []
         del s["evidencias"]
 
     # ── maturidade por setor ───────────────────────────────────────────────
@@ -159,9 +176,13 @@ def base() -> dict:
         m = e["maturity"]
         if m in ESCALA and m not in FORA:
             por_setor[setor_de.get(e["interview"], "?")].append(ESCALA[m])
-    setores = {k: {"n": len(v), "media": round(statistics.mean(v), 2),
-                   "rotulo": ROTULO[round(statistics.median(v))]}
-               for k, v in sorted(por_setor.items())}
+    def perfil_setor(v: list[int]) -> dict:
+        dist = Counter(v)
+        moda = max(dist, key=lambda x: (dist[x], -x))
+        return {"n": len(v), "media": round(statistics.mean(v), 2),
+                "rotulo": ROTULO[moda],
+                "share_inexistente": round(100 * dist.get(0, 0) / len(v))}
+    setores = {k: perfil_setor(v) for k, v in sorted(por_setor.items())}
 
     return {"consultas": consultas, "cobertura": cobertura,
             "subcategorias": [subs[k] for k in sorted(subs)], "setores": setores}
@@ -197,17 +218,20 @@ def painel(b: dict) -> None:
         print(f"           {d['code']:<7} {d['prioridade']:<11} {d['nome'][:52]}")
 
     print("\nMATRIZ v2 — insumo por subcategoria")
-    print(f"  {'':<6} {'':<46} {'dim':>6} {'evid':>5} {'sess':>5} {'méd':>5} {'disp':>5}  maturidade")
+    print(f"  {'':<6} {'':<44} {'dim':>6} {'ev':>4} {'ses':>4} {'méd':>5} "
+          f"{'%inex':>6}  {'maturidade (moda)':<19} perfil")
     for s in b["subcategorias"]:
-        print(f"  {s['subcat']:<6} {s['nome'][:46]:<46} "
-              f"{s['n_cobertas']}/{s['n_dimensoes']:<4} {s['n_evidencias']:>5} "
-              f"{s['n_sessoes']:>5} {str(s['maturidade_media'] or '—'):>5} "
-              f"{str(s['dispersao'] if s['dispersao'] is not None else '—'):>5}"
-              f"  {s['maturidade_rotulo']}")
+        polos = f" [{' / '.join(s['perfil_polos'])}]" if s["perfil_polos"] else ""
+        print(f"  {s['subcat']:<6} {s['nome'][:44]:<44} "
+              f"{s['n_cobertas']}/{s['n_dimensoes']:<4} {s['n_evidencias']:>4} "
+              f"{s['n_sessoes']:>4} {str(s['maturidade_media'] or '—'):>5} "
+              f"{str(s['share_inexistente']) + '%' if s['share_inexistente'] is not None else '—':>6}"
+              f"  {s['maturidade_rotulo']:<19} {s['perfil']}{polos}")
 
-    print("\nMATURIDADE POR SETOR")
+    print("\nMATURIDADE POR SETOR  (o que cada grupo de atores enxerga)")
     for k, v in b["setores"].items():
-        print(f"  {k:<18} n={v['n']:>3}  média {v['media']:>4}  mediana {v['rotulo']}")
+        print(f"  {k:<18} n={v['n']:>3}  média {v['media']:>4}  "
+              f"{v['share_inexistente']:>3}% inexistente  moda {v['rotulo']}")
     print()
 
 
