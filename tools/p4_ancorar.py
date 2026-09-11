@@ -27,8 +27,12 @@ import zipfile
 from collections import defaultdict
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from tools import redacao as R                                   # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 CB = ROOT / "codebook"
+VAULT = ROOT / "vault"
 
 # Subseção da Seção 3 → setores do registro que a sustentam.
 SETOR_DA_SECAO = {
@@ -93,6 +97,42 @@ def afirmacoes(path: Path) -> list[dict]:
     return out
 
 
+def regras_da_narrativa() -> list[R.Regra]:
+    """Regras para redigir o texto da própria narrativa do Produto 04.
+
+    A Seção 3 nomeia participantes — «a figura do prefeito, Silvio Barros» — e a
+    ancoragem emparelha cada afirmação com o código da sessão. Uma coisa ao lado
+    da outra entrega ENT-015, que é justamente a sessão da liderança do Executivo.
+    O artefato de auditoria não pode reintroduzir o que o corpus já protegeu.
+
+    Sem `vault/`, não há dicionário determinístico: a ferramenta avisa e segue,
+    porque a ancoragem continua útil — mas o CSV não deve ser versionado assim.
+    """
+    def ler(nome: str) -> list[dict]:
+        caminho = VAULT / nome
+        if not caminho.exists():
+            return []
+        with caminho.open(encoding="utf-8-sig", newline="") as f:
+            return list(csv.DictReader(f))
+
+    pessoas, terceiros = ler("pessoas.csv"), ler("terceiros.csv")
+    apelidos = {dobrar(r["nome"]): [a for a in (r.get("apelidos") or "").split("|") if a]
+                for r in ler("apelidos.csv")}
+    if not pessoas:
+        print("AVISO: vault/pessoas.csv ausente — a coluna «afirmacao» sai como está "
+              "no documento, com nomes. Não versione o CSV assim.", file=sys.stderr)
+        return []
+
+    regras = []
+    for r in pessoas:
+        regras += R.regras_pessoa(r["nome"], "[participante]",
+                                  apelidos.get(dobrar(r["nome"]), ()), "base")[0]
+    for r in terceiros:
+        apes = [r["nome"]] + [a for a in (r.get("apelidos") or "").split("|") if a]
+        regras += R.regras_pessoa(r["nome"], "[terceiro]", apes, "terceiro")[0]
+    return regras + R.regras_contato()
+
+
 def evidencias() -> list[dict]:
     setor = {}
     with (CB / "interviews.csv").open(encoding="utf-8-sig", newline="") as f:
@@ -117,7 +157,8 @@ def evidencias() -> list[dict]:
     return out
 
 
-def ancorar(afirm: list[dict], ev: list[dict], top: int) -> list[dict]:
+def ancorar(afirm: list[dict], ev: list[dict], top: int,
+            regras: list[R.Regra] | None = None) -> list[dict]:
     por_setor = defaultdict(list)
     for e in ev:
         por_setor[e["setor"]].append(e)
@@ -149,7 +190,7 @@ def ancorar(afirm: list[dict], ev: list[dict], top: int) -> list[dict]:
         for score, comum, e in unicos[:top] or [(0.0, [], None)]:
             linhas.append({
                 "n": a["n"], "setor": a["setor"], "subsecao": a["subsecao"],
-                "afirmacao": a["texto"],
+                "afirmacao": R.aplicar(a["texto"], regras)[0] if regras else a["texto"],
                 "score": round(score, 3),
                 "interview": e["interview"] if e else "",
                 "ts": e["ts"] if e else "",
@@ -173,7 +214,9 @@ def main() -> int:
 
     afirm = afirmacoes(Path(args.docx))
     ev = evidencias()
-    linhas = [l for l in ancorar(afirm, ev, args.top) if l["score"] >= args.min_score]
+    regras = regras_da_narrativa()
+    linhas = [l for l in ancorar(afirm, ev, args.top, regras)
+              if l["score"] >= args.min_score]
 
     por_afirm = defaultdict(list)
     for l in linhas:
