@@ -1,0 +1,336 @@
+termo,motivo
+Maringá,topônimo
+Paraná,topônimo
+Curitiba,topônimo
+Sarandi,topônimo
+Paiçandu,topônimo
+Brasil,topônimo
+São Paulo,topônimo
+Londrina,topônimo
+Pirapó,topônimo — rio
+Ingá,topônimo — rio
+Janeiro,mês
+Fevereiro,mês
+Março,mês
+Abril,mês
+Maio,mês
+Junho,mês
+Julho,mês
+Agosto,mês
+Setembro,mês
+Outubro,mês
+Novembro,mês
+Dezembro,mês
+Segunda,dia da semana
+Terça,dia da semana
+Quarta,dia da semana
+Quinta,dia da semana
+Sexta,dia da semana
+Sábado,dia da semana
+Domingo,dia da semana
+Plano,termo de política pública
+Diretor,termo de política pública — Plano Diretor
+Lei,termo normativo
+Decreto,termo normativo
+Orgânica,termo normativo — Lei Orgânica
+Constituição,termo normativo
+Estatuto,termo normativo — Estatuto da Cidade
+Cidade,termo normativo — Estatuto da Cidade
+Código,termo normativo
+Municipal,termo institucional genérico
+Estadual,termo institucional genérico
+Federal,termo institucional genérico
+Prefeitura,termo institucional genérico
+Município,termo institucional genérico
+Estado,termo institucional genérico
+União,termo institucional genérico
+Governo,termo institucional genérico
+Câmara,termo institucional genérico
+Conselho,termo institucional genérico
+Secretaria,termo institucional genérico
+Instituto,termo institucional genérico
+Universidade,termo institucional genérico
+Ministério,termo institucional genérico
+PPA,instrumento orçamentário
+LDO,instrumento orçamentário
+LOA,instrumento orçamentário
+LRF,instrumento normativo
+PIB,indicador
+GEE,termo técnico — gases de efeito estufa
+PPP,termo técnico — parceria público-privada
+ICMS,tributo
+IPTU,tributo
+ISS,tributo
+ITBI,tributo
+CNPJ,termo genérico
+CPF,termo genérico
+CEP,termo genérico
+BNDES,§3 — terceiro de caráter público
+FINEP,§3 — terceiro de caráter público
+BID,§3 — terceiro de caráter público
+FONPLATA,§3 — terceiro de caráter público
+CAF,§3 — terceiro de caráter público
+IAT,§3 — órgão ambiental estadual
+COMDEMA,§3 — conselho municipal
+CONDEMA,§3 — conselho municipal
+AMUSEP,§3 — associação de municípios
+CREA,§3 — conselho profissional
+ACIM,§3 — associação comercial
+IBGE,§3 — órgão federal de estatística
+CEPAL,§3 — contratante do projeto
+ONU,§3 — organismo multilateral
+CCFLA,§3 — metodologia pública
+SAMU,serviço público de referência
+COP,conferência do clima
+NDC,termo técnico climático
+BNDS,ASR de BNDES — §3
+MUSEP,ASR de AMUSEP — §3
+CFRA,ASR de CREA — §3
+PTU,ASR de IPTU
+OAB,§3 — conselho profissional
+Observatório,§3 — Observatório Social
+Social,§3 — Observatório Social
+Brisa,"§3 — consultoria executora, nomeada na capa"
+ODS,termo técnico — Objetivos de Desenvolvimento Sustentável
+Docusign,ferramenta
+Meet,ferramenta
+Drive,ferramenta
+Teams,ferramenta
+ICI,§3 — Instituto Cultural Ingá
+IPT,ASR de IPPLAM — §3
+SEMOP,"§3 — secretaria municipal, competência legal pública"
+SELURB,§3 — secretaria municipal
+Celurb,ASR de SELURB — §3
+CMOP,ASR de SEMOP — §3
+SEURB,§3 — secretaria municipal
+CURB,ASR de SEURBH — §3
+CODEM,§3 — conselho de desenvolvimento econômico
+CODEN,ASR de CODEM — §3
+CODENM,ASR de CODEM — §3
+Codém,ASR de CODEM — §3
+UNILIVRE,§3 — contrato publicado
+Unilivre,§3 — contrato publicado
+Unilivro,ASR de UNILIVRE — §3
+IAB,§3 — entidade profissional
+CAU,§3 — conselho profissional
+CPAL,ASR de CEPAL — §3
+IPCC,§3 — painel intergovernamental
+ICT,termo técnico — instituição de ciência e tecnologia
+IBC,"§3 — Instituto Brasileiro do Café, entidade histórica"
+FNP,§3 — Frente Nacional de Prefeitos
+CNM,§3 — Confederação Nacional de Municípios
+PAC,§3 — programa federal
+UBS,equipamento público genérico
+Hospital,equipamento público genérico
+Avenida,logradouro genérico
+Bosque,logradouro genérico
+Parque,logradouro genérico
+Mata,topônimo genérico
+Foz,topônimo — Foz do Iguaçu
+Himalaia,topônimo
+Caixa,§3 — Caixa Econômica Federal
+Tribunal,órgão de controle genérico
+Estados,termo genérico
+Casa,termo genérico
+Mulher,termo genérico
+Dona,tratamento
+Transfer,plataforma federal — Transfer GOV
+GOV,plataforma federal — Transfer GOV
+TIS,termo técnico citado em COP
+SBN,termo técnico — soluções baseadas na natureza
+SBNs,termo técnico — soluções baseadas na natureza
+BN,ASR de SBN — termo técnico
+IP,ASR de IPTU
+PT,ASR de IPTU verde
+PID,sigla técnica não identificada — sem carga identificante
+CA,ASR de CAU — §3
+PP,sigla genérica
+MP,§3 — Ministério Público
+PR,§3 — sigla do estado
+OBS,sigla genérica
+VAR,sigla genérica
+BD,sigla genérica
+DB,sigla genérica
+IA,termo técnico — inteligência artificial
+YZ,ASR sem conteúdo
+COD,ASR de CODEM — §3
+CAEC,sigla técnica de drenagem
+SALP,sigla não identificada
+CISDC,§3 — plano de contingência municipal
+EAB,ASR de IAB — §3
+Orquitet,ASR de Arquitetos — §3
+Oni,ASR sem conteúdo
+Ninho,ASR sem conteúdo
+Pelo,ASR sem conteúdo
+Cocamarca,§3 — cooperativa agrícola regional
+Campinas,topônimo
+Araçatuba,topônimo
+Prudente,topônimo — Presidente Prudente
+Presidente,topônimo — Presidente Prudente
+Xirica,topônimo — bairro
+Serra,topônimo — bairro Xirica da Serra
+Natal,festividade
+Festa,termo genérico
+Corpo,termo genérico — Corpo de Bombeiros
+Bombeiros,termo genérico
+Limpeza,termo genérico — Secretaria de Limpeza Urbana
+Limpesa,ASR de Limpeza
+Econômico,termo genérico — Conselho de Desenvolvimento Econômico
+Instit,ASR de Instituto
+Cultural,termo genérico — Instituto Cultural Ingá
+Programa,termo genérico
+Tecnologias,termo genérico
+Internacional,termo genérico
+Shopping,termo genérico
+TV,termo genérico
+Donald,figura pública internacional
+Trump,figura pública internacional
+Margaret,figura pública — autoria do IPCC
+Toucher,figura pública — autoria do IPCC
+Ran,figura pública — autoria do IPCC
+Niffler,topônimo — Parque Alfredo Nyffeler
+Nifler,topônimo — Parque Alfredo Nyffeler
+Alfredo,topônimo — Parque Alfredo Nyffeler
+Nyffeler,topônimo — Parque Alfredo Nyffeler
+SEFRA,ASR de SEFAZ — §3
+SEPRA,ASR de SEFAZ — §3
+FEPAL,ASR de sigla de fundo público
+CREIA,ASR de CREA — §3
+EAT,ASR de IAT — §3
+Copel,§3 — concessionária estadual de energia
+Sandepar,ASR de Sanepar
+CindosC,ASR de Sinduscon
+Siduscom,ASR de Sinduscon
+Sinduscon,§3 — sindicato patronal
+Nor,ASR de Noroeste — Sinduscon Noroeste
+GEMA,§3 — promotoria especializada do Ministério Público
+FNEP,ASR de FINEP — §3
+COPES,ASR de COPs — §3
+ADAP,programa de adaptação climática
+PDUI,instrumento — Plano de Desenvolvimento Urbano Integrado
+ATIC,ASR de ATHIS — termo técnico
+ATIS,ASR de ATHIS — termo técnico
+ATHIS,termo técnico — assistência técnica em habitação de interesse social
+PIS,sigla genérica
+PL,sigla genérica — projeto de lei
+CB,sigla genérica
+CP,sigla genérica
+CRÉ,ASR de CREA — §3
+EN,ASR sem conteúdo
+ISG,ASR de ESG — termo técnico
+ESG,termo técnico
+SG,ASR de ESG — termo técnico
+GZ,ASR sem conteúdo
+DNS,ASR sem conteúdo
+EVTE,termo técnico — estudo de viabilidade técnica e econômica
+OMS,§3 — Organização Mundial da Saúde
+IPU,ASR de IPTU
+Way,"§3 — Way Carbon, consultoria citada"
+Office,ferramenta
+Instagram,ferramenta
+Jaim,figura pública — Jaime Lerner
+Leerner,figura pública — Jaime Lerner
+Jacustô,ASR sem conteúdo
+Christopher,figura pública — autoria científica citada
+Christoph,figura pública — autoria científica citada
+Wolf,figura pública — autoria científica citada
+Guy,figura pública — autoria científica citada
+Mcson,figura pública — autoria científica citada
+Elninho,ASR de El Niño
+Amarte,ASR sem conteúdo
+Hélio,topônimo — Auditório Hélio Moreira
+Moreira,topônimo — Auditório Hélio Moreira
+Barcelona,topônimo
+Bonito,topônimo — Rio Bonito do Iguaçu
+Branco,topônimo — Rio Branco
+Mourão,topônimo — Campo Mourão
+Campo,topônimo — Campo Mourão
+Chapada,topônimo — Chapada Diamantina
+Diamantina,topônimo — Chapada Diamantina
+Piraí,topônimo — Piraí do Sul
+Minas,topônimo
+Jardim,topônimo — Jardim Universo
+Universo,topônimo — Jardim Universo
+Vila,topônimo — Vila Operária
+Operária,topônimo — Vila Operária
+Polo,termo genérico
+Setrião,ASR de Setentrião — §3
+Setentrião,§3 — Associação dos Municípios do Setentrião Paranaense
+Brasileiro,termo genérico — Instituto Brasileiro do Café
+Congresso,termo genérico
+Municípios,termo genérico
+Unidade,termo genérico — Unidade de Conservação
+Conservação,termo genérico
+Federação,termo genérico — Federação das Indústrias
+Confederação,termo genérico
+Indústrias,termo genérico
+Soluções,termo genérico — Brisa Soluções Ambientais
+Ambientais,termo genérico
+Central,termo genérico — América Central
+América,topônimo
+Exato,interjeição
+Tinha,verbo em início de frase
+Conseguiu,verbo em início de frase
+Paulo,topônimo — São Paulo
+Getúlio,topônimo — Avenida Getúlio Vargas
+Vargas,topônimo — Avenida Getúlio Vargas
+Guterres,figura pública — Secretário-Geral da ONU
+Madonna,figura pública internacional
+Léo,figura pública — jornalista citado
+Dias,figura pública — jornalista citado
+Rocha,autoria citada na literatura de arquitetura
+FECAP,sigla de fundo público
+MITEC,ASR de sigla técnica
+UNIM,ASR de UEM — §3
+UNIC,ASR de UniCesumar — §3
+UNICE,ASR de UniCesumar — §3
+Summar,ASR de UniCesumar — §3
+Quinto,ASR sem conteúdo
+Nar,ASR sem conteúdo
+Pesa,ASR sem conteúdo
+SEPUA,ASR de secretaria municipal — §3
+SEBIC,ASR de CBIC — §3
+CBIC,§3 — Câmara Brasileira da Indústria da Construção
+Cindus,ASR de Sinduscon — §3
+Sindos,ASR de Sinduscon — §3
+Con,ASR de Sinduscon — §3
+RIV,ASR de EIV — instrumento urbanístico
+EIV,instrumento urbanístico
+RIMA,instrumento ambiental
+FJ,ASR de Foz do Iguaçu
+Iguaçu,topônimo
+PTUV,ASR de IPTU verde
+BR10,ASR de sigla de projeto
+LED,termo técnico
+DNA,termo figurado
+SB,ASR sem conteúdo
+ONG,termo genérico
+MUNEP,ASR de AMUSEP — §3
+FAPESP,§3 — fundação estadual de amparo à pesquisa
+Fundação,termo genérico
+Car,ASR de Fundação Araucária
+Araucária,§3 — fundação estadual de amparo à pesquisa
+Corre,ASR de Córrego
+Córrego,termo genérico
+Nazaré,topônimo — Córrego Nazaré
+Macha,ASR de Marechal Rondon
+Rondom,topônimo — Marechal Cândido Rondon
+Cascavel,topônimo
+Toledo,topônimo
+Fumbio,ASR de fundo internacional
+Amazônia,topônimo
+ODSs,termo técnico
+Pacto,termo genérico — Pacto Global da ONU
+Global,termo genérico — Pacto Global da ONU
+Brasileira,termo genérico
+Indústria,termo genérico
+Construção,termo genérico
+Nacional,termo genérico
+Frente,termo genérico — Frente Nacional de Prefeitos
+Prefeitos,termo genérico
+Contas,termo genérico — Tribunal de Contas
+Urbanização,termo genérico
+Vários,pronome em início de frase
+Agradeço,verbo em início de frase
+Bluetooth,termo técnico
+Carl,ASR de CAU — §3
