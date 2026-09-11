@@ -1,5 +1,5 @@
 code,canonical,duplicate,sector,institution_type,block,date,n_participants,tcle,status,minutes,turns,chars,participant_share,n_dim_candidates,n_hits,notes
-ENT-001-ENT-002,ENT-001-ENT-002,False,Publico,Secretaria municipal de governo,PUB,2026-08-07,1,True,Codificada,49,488,48515,63,23,93,"Sessão conjunta de dois códigos; inclui responsável por captação de recursos. A transcrição automática atribui todos os turnos a um único falante — os dois participantes não estão separados na diarização; a codificação por falante foi feita por leitura, não por rótulo."
+ENT-001-ENT-002,ENT-001-ENT-002,False,Publico,Secretaria municipal de governo,PUB,2026-08-07,2,True,Codificada,49,488,48515,63,23,93,"Sessão conjunta de dois códigos; inclui responsável por captação de recursos. A transcrição automática atribui todos os turnos a um único falante — os dois participantes não estão separados na diarização; a codificação por falante foi feita por leitura, não por rótulo."
 ENT-003,ENT-003,False,Publico,Órgão ambiental municipal,PUB,2026-08-07,1,True,Codificada,46,498,34801,43,23,49,Piloto de codificação
 ENT-004,ENT-004,False,Publico,Secretaria municipal de infraestrutura,PUB,2026-08-07,1,True,Codificada,45,426,37445,50,17,40,
 ENT-005,ENT-005,False,Sociedade Civil,Entidade profissional de arquitetura e urbanismo,SOC,2026-08-07,1,True,Codificada,45,558,39562,66,16,62,
