@@ -284,7 +284,10 @@ function show(id){
     b.setAttribute("aria-selected", b.dataset.t === id ? "true" : "false"));
   document.querySelectorAll("section.tab").forEach(s => s.hidden = s.id !== "tab-" + id);
   if (!done[id]) { (INIT[id] || (()=>{}))(); done[id] = 1; }
-  if (location.hash.slice(1) !== id) history.replaceState(null, "", "#" + id);
+  // Em pré-visualização sandboxed (about:srcdoc) o replaceState é bloqueado por
+  // política de origem. A aba já trocou; o endereço é conveniência, não estado.
+  try { if (location.hash.slice(1) !== id) history.replaceState(null, "", "#" + id); }
+  catch (e) { /* sandbox sem history API */ }
   window.scrollTo({top:0});
 }
 document.querySelectorAll("nav.tabs button").forEach(b =>
@@ -419,8 +422,10 @@ function initHeat(){
 }
 
 const INIT = {evidencias: initEv, divergencias: initDiv, cobertura: initHeat};
-show((location.hash.slice(1) && document.getElementById("tab-" + location.hash.slice(1)))
-     ? location.hash.slice(1) : "visao");
+let inicial = "visao";
+try { const h = location.hash.slice(1);
+      if (h && document.getElementById("tab-" + h)) inicial = h; } catch (e) {}
+show(inicial);
 
 
 </script>
