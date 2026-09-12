@@ -53,3 +53,26 @@ show*.pdf
 
 # senha do painel publicado (usada por tools/lock.py)
 .senha
+
+# ---------------------------------------------------------------------------
+# Anexos do Produto 4 (sessão de 12/09).
+#
+# O .docx do produto É entregável e fica versionado. O que não fica:
+#   Anexo_05...zip     transcrições anonimizadas — mesma regra de
+#                      saida_anonimizacao/: histórico de git não se apaga
+#   cortes.csv         guarda o texto autoidentificador que foi SUPRIMIDO de
+#                      ENT-008, ENT-012 e ENT-015. É o oposto de anonimizado.
+#   revisao_nomes.csv  nomes próprios de terceiros citados em entrevista
+# ---------------------------------------------------------------------------
+anexos/Anexo_05_Transcricoes_Anonimizadas.zip
+anexos/cortes.csv
+anexos/revisao_nomes.csv
+
+# saída aberta do painel: gerada por tools/publico.py a partir de
+# site/artifact.html, pela mesma razão que /index.html e public/index.html
+site/publico.html
+
+# inspeção pontual e restos locais
+_inspecao/
+.wrangler/
+Nova pasta/
