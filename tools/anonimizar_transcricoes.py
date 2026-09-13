@@ -34,7 +34,8 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from tools import redacao as R                        # noqa: E402
+from tools import redacao as R
+from tools import supressoes as SUP                        # noqa: E402
 from tools.transcript import turns                    # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -403,6 +404,14 @@ def main() -> int:
                                            rotulos, apelidos, terceiros)
         corpo, subs, res = R.varrer_turnos(tt, regras, permitidos, rotulos)
 
+        # Supressao de trecho, DEPOIS da substituicao e ANTES da serializacao.
+        # A posicao importa: aqui a ancora casa contra texto ja redigido (o nome
+        # dentro do trecho ja e [participante]), o `idx` do turno e o mesmo
+        # numero de paragrafo que a relacao de cortes usa, o (…) entra no .md e
+        # passa de graca por verificar_saida/verificar_ancoras, e o trecho some
+        # do revisar.csv — que e a intencao.
+        corpo, n_cortes = SUP.aplicar_em_turnos(corpo, code)
+
         agregada = len([s for s in rotulos.values() if "participante" in s]) < n_esp
         tcle_ok = meta.get("tcle") == "True"
         sem_base = any("não consta da base" in a for a in avisos)
@@ -418,7 +427,8 @@ def main() -> int:
             "subs_pessoa": cat["pessoa"], "subs_instituicao": cat["instituicao"],
             "subs_contato": cat["contato"] + cat["documento"] + cat["url"] + cat["reuniao"],
             "residuos_alto": risco["alto"], "residuos_medio": risco["medio"],
-            "residuos_baixo": risco["baixo"], "tcle": meta.get("tcle", ""),
+            "residuos_baixo": risco["baixo"], "cortes": n_cortes,
+            "tcle": meta.get("tcle", ""),
             "publicavel": publicavel,
         })
         for r in res:

@@ -17,6 +17,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from tools import redacao as R                                  # noqa: E402
 from tools.transcript import turns                              # noqa: E402
+from tools import supressoes as S                               # noqa: E402
 
 PESSOA = "Joana Ribeiro Alves"
 EMAIL = "joana.alves@exemplo.org"
@@ -203,6 +204,89 @@ class TestIntegracao(unittest.TestCase):
             saida, _, _ = R.varrer_turnos(turns(caminho), regras_base(),
                                           PERMITIDOS, rotulos)
             self.assertEqual({t["ts"] for t in saida}, originais)
+
+
+
+
+# --------------------------------------------------------------- supressão
+class TestSupressao(unittest.TestCase):
+    """Supressão de trecho autoidentificador (`tools.supressoes`).
+
+    Dados sintéticos, como o resto do arquivo. O que se verifica é o que a
+    proteção promete: o trecho sai, a marca entra, o resto do turno sobrevive,
+    e uma âncora que não casa **reprova** em vez de passar em silêncio.
+    """
+
+    TEXTO = ("[participante 1]: Eu presidi a comissão de meio ambiente da Câmara "
+             "em 2019, e por isso conheço o processo.")
+    TRECHO = "Eu presidi a comissão de meio ambiente da Câmara em 2019, e "
+
+    def nova(self, **kw):
+        campos = dict(fonte="transcricao", alvo="ENT-999", paragrafo=7,
+                      texto=self.TEXTO, trecho=self.TRECHO,
+                      motivo="presidencia nominal de comissao identifica a pessoa")
+        campos.update(kw)
+        return S.nova(**campos)
+
+    def test_trecho_sai_e_marca_entra(self):
+        sup = self.nova()
+        saida = S.aplicar_em(self.TEXTO, sup)
+        self.assertNotIn("presidi a comissão", saida)
+        self.assertNotIn("2019", saida)
+        self.assertIn(S.MARCA, saida)
+
+    def test_resto_do_turno_sobrevive(self):
+        saida = S.aplicar_em(self.TEXTO, self.nova())
+        self.assertTrue(saida.startswith("[participante 1]: "))
+        self.assertIn("conheço o processo", saida)
+
+    def test_declaracao_nao_guarda_o_texto_suprimido(self):
+        """O codebook é versionado: o material protegido não pode morar nele."""
+        sup = self.nova()
+        serializado = " ".join(str(getattr(sup, c)) for c in S.CAMPOS)
+        self.assertNotIn("presidi", serializado)
+        self.assertNotIn("Câmara", serializado)
+        self.assertEqual(sup.n_chars, len(self.TRECHO))
+
+    def test_ancora_que_nao_casa_reprova(self):
+        """O cenário que o módulo existe para impedir: regerar e publicar sem o
+        corte, sem ninguém perceber."""
+        sup = self.nova()
+        outro = self.TEXTO.replace("comissão", "subcomissão")
+        with self.assertRaises(S.SupressaoNaoAplicada):
+            S.aplicar_em(outro, sup)
+
+    def test_trecho_alterado_reprova_mesmo_com_contexto_intacto(self):
+        sup = self.nova()
+        adulterado = self.TEXTO.replace("2019", "2020")
+        with self.assertRaises(S.SupressaoNaoAplicada):
+            S.aplicar_em(adulterado, sup)
+
+    def test_aplica_nos_turnos_pelo_indice(self):
+        sup = self.nova()
+        corpo = [{"idx": 6, "ts": "00:00:10", "rotulo": "[participante 1]",
+                  "texto": "Turno anterior, intacto."},
+                 {"idx": 7, "ts": "00:00:20", "rotulo": "[participante 1]",
+                  "texto": self.TEXTO}]
+        saida, n = S.aplicar_em_turnos(corpo, "ENT-999", [sup])
+        self.assertEqual(n, 1)
+        self.assertEqual(saida[0]["texto"], "Turno anterior, intacto.")
+        self.assertIn(S.MARCA, saida[1]["texto"])
+        self.assertEqual(saida[1]["ts"], "00:00:20")
+
+    def test_turno_ausente_reprova(self):
+        sup = self.nova(paragrafo=999)
+        corpo = [{"idx": 7, "ts": "00:00:20", "rotulo": "[participante 1]",
+                  "texto": self.TEXTO}]
+        with self.assertRaises(S.SupressaoNaoAplicada):
+            S.aplicar_em_turnos(corpo, "ENT-999", [sup])
+
+    def test_sessao_sem_supressao_passa_intacta(self):
+        corpo = [{"idx": 7, "ts": "00:00:20", "rotulo": "[participante 1]",
+                  "texto": self.TEXTO}]
+        saida, n = S.aplicar_em_turnos(corpo, "ENT-000", [self.nova()])
+        self.assertEqual(n, 0)
+        self.assertEqual(saida[0]["texto"], self.TEXTO)
 
 
 if __name__ == "__main__":

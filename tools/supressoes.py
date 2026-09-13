@@ -156,3 +156,30 @@ def nova(fonte: str, alvo: str, paragrafo: int, texto: str,
                      prefixo=texto[max(0, i - ctx):i],
                      sufixo=texto[i + len(trecho):i + len(trecho) + ctx],
                      sha256=sha(trecho), n_chars=len(trecho), motivo=motivo)
+
+
+def aplicar_em_turnos(corpo: list[dict], code: str,
+                      sups: list[Supressao] | None = None) -> tuple[list[dict], int]:
+    """Aplica as supressoes de uma sessao aos turnos de `varrer_turnos`.
+
+    `corpo` e a lista de dicts `{idx, ts, rotulo, texto}`. A juncao e pelo `idx`,
+    que e o mesmo numero de paragrafo que a relacao de cortes usa.
+
+    Falha dura se uma supressao declarada nao casar: ancora que nao casa e
+    protecao perdida em silencio, e o cenario que este modulo existe para
+    impedir e justamente o de regerar as transcricoes e publicar sem os cortes.
+    """
+    sups = carregar() if sups is None else sups
+    minhas = [s for s in sups if s.fonte == "transcricao" and s.alvo == code]
+    if not minhas:
+        return corpo, 0
+    por_idx = {t["idx"]: t for t in corpo}
+    for s in minhas:
+        t = por_idx.get(s.paragrafo)
+        if t is None:
+            raise SupressaoNaoAplicada(
+                f"{code} §{s.paragrafo}: turno não existe nesta transcrição "
+                f"({len(corpo)} turnos). O material mudou — a proteção declarada "
+                f"NÃO foi aplicada.")
+        t["texto"] = aplicar_em(t["texto"], s)
+    return corpo, len(minhas)
