@@ -440,7 +440,7 @@ document.querySelectorAll("nav.tabs button").forEach(b =>
   b.addEventListener("click", () => show(b.dataset.t)));
 
 /* ----------------------------------------------------------- evidências */
-let F = {ax:0, ty:"", se:"", dim:"", int:"", q:""}, page = 1;
+let F = {ax:0, ty:"", se:"", dim:"", int:"", ts:"", q:""}, page = 1;
 const PER = 25;
 
 function mkchip(txt, on){
@@ -457,14 +457,22 @@ function filtered(){
     if (F.se && i.sector !== F.se) return false;
     if (F.dim && e.dim !== F.dim) return false;
     if (F.int && e.interview !== F.int) return false;
+    if (F.ts && (e.ts || "") !== F.ts) return false;
     if (q && !((e.excerpt||"") + " " + (e.paraphrase||"") + " " + (d?d.name:"")).toLowerCase().includes(q))
       return false;
     return true;
   });
 }
+let _seq = {};
 function evcard(e){
   const d = DIM[e.dim] || {}, i = INT[e.interview] || {};
-  return `<article class="ev">
+  /* (interview, dim, ts) NAO e unico: 32 triplas do corpus tem mais de uma
+     evidencia. O sufixo ordinal existe so para o id ser valido em HTML; a
+     navegacao e por filtro, nao por fragmento. */
+  const _b = "ev-" + e.interview + "-" + e.dim + "-" + String(e.ts||"").replace(/:/g,"");
+  _seq[_b] = (_seq[_b] || 0) + 1;
+  const _id = _seq[_b] > 1 ? _b + "-" + _seq[_b] : _b;
+  return `<article class="ev" id="${esc(_id)}" data-interview="${esc(e.interview)}" data-dim="${esc(e.dim)}" data-ts="${esc(e.ts||"")}">
     <div class="hd">
       <span class="pill acc mono">${esc(e.interview)}</span>
       <span class="pill mono">${esc(e.dim)}</span>
@@ -483,6 +491,7 @@ function evcard(e){
   </article>`;
 }
 function renderEv(){
+  _seq = {};
   const list = filtered(), tot = list.length, pages = Math.max(1, Math.ceil(tot / PER));
   if (page > pages) page = pages;
   document.getElementById("evcount").textContent =
@@ -531,8 +540,27 @@ function initEv(){
   sd.onchange = () => { F.dim = sd.value; page=1; renderEv(); };
   let t; const q = document.getElementById("fq");
   q.oninput = () => { clearTimeout(t); t = setTimeout(() => { F.q = q.value; page=1; renderEv(); }, 200); };
+  if (ALVO) {
+    F.int = ALVO.int; F.dim = ALVO.dim; F.ts = ALVO.ts; page = 1;
+    if (ALVO.int) si.value = ALVO.int;
+    if (ALVO.dim) sd.value = ALVO.dim;
+    const av = document.getElementById("evfil");
+    if (av) {
+      const n = document.createElement("div");
+      n.className = "card";
+      n.id = "aviso-alvo";
+      n.innerHTML = '<b>Filtrado a partir do Produto 4.</b> Mostrando a evidência '
+        + 'ancorada em <span class="mono">' + esc(ALVO.int) + '</span>'
+        + (ALVO.dim ? ' &middot; dimensão <span class="mono">' + esc(ALVO.dim) + '</span>' : '')
+        + (ALVO.ts ? ' &middot; <span class="mono">' + esc(ALVO.ts) + '</span>' : '')
+        + '. Use «limpar» para ver o corpus inteiro.';
+      av.parentNode.insertBefore(n, av);
+    }
+  }
   document.getElementById("fclear").onclick = () => {
-    F = {ax:0,ty:"",se:"",dim:"",int:"",q:""}; page=1; si.value=""; sd.value=""; q.value="";
+    F = {ax:0,ty:"",se:"",dim:"",int:"",ts:"",q:""}; page=1; si.value=""; sd.value=""; q.value="";
+    const av = document.getElementById("aviso-alvo");
+    if (av) av.remove();
     syncChips(); renderEv();
   };
   renderEv();
@@ -568,9 +596,32 @@ function initHeat(){
 }
 
 const INIT = {evidencias: initEv, divergencias: initDiv, cobertura: initHeat};
+
+/* Deep-link vindo da pagina do Produto 4: `#evidencias?int=..&dim=..&ts=..`.
+   E por FILTRO, nao por fragmento, e a razao e de dado: (interview, dim, ts) nao
+   e chave — 32 triplas do corpus tem mais de uma evidencia, uma delas tem tres.
+   Filtrar mostra todas as evidencias daquele ponto, que e a resposta correta, e
+   ainda desarma a paginacao de 25: o alvo nunca fica numa pagina que o fragmento
+   nao alcanca. */
+let ALVO = null;
+function rota(){
+  let h = "";
+  try { h = decodeURIComponent(location.hash.slice(1)); } catch (e) { h = ""; }
+  const corte = h.indexOf("?");
+  const aba = (corte < 0 ? h : h.slice(0, corte)) || "visao";
+  const par = {};
+  if (corte >= 0) h.slice(corte + 1).split("&").forEach(kv => {
+    const i = kv.indexOf("=");
+    if (i > 0) par[kv.slice(0, i)] = kv.slice(i + 1);
+  });
+  return {aba, par};
+}
+const R = rota();
 let inicial = "visao";
-try { const h = location.hash.slice(1);
-      if (h && document.getElementById("tab-" + h)) inicial = h; } catch (e) {}
+try { if (R.aba && document.getElementById("tab-" + R.aba)) inicial = R.aba; } catch (e) {}
+if (inicial === "evidencias" && (R.par.int || R.par.dim || R.par.ts)) {
+  ALVO = {int: R.par.int || "", dim: R.par.dim || "", ts: R.par.ts || ""};
+}
 show(inicial);
 """
 

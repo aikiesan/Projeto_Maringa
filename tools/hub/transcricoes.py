@@ -1,0 +1,161 @@
+# -*- coding: utf-8 -*-
+"""Converte as transcrições anonimizadas (.docx) em páginas do Hub."""
+import re, os, glob, html
+from docx import Document
+
+E = html.escape
+ROTULO_SETOR = {"Publico": "Público"}
+TS = re.compile(r"^\d{2}:\d{2}:\d{2}$")
+FALA = re.compile(r"^(\[(?:entrevistador|participante)[^\]]*\]|\[nome\])\s*:\s*(.*)$", re.S)
+
+CSS_EXTRA = """
+<style>
+.transc{max-width:none}
+.turno{display:grid; grid-template-columns:132px 1fr; gap:14px; padding:7px 0;
+  border-bottom:1px solid var(--grid); align-items:start}
+.turno:last-child{border-bottom:0}
+.turno .quem{font-size:12.5px; font-weight:600; color:var(--ink2); padding-top:2px}
+.turno .quem.e{color:var(--s2)}
+.turno .txt{max-width:72ch}
+.marca-t{font-variant-numeric:tabular-nums; font-size:12px; color:var(--mut);
+  margin:22px 0 6px; letter-spacing:.02em}
+.corte{color:var(--mut); font-style:italic}
+@media (max-width:640px){
+  .turno{grid-template-columns:1fr; gap:2px}
+  .turno .quem{padding-top:0}
+}
+</style>"""
+
+
+def converte(caminho):
+    """Devolve (codigo, cabecalho_dict, html_do_corpo)."""
+    cod = os.path.basename(caminho).replace("_Transcricao_anonimizada.docx", "")
+    doc = Document(caminho)
+    paras = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
+
+    cab = {}
+    if paras and paras[0].startswith("TRANSCRIÇÃO ANONIMIZADA"):
+        linhas = paras[0].split("\n")
+        for ln in linhas:
+            for campo in ("Setor", "Tipo institucional", "Data", "Duração", "Participantes"):
+                m = re.search(campo + r":\s*([^·]+)", ln)
+                if m:
+                    cab[campo] = m.group(1).strip()
+        paras = paras[1:]
+
+    out, n_turnos = [], 0
+    for t in paras:
+        if TS.match(t):
+            # ancora estavel para o deep-link vindo do Produto 4:
+            # transcricoes/ENT-XXX.html#t-002243
+            out.append(f'<p class="marca-t" id="t-{t.replace(":", "")}">{t}</p>')
+            continue
+        if t.startswith("Entrevista ") or t.startswith("Esta transcrição") \
+           or re.match(r"^[a-z]{3}\.? \d{1,2}, \d{4}$", t):
+            continue
+        m = FALA.match(t)
+        if m:
+            quem, fala = m.group(1), m.group(2)
+            cls = "quem e" if "entrevistador" in quem else "quem"
+            fala = fala.replace("(…)", '<span class="corte">(…)</span>') \
+                if "(…)" in fala else E(fala)
+            if "(…)" in t:
+                fala = E(m.group(2)).replace("(…)", '<span class="corte">(…)</span>')
+            n_turnos += 1
+            out.append(f'<div class="turno"><span class="{cls}">{E(quem)}</span>'
+                       f'<span class="txt">{fala}</span></div>')
+        else:
+            out.append(f'<div class="turno"><span class="quem"></span>'
+                       f'<span class="txt">{E(t)}</span></div>')
+    cab["turnos"] = n_turnos
+    return cod, cab, "".join(out)
+
+
+def pagina_transcricao(cod, cab, corpo, sessao=None):
+    """O cabeçalho vem da camada SANEADA (dados.sessoes), não do .docx — que foi
+    escrito antes do saneamento e ainda traz o setor «Especial» e o rótulo
+    institucional preciso."""
+    if sessao:
+        meta = (f"Setor: {ROTULO_SETOR.get(sessao['setor_publico'], sessao['setor_publico'])} · "
+                f"Tipo institucional: {sessao['institution_type']} · "
+                f"Data: {sessao['date']} · Duração: {sessao['minutes']} min · "
+                f"Participantes: {sessao['n_participants']}")
+    else:
+        meta = " · ".join(f"{k}: {v}" for k, v in cab.items()
+                          if k in ("Setor", "Tipo institucional", "Data", "Duração"))
+    return f"""
+<p class="sm"><a href="transcricoes.html">&larr; Todas as transcrições</a></p>
+<h1>{cod}</h1>
+<p class="lede">{E(meta)}</p>
+
+<div class="nota">
+  <p><strong>Camada anonimizada.</strong> Nomes de pessoas foram substituídos por
+  <code>[entrevistador n]</code>, <code>[participante n]</code> e <code>[nome]</code>;
+  endereços de e-mail, telefones, identificadores fiscais e links foram suprimidos.
+  Órgãos públicos, leis, instrumentos de política e contratos publicados permanecem
+  nominais, por serem informação pública. As marcas de tempo são as do registro
+  original e ancoram as evidências codificadas. Reticências entre parênteses
+  <span class="corte">(…)</span> indicam trecho suprimido por risco de
+  reidentificação — a relação completa dos cortes consta do
+  <a href="dados.html">produto</a>.</p>
+</div>
+
+<div class="transc">{corpo}</div>
+"""
+
+
+def indice(sessoes, cabecalhos):
+    linhas = []
+    for s in sorted(sessoes, key=lambda x: x["code"]):
+        cod = s["code"]
+        cab = cabecalhos.get(cod, {})
+        setor = ROTULO_SETOR.get(s["setor_publico"], s["setor_publico"])
+        linhas.append(
+            f'<tr data-g="{E(setor)}">'
+            f'<td><a href="transcricoes/{cod}.html"><strong>{cod}</strong></a></td>'
+            f'<td>{E(setor)}</td>'
+            f'<td class="sm">{E(s["institution_type"])}</td>'
+            f'<td class="num">{E(s["date"])}</td>'
+            f'<td class="num">{E(s["minutes"])} min</td>'
+            f'<td class="num">{cab.get("turnos", "—")}</td>'
+            f'<td class="num">{E(s["n_participants"])}</td></tr>')
+    setores = sorted({ROTULO_SETOR.get(s["setor_publico"], s["setor_publico"])
+                      for s in sessoes})
+    opts = "".join(f'<option value="{E(g)}">{E(g)}</option>' for g in setores)
+    tot_min = sum(int(s["minutes"]) for s in sessoes)
+    return f"""
+<h1>Transcrições</h1>
+
+<p class="lede">As {len(sessoes)} sessões de entrevista na íntegra, em camada
+anonimizada — {tot_min // 60}h{tot_min % 60:02d} de escuta institucional com
+{sum(int(s['n_participants']) for s in sessoes)} participantes dos quatro grupos de
+atores-chave.</p>
+
+<div class="nota">
+  <p><strong>O que foi feito com estes textos.</strong> Nomes de participantes, de
+  entrevistadores e de terceiros citados foram substituídos por rótulos; contatos e
+  links, suprimidos. Em três sessões o cargo do participante o identifica
+  independentemente do nome — nessas, os trechos autoidentificadores também foram
+  suprimidos, cada corte marcado no texto e registrado em relação anexa ao produto.
+  Subsiste risco residual de reidentificação por parte de quem conheça a estrutura
+  institucional do município: ele é assumido e decorre da própria natureza de um
+  corpus em que a representatividade setorial exige ouvir quem ocupa posição única
+  na estrutura municipal.</p>
+</div>
+
+<div class="busca">
+  <input id="q" type="search" placeholder="Buscar sessão…" aria-label="Buscar">
+  <select id="fg" aria-label="Filtrar por setor">
+    <option value="">Todos os setores</option>{opts}
+  </select>
+</div>
+<p class="conta" id="conta"></p>
+<div class="tw"><table id="tab">
+<thead><tr><th>Sessão</th><th>Setor</th><th>Tipo institucional</th>
+<th class="num">Data</th><th class="num">Duração</th><th class="num">Turnos</th>
+<th class="num">Particip.</th></tr></thead>
+<tbody>{"".join(linhas)}</tbody></table></div>
+
+<p class="sm mut">Todas as sessões foram gravadas mediante Termo de Consentimento e
+Autorização para Gravação de Áudio e Vídeo assinado pelo participante.</p>
+"""

@@ -61,6 +61,34 @@ def conteudo(texto: str) -> set[str]:
     return {t for t in re.findall(r"[a-z]{4,}", dobrar(texto)) if t not in VAZIAS}
 
 
+# A versao completa do Produto 4. Existe uma copia de 328 paragrafos que termina
+# em «3.4.5. Solucoes Propostas» — sem o capitulo 4, as Consideracoes Finais e os
+# Anexos — e ela e MAIS NOVA no disco, de modo que «pegar o mais recente» leva ao
+# arquivo errado. Ja enganou duas vezes. Por isso a conferencia e dura.
+# CUIDADO com a contagem: `python-docx` ve 367 paragrafos neste arquivo (so
+# d.paragraphs) e o regex sobre word/document.xml ve 714, porque apanha tambem os
+# <w:p> de dentro das 8 tabelas. Os dois numeros estao certos, contam coisas
+# diferentes. A trava usa a contagem DESTE extrator.
+PARAGRAFOS_ESPERADOS = 714      # = 367 em python-docx
+ULTIMO_TITULO = "Nota sobre a anonimização das transcrições (Anexo 05)"
+
+
+def conferir_docx(path: Path, paras: list[tuple[str, str]]) -> None:
+    n = len(paras)
+    titulos = [t for st, t in paras if st.startswith("Ttulo") and t]
+    ultimo = titulos[-1] if titulos else ""
+    if n != PARAGRAFOS_ESPERADOS or ultimo != ULTIMO_TITULO:
+        msg = [
+            "DOCX ERRADO: " + str(path),
+            "  paragrafos: %d (esperado %d)" % (n, PARAGRAFOS_ESPERADOS),
+            "  ultimo titulo: %r" % (ultimo,),
+            "  esperado:      %r" % (ULTIMO_TITULO,),
+            "  A fonte e anexos/Produto_4.docx. A copia de 328 paragrafos nao",
+            "  tem o capitulo 4, as Consideracoes Finais nem os Anexos.",
+        ]
+        raise SystemExit(chr(10).join(msg))
+
+
 def paragrafos(path: Path) -> list[tuple[str, str]]:
     xml = zipfile.ZipFile(path).read("word/document.xml").decode("utf-8")
     out = []
@@ -74,6 +102,7 @@ def paragrafos(path: Path) -> list[tuple[str, str]]:
 def afirmacoes(path: Path) -> list[dict]:
     """As afirmações em lista da Seção 3, com a subseção e o setor a que pertencem."""
     paras = paragrafos(path)
+    conferir_docx(path, paras)
     inicio = next((i for i, (st, t) in enumerate(paras)
                    if st.startswith("Ttulo1") and "ANÁLISE E RESUMO" in t), None)
     if inicio is None:

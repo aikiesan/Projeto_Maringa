@@ -8,7 +8,7 @@ na ferramenta.
 | Arquivo | Como regerar |
 |---|---|
 | `P4_matriz_v2.md` | `python -m tools.p4_base` alimenta a tabela; ver a ferramenta |
-| `P4_ancoras_secao3.csv` | `python -m tools.p4_ancorar --docx "Produto 4.docx" --csv produtos/P4_ancoras_secao3.csv` |
+| `P4_ancoras_secao3.csv` | `python -m tools.p4_ancorar --docx anexos/Produto_4.docx --csv produtos/P4_ancoras_secao3.csv` |
 
 ## P4_matriz_v2.md
 
@@ -33,5 +33,13 @@ trecho; a Seção 3 hoje é narrativa corrida, sem uma única referência.
 
 Estas âncoras não estão validadas. Sobreposição léxica acha candidato, não prova
 que a evidência sustenta a afirmação — a aceitação de cada uma é humana. A coluna
-`score` ordena, não decide: 34 afirmações têm candidato forte (≥0,30), 51 médio e
-8 fracas, que precisam de leitura antes de virar citação.
+`score` ordena, não decide: **34 afirmações têm candidato forte (≥0,30) e 59 têm
+candidato médio** — nenhuma ficou sem candidato. As de score mais baixo precisam
+de leitura antes de virar citação. (Conferido em 13/09/2026 contra o CSV: 279
+linhas = 93 × 3. A contagem anterior — 34/51/8 — nunca bateu com o arquivo.)
+
+A fonte é `anexos/Produto_4.docx`, **367 parágrafos** em `python-docx` (714 na
+contagem por XML que a ferramenta usa, porque apanha os `<w:p>` das tabelas).
+Existe uma cópia de 328 parágrafos que termina em «3.4.5. Soluções Propostas»,
+sem o capítulo 4, as Considerações Finais e os Anexos — e ela é mais nova no
+disco. A ferramenta aborta se receber o arquivo errado.

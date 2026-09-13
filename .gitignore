@@ -76,3 +76,23 @@ site/publico.html
 _inspecao/
 .wrangler/
 Nova pasta/
+
+# saida gerada do Hub publico (espelho de aikiesan/Maringa) — regenerada por
+# `python -m tools.hub.build`; o que vale versionar e o gerador, em tools/hub/
+hub_saida/
+
+# capturas de tela do Hub. A varredura le .html/.csv/.json/.css e NAO le imagem:
+# um nome dentro de um PNG passa pelo portao sem ser visto. conselhos.png mostra
+# a composicao nominal do COMDEMA.
+Claude outputs/*.png
+
+# indice literal do que foi purgado do historico
+purge.txt
+
+# copia de 328 paragrafos do Produto 4 (sem cap. 4, Consideracoes e Anexos).
+# A fonte e anexos/Produto_4.docx, 367 paragrafos. Mantida so para nao sumir.
+Produto_4_v328_OBSOLETO_NAO_USAR.docx
+
+# pagina local de revisao das ancoras: mostra afirmacao ao lado de trecho e
+# parafrase, material de trabalho. O CSV de revisao e que e versionado.
+revisao_ancoras.html

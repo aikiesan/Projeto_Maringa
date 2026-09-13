@@ -5,9 +5,11 @@ Deriva da saida interna; nao duplica conteudo. Cada transformacao e explicita e
 contada, e o script FALHA se qualquer uma delas nao encontrar o que esperava.
 """
 import re, sys
+from pathlib import Path
 
-ENTRADA = "/mnt/user-data/uploads/Projeto_Maringa/site/artifact.html"
-SAIDA = "/home/claude/painel/index.html"
+ROOT = Path(__file__).resolve().parents[1]
+ENTRADA = str(ROOT / "site" / "artifact.html")
+SAIDA = str(ROOT / "site" / "publico.html")
 
 h = open(ENTRADA, encoding="utf-8").read()
 aplicadas = []
