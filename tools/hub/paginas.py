@@ -79,14 +79,14 @@ def inicio(m, c, orgs, leis):
 <h2>Explorar</h2>
 <div class="grade g2">{grade}</div>
 
-<h2>O que a avaliação estabeleceu</h2>
+<h2>O que foi registrado</h2>
 
 <div class="destaque">
   <p class="n">{pct}%</p>
-  <p>De cada {m['evidencias']} evidências codificadas, <strong>{inex}</strong>
-  classificam a condição avaliada como <em>inexistente</em>. Apenas
-  {dict(m['maturidade'])['Efetivo']} foram classificadas como efetivas, e uma única
-  como monitorada.</p>
+  <p>Das {m['evidencias']} evidências codificadas, <strong>{inex}</strong>
+  classificam a condição avaliada como <em>inexistente</em>,
+  {dict(m['maturidade'])['Efetivo']} como <em>efetiva</em> e
+  {dict(m['maturidade'])['Monitorado']} como <em>monitorada</em>.</p>
 </div>
 
 {G.figura(
@@ -181,9 +181,8 @@ não falha de coleta.</p>
               ('Evidências', [m['evidencias_por_setor'].get('Publico',0), m['evidencias_por_setor'].get('Sociedade Civil',0), m['evidencias_por_setor'].get('Academia',0), m['evidencias_por_setor'].get('Privado',0)])],
              [('Público', S[0]), ('Sociedade Civil', S[1]), ('Academia', S[2]), ('Privado', S[3])])}
   <figcaption>Distribuição das {m['sessoes']} sessões e das {m['evidencias']} evidências
-  pelos quatro grupos de atores-chave. O poder público concentra a maior parte do corpus
-  porque é onde se concentram as competências avaliadas — mas nenhuma dimensão do
-  diagnóstico se apoia em fonte de um só setor.</figcaption>
+  pelos quatro grupos de atores-chave. Cada barra soma 100%: a primeira mostra quantas
+  sessões couberam a cada grupo, a segunda quantas evidências saíram delas.</figcaption>
 </figure>
 
 <div class="nota">
@@ -235,20 +234,16 @@ acompanhar uma agenda de prazo longo.</p>
   <div class="card kpi"><b>{max(s['total'] for s in c['stats'])}</b><span>maior composição anual</span></div>
 </div>
 
-<h2>O achado: a memória institucional do conselho é curta</h2>
+<h2>Permanência dos conselheiros, 2021–2026</h2>
 
 <p>Dos {len(c['membros'])} conselheiros que passaram pelo COMDEMA nesses seis anos,
 <strong>{len(seis)}</strong> estiveram presentes em todos eles. {um_ou_dois} —
 {round(100 * um_ou_dois / len(c['membros']))}% do total — apareceram em um ou dois
 anos apenas.</p>
 
-<p>Isso importa para o financiamento climático por uma razão prática: projetos
-climáticos têm ciclo de maturação mais longo que o de permanência típica de um
-conselheiro. Um colegiado em que três quartos dos membros passam por um ou dois
-anos tem dificuldade estrutural de acompanhar o que aprovou, cobrar execução e
-acumular aprendizado sobre o que funcionou. A continuidade que existe está
-concentrada em pouquíssimas pessoas, e ela é, hoje, o que sustenta a memória do
-conselho.</p>
+<p>A composição é reconduzida a cada ano por portaria. O gráfico abaixo mostra a
+distribuição do tempo de permanência; o seguinte, a composição por grupo
+representado, ano a ano.</p>
 
 <figure>
   {barras([(f"{n} ano" + ("s" if n > 1 else ""), v) for n, v in dist], 'var(--s1)')}
@@ -426,3 +421,10 @@ efetivar que o diagnóstico das entrevistas registra.</p>
 tabela é o índice do mapeamento, não a fonte legal — para citação, consulte o texto
 publicado pelo município.</p>
 """
+
+
+# ==================================================================== PROJETO
+def projeto(m, c, orgs, leis, sub):
+    """Delegada a `pagina_projeto`, onde o texto mora com a acentuacao correta."""
+    from pagina_projeto import render
+    return render(m, c, orgs, leis, sub)

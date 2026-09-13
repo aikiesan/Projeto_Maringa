@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SAIDA = ROOT / "hub_saida"
 ANON = ROOT / "saida_anonimizacao"
 ANON_ZIP = ROOT / "anexos" / "Anexo_05_Transcricoes_Anonimizadas.zip"
+BASE_URL = "https://aikiesan.github.io/Maringa/"
 PAINEL = ROOT / "site" / "publico.html"
 UP = ROOT
 
@@ -62,9 +63,10 @@ def _painel_documento(corpo: str) -> str:
         "<head>",
         '<meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width,initial-scale=1">',
-        "<title>Painel de evidencias &mdash; Maringa em Acao pelo Clima</title>",
-        '<meta name="description" content="As 494 evidencias codificadas das '
-        '17 sessoes, filtraveis por eixo, tipo, setor, sessao e dimensao.">',
+        "<title>Painel de evidências · Maringá em Ação pelo Clima</title>",
+        '<meta name="description" content="As 494 evidências codificadas '
+        'das 17 sessões, filtráveis por eixo, tipo, setor, sessão '
+        'e dimensão.">',
         "</head>",
         "<body>",
     ]
@@ -150,9 +152,20 @@ def main():
         "instituições, legislação e o Produto 04 na íntegra.",
         P.inicio(m, c, orgs, leis), hero=h_ini))
 
+    sys.path.insert(0, str(ROOT))
+    from tools import p4_base as PB
+    escreve("projeto.html", pagina(
+        "projeto.html", "O projeto",
+        "O que é a consultoria IPPLAM–CEPAL sobre condições habilitantes ao "
+        "financiamento climático urbano de Maringá, como a evidência foi "
+        "produzida e sob que regras.",
+        P.projeto(m, c, orgs, leis, PB.base()["subcategorias"]),
+        hero=hero("O projeto", "Como esta avaliação foi feita",
+                  "A metodologia, a unidade de registro, as regras declaradas e os "
+                  "limites assumidos.")))
+
     # ------------------------------------------------ Produto 04
     import produto4 as P4
-    from tools import p4_base as PB
     _dx = P4.DOCX
     _corpo_p4, _res_p4 = P4.pagina(
         m, _ancoras_aceitas(), PB.base()["subcategorias"],
@@ -160,8 +173,9 @@ def main():
         _dx.stat().st_size)
     escreve("produto4.html", pagina(
         "produto4.html", "Produto 04",
-        "O Produto 04 da consultoria IPPLAM-CEPAL em versao web navegavel, com a "
-        "Matriz de Avaliacao e as afirmacoes ligadas a evidencia que as sustenta.",
+        "O Produto 04 da consultoria IPPLAM–CEPAL em versão web navegável, "
+        "com a Matriz de Avaliação e cada afirmação da Seção 3 ligada à "
+        "evidência que a sustenta.",
         _corpo_p4, P4.JS,
         hero=hero("Produto 04", "Síntese das consultas",
                   "Relatório parcial da consultoria sobre condições habilitantes ao "
@@ -229,6 +243,19 @@ def main():
     # -------------------------------------------------- painel existente
     if PAINEL.exists():
         escreve("painel.html", _painel_documento(PAINEL.read_text(encoding="utf-8")))
+
+    # -------------------------------------------------- sitemap
+    from base import NAV as _NAV
+    _hoje = datetime.date.today().isoformat()
+    _urls = [h for h, _ in _NAV] + [f"transcricoes/{c}.html" for c in sorted(corpos)]
+    _xml = ['<?xml version="1.0" encoding="UTF-8"?>',
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for u in _urls:
+        _xml.append(f"<url><loc>{BASE_URL}{u}</loc><lastmod>{_hoje}</lastmod></url>")
+    _xml.append("</urlset>")
+    escreve("sitemap.xml", chr(10).join(_xml))
+    escreve("robots.txt", f"User-agent: *{chr(10)}Allow: /{chr(10)}"
+                          f"Sitemap: {BASE_URL}sitemap.xml{chr(10)}")
 
     # relatório
     n = sum(1 for _ in SAIDA.rglob("*") if _.is_file())

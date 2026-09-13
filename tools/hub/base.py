@@ -13,6 +13,7 @@ normal). Não troque uma cor de série por uma cor de marca sem revalidar.
 
 NAV = [
     ("index.html", "Início"),
+    ("projeto.html", "O projeto"),
     ("produto4.html", "Produto 04"),
     ("painel.html", "Painel de evidências"),
     ("conselhos.html", "Conselhos"),
@@ -202,6 +203,17 @@ figcaption{font-size:13px; color:var(--ink2); margin-top:11px; max-width:72ch}
   min-width:3px}
 .barra .val{font-variant-numeric:tabular-nums; color:var(--ink2); min-width:34px;
   text-align:right; font-weight:600}
+
+
+/* ---- tema e acesso ------------------------------------------------- */
+.pular{position:absolute; left:-9999px; top:0; z-index:99; padding:10px 16px;
+  background:var(--floresta); color:var(--sobre-marca); border-radius:0 0 8px 0}
+.pular:focus{left:0}
+button.tema{margin-left:10px; font:inherit; font-size:15px; line-height:1;
+  cursor:pointer; background:transparent; color:var(--ink2);
+  border:1px solid var(--grid); border-radius:8px; padding:6px 9px}
+button.tema:hover{background:var(--realce); color:var(--ink)}
+:focus-visible{outline:2px solid var(--s1); outline-offset:2px}
 
 .empilhada{display:grid; gap:9px}
 /* ---- figuras descritivas ------------------------------------------- */
@@ -400,7 +412,8 @@ table.matriz td.perfil{font-size:12px; color:var(--ink2)}
 
 /* --- impressao: o produto precisa sair em PDF legivel --- */
 @media print{
-  header.topo,.p4-sum,.contador button,.numeros>summary,nav{display:none!important}
+  header.top,.p4-sum,.contador button,.numeros>summary,
+  .menu,button.tema,.pular,footer.pe .logos{display:none!important}
   .numeros[open] table{display:table}
   body{background:#fff; color:#000}
   .p4{display:block}
@@ -432,18 +445,35 @@ def pagina(arquivo, titulo, descricao, corpo, extra_js="", hero=""):
 <meta name="description" content="{descricao}">
 <meta property="og:title" content="{titulo} · Maringá em Ação pelo Clima">
 <meta property="og:description" content="{descricao}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Maringá em Ação pelo Clima">
+<meta property="og:image" content="marca/onda.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="marca/onda.png" type="image/png">
 <link rel="stylesheet" href="hub.css">
+<script>
+/* Tema antes da primeira pintura, senao a pagina pisca claro e vira escura.
+   Em try/catch porque o acesso ao localStorage pode lancar (janela privada,
+   dados de site bloqueados, captura de miniatura). */
+(function(){{try{{var t=localStorage.getItem("tema");
+if(t==="claro"||t==="escuro")
+document.documentElement.setAttribute("data-theme",t==="claro"?"light":"dark");
+}}catch(e){{}}}})();
+</script>
 </head>
 <body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="top"><div class="wrap">
   <a class="marca" href="index.html">
     <img src="marca/brisa.png" alt="Brisa Soluções Ambientais">
     <b>Maringá em Ação pelo Clima <i>· Hub</i></b>
   </a>
   <nav class="menu">{menu}</nav>
+  <button class="tema" type="button" id="tema" aria-label="Alternar tema claro e escuro"
+    title="Alternar tema claro e escuro"><span aria-hidden="true">◐</span></button>
 </div></header>
 {hero}
-<main class="wrap">
+<main class="wrap" id="conteudo">
 {corpo}
 </main>
 <footer class="pe"><div class="wrap">
@@ -463,6 +493,27 @@ def pagina(arquivo, titulo, descricao, corpo, extra_js="", hero=""):
   nenhuma página deste Hub. A composição dos conselhos municipais é ato público e
   aparece nominalmente.</p>
 </div></footer>
+<script>
+(function(){{
+  var b=document.getElementById("tema"); if(!b) return;
+  var raiz=document.documentElement;
+  function atual(){{
+    var t=raiz.getAttribute("data-theme");
+    if(t) return t;
+    return matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  }}
+  function rotula(){{
+    b.setAttribute("aria-pressed", atual()==="dark"?"true":"false");
+  }}
+  rotula();
+  b.addEventListener("click", function(){{
+    var novo = atual()==="dark" ? "light" : "dark";
+    raiz.setAttribute("data-theme", novo);
+    try{{ localStorage.setItem("tema", novo==="dark"?"escuro":"claro"); }}catch(e){{}}
+    rotula();
+  }});
+}})();
+</script>
 {extra_js}
 </body>
 </html>"""
