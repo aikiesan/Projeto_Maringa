@@ -477,10 +477,12 @@ def pagina(m: dict, aceitas: dict, sub: list[dict], data_docx: str,
 {aviso}
 
 <div class="p4-baixar">
-  <span class="mut sm">Documento de {E(data_docx)}, {len(blocos)} blocos e
-  {sum(1 for b in blocos if b.tipo == 'tbl')} quadros. O arquivo <code>.docx</code>
-  não é distribuído por esta página: ele contém os quadros nominais de participantes,
-  que a versão pública suprime.</span>
+  <a class="botao" href="Produto_04_publico.docx" download>Baixar em Word (.docx)</a>
+  <span class="mut sm">Versão de {E(data_docx)}, editável. Nela os quatro quadros
+  nominais de participantes aparecem como contagem: a lista de pessoas mobilizadas
+  e entrevistadas é entregável do termo de referência e segue para a coordenação,
+  mas publicá-la ao lado das transcrições identificaria quem falou em cada
+  sessão.</span>
 </div>
 
 <div class="p4">

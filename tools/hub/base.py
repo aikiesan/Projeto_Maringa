@@ -11,28 +11,36 @@ modos claro e escuro (pior par adjacente ΔE 9.2 protan/deutan, 27.6 visão
 normal). Não troque uma cor de série por uma cor de marca sem revalidar.
 """
 
+import cabecalho as CAB
+
 NAV = [
     ("index.html", "Início"),
     ("projeto.html", "O projeto"),
     ("produto4.html", "Produto 04"),
     ("painel.html", "Painel de evidências"),
-    ("conselhos.html", "Conselhos"),
     ("instituicoes.html", "Instituições"),
-    ("legislacao.html", "Legislação"),
     ("transcricoes.html", "Transcrições"),
 ]
 
 CSS = """
 :root{
   color-scheme: light;
-  --plane:#f7f8f5; --surface:#fcfcfb; --realce:#eef5f0;
-  --ink:#0b0b0b; --ink2:#4b5a51; --mut:#83908a;
-  --grid:#e2e6de; --axis:#c3c9bf; --ring:rgba(11,11,11,.10);
+  --plane:#eef0f2; --surface:#ffffff; --realce:#e4eef0;
+  --ink:#1c1c1c; --ink2:#4a4a4a; --mut:#6d7075;
+  --grid:#dfe3e6; --axis:#c2c8cd; --ring:rgba(11,11,11,.10);
 
-  /* marca */
-  --floresta:#255438; --floresta-2:#1a3d28; --menta:#33dd9a;
-  --link:#1b6b47; --sobre-marca:#ffffff;
-  --num:#255438;            /* números de destaque, sobre plano claro */
+  /* marca do projeto «Maringá em Ação pelo Clima».
+     Azul petróleo e verde médio vêm do manual de identidade; os tons -2 são
+     escurecimentos para estado ativo. NÃO confundir com as cores de série dos
+     gráficos, logo abaixo: cor de marca e cor de dado são coisas diferentes,
+     e as de série foram validadas separadamente. */
+  --floresta:#0f4c5c; --floresta-2:#0a3542; --menta:#4e9f3d;
+  /* clareado do verde da marca, para texto sobre o petróleo: o verde
+     médio puro da paleta rende 2.88 de contraste ali, abaixo de
+     qualquer piso. Mesmo matiz, só mais claro. */
+  --menta-clara:#7bc66c;
+  --link:#0f4c5c; --sobre-marca:#ffffff;
+  --num:#0f4c5c;            /* números de destaque, sobre plano claro */
   --logo:none;              /* filtro do wordmark preto */
 
   /* séries — paleta validada, verde na primeira posição */
@@ -43,21 +51,21 @@ CSS = """
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     color-scheme: dark;
-    --plane:#0c0e0d; --surface:#181a19; --realce:#1c2420;
-    --ink:#fff; --ink2:#c2cbc5; --mut:#8b958f;
-    --grid:#2a2e2c; --axis:#3a403c; --ring:rgba(255,255,255,.10);
-    --floresta:#12271b; --floresta-2:#0c1a12; --menta:#33dd9a;
-    --link:#4fd39d; --num:#4fd39d; --logo:invert(1);
+    --plane:#0d1114; --surface:#161b1f; --realce:#12303a;
+    --ink:#fff; --ink2:#c3ccd2; --mut:#8d979e;
+    --grid:#2a3238; --axis:#3b454c; --ring:rgba(255,255,255,.10);
+    --floresta:#0f3d4a; --floresta-2:#0a2b35; --menta:#4e9f3d;
+    --menta-clara:#7bc66c; --link:#7bc66c; --num:#7bc66c; --logo:invert(1);
     --s1:#199e70; --s2:#d95926; --s3:#3987e5; --s4:#c98500;
   }
 }
 :root[data-theme="dark"]{
   color-scheme: dark;
-  --plane:#0c0e0d; --surface:#181a19; --realce:#1c2420;
-  --ink:#fff; --ink2:#c2cbc5; --mut:#8b958f;
-  --grid:#2a2e2c; --axis:#3a403c; --ring:rgba(255,255,255,.10);
-  --floresta:#12271b; --floresta-2:#0c1a12; --menta:#33dd9a;
-  --link:#4fd39d; --num:#4fd39d; --logo:invert(1);
+  --plane:#0d1114; --surface:#161b1f; --realce:#12303a;
+  --ink:#fff; --ink2:#c3ccd2; --mut:#8d979e;
+  --grid:#2a3238; --axis:#3b454c; --ring:rgba(255,255,255,.10);
+  --floresta:#0f3d4a; --floresta-2:#0a2b35; --menta:#4e9f3d;
+  --menta-clara:#7bc66c; --link:#7bc66c; --num:#7bc66c; --logo:invert(1);
   --s1:#199e70; --s2:#d95926; --s3:#3987e5; --s4:#c98500;
 }
 
@@ -73,9 +81,6 @@ a:hover{color:var(--ink)}
 img{max-width:100%}
 
 /* ---- cabeçalho ---- */
-header.top{border-bottom:2px solid var(--grid); background:var(--surface);
-  position:sticky; top:0; z-index:30;
-  backdrop-filter:saturate(1.6) blur(8px); box-shadow:0 1px 0 var(--ring)}
 header.top .wrap{display:flex; align-items:center; gap:16px; flex-wrap:wrap;
   padding-block:11px}
 .marca{display:flex; align-items:center; gap:10px; text-decoration:none;
@@ -83,31 +88,6 @@ header.top .wrap{display:flex; align-items:center; gap:16px; flex-wrap:wrap;
 .marca img{height:19px; width:auto; display:block; filter:var(--logo)}
 .marca b{font-weight:650; font-size:14.5px; letter-spacing:-.012em}
 .marca i{font-style:normal; color:var(--mut); font-weight:400}
-nav/* O menu tem de PARECER um controle, nao um rodape de texto: trilho com
-   fundo e contorno, item corrente preenchido com a cor da marca. Em tela
-   estreita rola na horizontal em vez de quebrar em varias linhas, porque
-   menu quebrado em tres fileiras deixa de ser lido como menu. */
-.menu{display:flex; flex-wrap:wrap; gap:2px; margin-left:auto; padding:3px;
-  background:var(--plane); border:1px solid var(--grid); border-radius:11px;
-  max-width:100%}
-nav.menu a{flex:0 0 auto; text-decoration:none; color:var(--ink2);
-  font-size:13.5px;
-  font-weight:560; padding:7px 13px; border-radius:8px; white-space:nowrap;
-  transition:background .12s, color .12s}
-nav.menu a:hover{background:var(--realce); color:var(--floresta)}
-/* menu-celular: em tela estreita, oito itens em varias fileiras comeriam
-   meia tela. Vira uma fileira que rola, com a barra de rolagem escondida
-   porque ela sozinha custava 23px de altura no cabecalho. */
-@media (max-width:700px){
-  .menu{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;
-    -webkit-overflow-scrolling:touch}
-  .menu::-webkit-scrollbar{display:none}
-}
-.menu a[aria-current="page"]:hover{background:var(--floresta-2);
-  color:var(--sobre-marca)}
-nav.menu a[aria-current="page"]{background:var(--floresta);
-  color:var(--sobre-marca); font-weight:700}
-
 /* ---- hero ---- */
 .hero-faixa{
   background:linear-gradient(158deg,var(--floresta) 0%,var(--floresta-2) 100%);
@@ -122,7 +102,7 @@ nav.menu a[aria-current="page"]{background:var(--floresta);
 .hero-faixa .wrap{padding-block:56px 48px; position:relative; z-index:1}
 .hero-faixa .selo{
   display:inline-block; font-size:11.5px; letter-spacing:.11em; text-transform:uppercase;
-  color:var(--menta); font-weight:680; margin-bottom:16px;
+  color:var(--menta-clara); font-weight:680; margin-bottom:16px;
 }
 .hero-faixa h1{color:var(--sobre-marca); margin-bottom:18px; max-width:20ch}
 .hero-faixa .lede{color:rgba(255,255,255,.84); max-width:62ch; margin-bottom:0}
@@ -221,15 +201,6 @@ figcaption{font-size:13px; color:var(--ink2); margin-top:11px; max-width:72ch}
   text-align:right; font-weight:600}
 
 
-/* ---- tema e acesso ------------------------------------------------- */
-.pular{position:absolute; left:-9999px; top:0; z-index:99; padding:10px 16px;
-  background:var(--floresta); color:var(--sobre-marca); border-radius:0 0 8px 0}
-.pular:focus{left:0}
-button.tema{margin-left:10px; font:inherit; font-size:15px; line-height:1;
-  cursor:pointer; background:transparent; color:var(--ink2);
-  border:1px solid var(--grid); border-radius:8px; padding:6px 9px}
-button.tema:hover{background:var(--realce); color:var(--ink)}
-:focus-visible{outline:2px solid var(--s1); outline-offset:2px}
 
 .empilhada{display:grid; gap:9px}
 /* ---- figuras descritivas ------------------------------------------- */
@@ -240,8 +211,7 @@ button.tema:hover{background:var(--realce); color:var(--ink)}
 .numeros{margin:9px 0 0; font-size:13px}
 .numeros>summary{cursor:pointer; color:var(--ink2); width:max-content;
   padding:3px 2px; border-radius:4px}
-.numeros>summary:focus-visible{outline:2px solid var(--s1); outline-offset:2px}
-.numeros table{border-collapse:collapse; margin:8px 0 0; font-size:13px}
+.numeros>summary.numeros table{border-collapse:collapse; margin:8px 0 0; font-size:13px}
 .numeros th,.numeros td{border-bottom:1px solid var(--grid); padding:5px 12px 5px 0;
   text-align:left}
 .numeros td.n,.numeros th:last-child{text-align:right; font-variant-numeric:tabular-nums}
@@ -305,8 +275,7 @@ footer.pe p{max-width:76ch}
 .corte{color:var(--mut); font-style:italic}
 
 @media (max-width:700px){
-  nav.menu{margin-left:0; width:100%}
-  .faixa-kpi div{border-left:0; border-top:1px solid var(--grid); padding-inline:0}
+  nav  .faixa-kpi div{border-left:0; border-top:1px solid var(--grid); padding-inline:0}
   .faixa-kpi div:first-child{border-top:0}
   .hero-faixa::after{width:300px; height:160px; opacity:.12}
   .barra{grid-template-columns:minmax(74px,auto) 1fr auto}
@@ -335,9 +304,7 @@ footer.pe p{max-width:76ch}
 .p4-sum>details{border:1px solid var(--grid); border-radius:8px;
   background:var(--surface); padding:10px 12px}
 .p4-sum>details>summary{cursor:pointer; font-weight:700; padding:2px 0}
-.p4-sum>details>summary:focus-visible{outline:2px solid var(--s1);
-  outline-offset:2px}
-.sumario ul{list-style:none; margin:8px 0 0; padding:0}
+.p4-sum>details>summary.sumario ul{list-style:none; margin:8px 0 0; padding:0}
 .sumario ul ul{margin:2px 0 6px 0}
 .sumario a{display:block; padding:3px 6px; border-radius:5px; color:var(--ink2);
   text-decoration:none; line-height:1.35}
@@ -447,15 +414,16 @@ table.matriz td.perfil{font-size:12px; color:var(--ink2)}
   a.anc::after{content:" (" attr(href) ")"; font-size:9px}
   .p4-kpi{border:1px solid #000}
 }
-"""
+""" + CAB.CSS
 
 
 def pagina(arquivo, titulo, descricao, corpo, extra_js="", hero=""):
-    """Monta uma página do Hub. `hero`, quando dado, é a faixa verde de abertura."""
-    atual = ' aria-current="page"'
-    menu = "".join(
-        f'<a href="{h}"{atual if h == arquivo else ""}>{r}</a>'
-        for h, r in NAV)
+    """Monta uma pagina do Hub. `hero`, quando dado, e a faixa de abertura.
+
+    O cabecalho vem de `cabecalho.py`, que e a MESMA implementacao usada pelo
+    painel de evidencias. Duplicar aqui foi o erro anterior: a barra do painel
+    ficou parecida mas nao igual, com cores fixas e sem botao de tema.
+    """
     return f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -467,31 +435,14 @@ def pagina(arquivo, titulo, descricao, corpo, extra_js="", hero=""):
 <meta property="og:description" content="{descricao}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Maringá em Ação pelo Clima">
-<meta property="og:image" content="marca/onda.png">
+<meta property="og:image" content="marca/projeto.png">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="marca/onda.png" type="image/png">
+<link rel="icon" href="marca/projeto.png" type="image/png">
 <link rel="stylesheet" href="hub.css">
-<script>
-/* Tema antes da primeira pintura, senao a pagina pisca claro e vira escura.
-   Em try/catch porque o acesso ao localStorage pode lancar (janela privada,
-   dados de site bloqueados, captura de miniatura). */
-(function(){{try{{var t=localStorage.getItem("tema");
-if(t==="claro"||t==="escuro")
-document.documentElement.setAttribute("data-theme",t==="claro"?"light":"dark");
-}}catch(e){{}}}})();
-</script>
+{CAB.JS_PRE}
 </head>
 <body>
-<a class="pular" href="#conteudo">Pular para o conteúdo</a>
-<header class="top"><div class="wrap">
-  <a class="marca" href="index.html">
-    <img src="marca/brisa.png" alt="Brisa Soluções Ambientais">
-    <b>Maringá em Ação pelo Clima <i>· Hub</i></b>
-  </a>
-  <nav class="menu">{menu}</nav>
-  <button class="tema" type="button" id="tema" aria-label="Alternar tema claro e escuro"
-    title="Alternar tema claro e escuro"><span aria-hidden="true">◐</span></button>
-</div></header>
+{CAB.marcacao(arquivo, NAV)}
 {hero}
 <main class="wrap" id="conteudo">
 {corpo}
@@ -513,27 +464,8 @@ document.documentElement.setAttribute("data-theme",t==="claro"?"light":"dark");
   nenhuma página deste Hub. A composição dos conselhos municipais é ato público e
   aparece nominalmente.</p>
 </div></footer>
-<script>
-(function(){{
-  var b=document.getElementById("tema"); if(!b) return;
-  var raiz=document.documentElement;
-  function atual(){{
-    var t=raiz.getAttribute("data-theme");
-    if(t) return t;
-    return matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
-  }}
-  function rotula(){{
-    b.setAttribute("aria-pressed", atual()==="dark"?"true":"false");
-  }}
-  rotula();
-  b.addEventListener("click", function(){{
-    var novo = atual()==="dark" ? "light" : "dark";
-    raiz.setAttribute("data-theme", novo);
-    try{{ localStorage.setItem("tema", novo==="dark"?"escuro":"claro"); }}catch(e){{}}
-    rotula();
-  }});
-}})();
-</script>
+
+{CAB.JS_POS}
 {extra_js}
 </body>
 </html>"""

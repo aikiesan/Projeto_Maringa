@@ -57,16 +57,9 @@ def inicio(m, c, orgs, leis):
          f"As {m['evidencias']} evidências codificadas, cada uma vinculada a uma das "
          f"{m['dimensoes_total']} dimensões, com trecho anonimizado, marca de tempo, "
          "maturidade e alinhamento. Cobertura, lacunas e divergências."),
-        ("conselhos.html", "Conselhos",
-         f"Os {len(c['membros'])} conselheiros do COMDEMA entre {c['anos'][0]} e "
-         f"{c['anos'][-1]}, com a análise de continuidade: quem permanece, por qual "
-         "vínculo, e o que a rotatividade faz com a memória institucional."),
         ("instituicoes.html", "Instituições",
          f"As {len(orgs)} organizações mapeadas no Produto 3, classificadas pelas quatro "
          "dimensões analíticas da metodologia, com esfera, natureza e justificativa."),
-        ("legislacao.html", "Legislação",
-         f"As {len(leis)} normas municipais que formam o arcabouço climático de Maringá "
-         "Que cada uma institui, e onde estão as lacunas de regulamentação."),
         ("transcricoes.html", "Transcrições",
          f"As {m['sessoes']} entrevistas na íntegra, em camada anonimizada, com as marcas "
          "de tempo que ancoram as evidências."),

@@ -39,8 +39,15 @@ def sessoes():
         # aberta, como já ocorre no painel.
         r["sector"] = "Publico" if r["sector"] == "Especial" else r["sector"]
         r["setor_publico"] = r["sector"]
-        r["institution_type"] = GENERALIZA.get(r["institution_type"],
-                                               r["institution_type"])
+        # O tipo institucional SAI da camada publica. Com a lista nominal de
+        # atores, que e entregavel do termo de referencia, ele funciona como
+        # cracha: 13 dos 15 rotulos sao unicos de uma unica sessao, entao
+        # «Secretaria municipal de governo» ou «Banco publico de desenvolvimento
+        # regional» identificam a sessao e, por tabela, quem falou. O setor
+        # continua, porque sao quatro valores para 17 sessoes.
+        r["institution_type_interno"] = GENERALIZA.get(r["institution_type"],
+                                                       r["institution_type"])
+        r["institution_type"] = ""
         r["notes"] = _sem_risco(r["notes"])
     return rows
 

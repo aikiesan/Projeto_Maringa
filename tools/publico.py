@@ -40,11 +40,36 @@ troca(r'Direção de órgão ambiental municipal', 'Órgão ambiental municipal'
 troca(r'Liderança política do Executivo municipal', 'Gabinete do Executivo municipal', 2,
       "ENT-015: lideranca -> gabinete")
 
+# tipo institucional fora da camada aberta.
+#
+# 13 dos 15 rotulos sao unicos de uma unica sessao: «Secretaria municipal de
+# governo», «Banco publico de desenvolvimento regional», «Gabinete do Executivo
+# municipal». A lista nominal de pessoas mobilizadas e entrevistadas e
+# entregavel do termo de referencia; com ela ao lado, o rotulo deixa de ser
+# generico e passa a funcionar como cracha, ligando pessoa a sessao e, por
+# tabela, a cada trecho que ela disse. O setor permanece: sao quatro valores
+# para 17 sessoes.
+troca(r'"institution_type": "[^"]*"', '"institution_type": ""', 17,
+      "tipo institucional -> vazio (JSON)")
+troca(r'(<td>(?:Publico|Privado|Academia|Sociedade Civil|Especial)</td>)'
+      r'<td>[^<]*</td>', r'<td></td>', 17,
+      "tipo institucional -> vazio (tabela do corpus)")
+troca(r'\$\{esc\(i\.sector \|\| ""\)\} · \$\{esc\(i\.institution_type \|\| ""\)\}',
+      '${esc(i.sector || "")}', 1,
+      "tipo institucional fora do rodape do card")
+
+# o rotulo tambem vaza pela nota de uma sessao, que e texto livre e escapa das
+# regras acima porque nao esta no campo institution_type.
+troca(r' ?Poder Legislativo municipal\.', '', 1,
+      "rotulo na nota de sessao (ENT-012)")
+
 # 3. frases de risco suprimidas das notas — por frase, nao por nota inteira
 troca(r'Nível de direção; risco residual de reidentificação', '', 1, "nota ENT-008")
 troca(r'Sessão com assessoria; risco residual de reidentificação', '', 1, "nota ENT-015")
 troca(r',? ?no nível de direção máxima', '', 1, "parafrase: nivel de direcao maxima")
 troca(r',? ?no nível de direção', '', 1, "parafrase: nivel de direcao")
+
+
 
 # 4. TCLE — NAO alterado.
 #

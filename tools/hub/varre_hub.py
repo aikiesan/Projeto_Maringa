@@ -17,7 +17,15 @@ from lista_pessoas import carregar_todas, ListaIndisponivel  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 SAIDA = ROOT / "hub_saida"
-PERMITE_CONSELHEIRO = {"conselhos.html"}
+# A pagina de conselhos saiu do Hub em 13/09. O conjunto fica vazio de
+# proposito: sem excecao, nome de conselheiro passa a ser achado em QUALQUER
+# pagina, que e a regra mais forte e a que agora vale.
+PERMITE_CONSELHEIRO: set[str] = set()
+# O mapeamento institucional do Produto 3 DESCREVE organizacoes com as mesmas
+# expressoes («Orgao ambiental municipal: licenciamento...», «Universidade
+# publica»). Ali e conteudo, nao rotulo de sessao: a pagina nao diz quem foi
+# entrevistado, so quem foi mapeado. A excecao vale apenas para ela.
+PERMITE_ROTULO = {"instituicoes.html"}
 
 PADROES = {
     "e-mail": r"[\w.+-]+@[\w-]+\.(?:com|br|org|gov|net|edu)[\w.]*",
@@ -109,14 +117,67 @@ def _e_conselheiro(nome):
         return False
     return (t[0], t[-1]) in _cons_chaves or (t[0], t[1] if len(t) > 1 else t[0]) in _cons_chaves
 
+
+# Rotulos de tipo institucional que sao UNICOS de uma sessao. Com a lista
+# nominal de pessoas mobilizadas e entrevistadas, que e entregavel do termo de
+# referencia, um rotulo unico deixa de ser generico: ele identifica a sessao e,
+# por tabela, quem falou. 13 dos 15 rotulos do codebook sao unicos.
+# Os nao unicos ficam de fora daqui porque tambem sao descricao legitima de
+# organizacao em outras paginas (o mapeamento do Produto 3 descreve o IAM como
+# «Orgao ambiental municipal», e ali isso e conteudo, nao rotulo de sessao).
+import collections as _col
+
+_rotulos = _col.Counter()
+_inter = ROOT / "codebook" / "interviews.csv"
+if _inter.exists():
+    with _inter.open(encoding="utf-8-sig", newline="") as f:
+        for r in csv.DictReader(f):
+            t = (r.get("institution_type") or "").strip()
+            if t:
+                _rotulos[t] += 1
+rotulos_unicos = {t for t, q in _rotulos.items() if q == 1}
+# Os rotulos GENERALIZADOS tambem entram: sao eles que chegavam a pagina, e
+# vigiar so o valor cru do codebook deixaria passar exatamente o que era
+# publicado. Descobri isso porque o teste negativo nao acusou o rotulo
+# injetado.
+rotulos_unicos |= {"Gabinete do Executivo municipal",
+                   "Direção de órgão ambiental municipal",
+                   "Liderança política do Executivo municipal"}
+print(f"rotulos de sessao unicos vigiados: {len(rotulos_unicos)}")
+
+
+
+def _texto_docx(caminho):
+    """Todo o texto de um .docx: paragrafos e celulas de tabela."""
+    try:
+        import docx
+    except ImportError:
+        print(f"IMPOSSIVEL VARRER {caminho.name}: python-docx ausente.")
+        sys.exit(2)
+    d = docx.Document(str(caminho))
+    partes = [par.text for par in d.paragraphs]
+    for t in d.tables:
+        for row in t.rows:
+            partes += [c.text for c in row.cells]
+    return chr(10).join(partes)
+
+
 achados = []
 for p in sorted(SAIDA.rglob("*")):
-    if not p.is_file() or p.suffix not in (".html", ".csv", ".json", ".css"):
+    if not p.is_file() or p.suffix not in (".html", ".csv", ".json", ".css",
+                                           ".docx", ".txt", ".xml"):
         continue
     rel = str(p.relative_to(SAIDA)).replace(os.sep, "/")
     if rel == "painel.html":
         continue  # já auditado pelo tools/scan_pii.py na geração
-    txt = p.read_text(encoding="utf-8", errors="replace")
+    if p.suffix == ".docx":
+        # ponto cego ate 13/09: a varredura so lia texto puro, e um .docx no
+        # hub_saida passava inteiro pelo portao. O mesmo valia para imagem, que
+        # continua fora do alcance — por isso as capturas de tela estao no
+        # .gitignore em vez de dependerem daqui.
+        txt = _texto_docx(p)
+    else:
+        txt = p.read_text(encoding="utf-8", errors="replace")
 
     for rotulo, pat in PADROES.items():
         # a página de transcrições EXPLICA o risco residual; explicar não é vazar
@@ -124,7 +185,13 @@ for p in sorted(SAIDA.rglob("*")):
         # Nota sobre a anonimizacao (Anexo 05), dentro do Produto 4, descrevem a
         # limitacao declarada do protocolo. Sao o lugar onde isso deve aparecer.
         if rotulo == "rotulo de risco" and rel in ("transcricoes.html",
-                                                   "produto4.html"):
+                                                   "produto4.html",
+                                                   "Produto_04_publico.docx"):
+            continue
+        # A capa do relatorio traz o endereco e o CNPJ da executora. E dado
+        # institucional de empresa, publico por definicao, e nao identificador
+        # de participante — que e o que este padrao existe para pegar.
+        if rotulo == "CNPJ" and rel == "Produto_04_publico.docx":
             continue
         for m in re.finditer(pat, txt):
             achados.append((rel, rotulo, txt[max(0, m.start() - 60):m.end() + 40]))
@@ -143,6 +210,12 @@ for p in sorted(SAIDA.rglob("*")):
         for m in re.finditer(r"(?<![\wÀ-ÿ])" + re.escape(nome) + r"(?![\wÀ-ÿ])", txt):
             achados.append((rel, "participante:" + nome,
                             txt[max(0, m.start() - 60):m.end() + 40]))
+
+    for rot in (sorted(rotulos_unicos) if rel not in PERMITE_ROTULO else ()):
+        if rot in txt:
+            i = txt.index(rot)
+            achados.append((rel, "rotulo de sessao:" + rot,
+                            txt[max(0, i - 60):i + 90]))
 
     if rel not in PERMITE_CONSELHEIRO:
         for nome in sorted(nomes_conselheiro):
@@ -163,5 +236,5 @@ if achados:
 print(f"varredura limpa — {sum(1 for _ in SAIDA.rglob('*') if _.is_file())} arquivos, "
       f"nenhum identificador fora de lugar")
 print(f"  nomes de participante verificados: {len(so_participante)}")
-print(f"  nomes de conselheiro (permitidos só em {', '.join(sorted(PERMITE_CONSELHEIRO))}): "
+print(f"  nomes de conselheiro (proibidos em toda página): "
       f"{len(nomes_conselheiro)}")

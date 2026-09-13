@@ -6,7 +6,7 @@
 Tudo é derivado: codebook, bases do Produto 3, listagem da legislação e as
 transcrições anonimizadas. Nenhum número é digitado à mão.
 """
-import os, sys, csv, json, glob, shutil, io, zipfile, tempfile, contextlib, datetime
+import os, sys, csv, json, glob, shutil, io, zipfile, tempfile, contextlib, datetime, re
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -66,55 +66,30 @@ HUBBAR_JS = (
 )
 
 def _painel_documento(corpo: str) -> str:
-    """Embrulha o painel num documento HTML de verdade.
+    """Embrulha o painel num documento HTML de verdade, com o cabecalho do Hub.
 
     `site/publico.html` e corpo de Artifact: comeca em <style>, sem <!doctype>,
     <html>, <head>, <meta charset>, <title> nem lang. Servido pelo GitHub Pages
-    funciona por acidente — o charset vem no cabecalho HTTP —, mas aberto de
-    qualquer outro lugar a acentuacao quebra inteira, e sem <title> e sem lang a
-    pagina reprova acessibilidade. O conteudo NAO e alterado; so ganha a casca.
+    funciona por acidente, porque o charset vem no cabecalho HTTP, mas aberto de
+    qualquer outro lugar a acentuacao quebra inteira.
+
+    O cabecalho e o MESMO de todas as paginas: vem de `cabecalho.py`. Como o
+    painel nao carrega o `hub.css`, o CSS do cabecalho e os tokens de cor de que
+    ele depende sao embutidos aqui. Sem os tokens, a barra ficaria sem cor e o
+    modo escuro nao a alcancaria.
     """
     if corpo.lstrip()[:9].lower().startswith("<!doctype"):
         return corpo
-    from base import NAV
-    itens = "".join(
-        '<a href="' + h + '"' + (' aria-current="page"' if h == "painel.html" else "")
-        + ">" + r + "</a>" for h, r in NAV)
-    # Classes proprias (`hubbar`), nao as do Hub: o painel traz folha de estilo
-    # propria, com `.top` e `.wrap` ja definidos para outra coisa. Reusar os
-    # nomes quebraria o layout dele.
-    barra = (
-        '<div class="hubbar"><div class="hubbar-in">'
-        '<a class="hubbar-marca" href="index.html">'
-        '<img src="marca/brisa.png" alt="Brisa Soluções Ambientais">'
-        "<b>Maringá em Ação pelo Clima</b></a>"
-        '<nav class="hubbar-menu" aria-label="Navegação do Hub">' + itens + "</nav>"
-        "</div></div>")
-    estilo = (
-        "<style>"
-        ".hubbar{position:sticky;top:0;z-index:60;background:#fcfcfb;"
-        "border-bottom:2px solid #e2e6de;box-shadow:0 1px 0 rgba(11,11,11,.10)}"
-        ".hubbar-in{max-width:1140px;margin:0 auto;padding:9px 22px;"
-        "display:flex;gap:16px;align-items:center}"
-        ".hubbar-marca{display:flex;gap:9px;align-items:center;"
-        "text-decoration:none;color:#0b0b0b;font-size:14px;white-space:nowrap}"
-        ".hubbar-marca img{height:19px;width:auto}"
-        ".hubbar-menu{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto;"
-        "padding:3px;background:#f7f8f5;border:1px solid #e2e6de;"
-        "border-radius:11px;max-width:100%}"
-        ".hubbar-menu a{flex:0 0 auto;text-decoration:none;color:#4b5a51;font-size:13.5px;"
-        "font-weight:560;padding:7px 13px;border-radius:8px;white-space:nowrap}"
-        ".hubbar-menu a:hover{background:#eef5f0;color:#255438}"
-        '.hubbar-menu a[aria-current="page"]{background:#255438;color:#fff;'
-        "font-weight:700}"
-        # as abas do painel ja sao sticky em top:0; descem para nao passar por baixo
-        "nav.tabs{top:var(--hubbar-h,58px)!important;z-index:20!important}"
-        "@media (max-width:700px){.hubbar-in{padding:8px 14px;gap:10px}"
-        ".hubbar-marca b{display:none}"
-        ".hubbar-menu{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}"
-        ".hubbar-menu::-webkit-scrollbar{display:none}}"
-        "@media print{.hubbar{display:none}}"
-        "</style>" + HUBBAR_JS)
+    from base import NAV, CSS as CSS_HUB
+    import cabecalho as CAB
+
+    tokens = _tokens_de(CSS_HUB)
+
+    estilo = ("<style>" + tokens + CAB.CSS +
+              # as abas do painel sao sticky em top:0 e passariam por baixo da
+              # barra; o deslocamento e medido em tempo de execucao
+              "nav.tabs{top:var(--hubbar-h,58px)!important;z-index:20!important}"
+              "</style>")
     cabeca = [
         "<!doctype html>",
         '<html lang="pt-BR">',
@@ -125,55 +100,91 @@ def _painel_documento(corpo: str) -> str:
         '<meta name="description" content="As 494 evidências codificadas '
         'das 17 sessões, filtráveis por eixo, tipo, setor, sessão '
         'e dimensão.">',
+        '<link rel="icon" href="marca/projeto.png" type="image/png">',
+        CAB.JS_PRE,
+        estilo,
         "</head>",
         "<body>",
     ]
     nl = chr(10)
-    return (nl.join(cabeca) + estilo + nl + barra + nl + corpo + nl
-            + "</body>" + nl + "</html>" + nl)
+    return (nl.join(cabeca) + nl + CAB.marcacao("painel.html", NAV) + nl
+            + '<div id="conteudo">' + corpo + "</div>" + nl
+            + CAB.JS_POS + nl + "</body>" + nl + "</html>" + nl)
 
 
+def _tokens_de(css: str) -> str:
+    """Extrai do hub.css apenas as declaracoes de token (:root e seus temas).
 
-def _ancoras_aceitas():
-    """Ancoras que passaram pela revisao humana. So elas viram link.
-
-    Le `produtos/P4_ancoras_revisao.csv`. Enquanto ninguem revisar, o dicionario
-    vem vazio e a pagina mostra todas as afirmacoes como «sem ancora validada» —
-    que e a verdade, nao um defeito.
+    O painel tem folha propria; trazer o hub.css inteiro brigaria com ela em
+    seletores genericos (h2, p, table). So os tokens vem junto.
     """
-    sys.path.insert(0, str(ROOT))
-    from tools.p4_revisao import aceitas
-    return aceitas()
+    blocos = []
+    for m in re.finditer(r"(@media[^{]*\{\s*)?(:root[^{]*\{[^}]*\})", css):
+        if m.group(1):
+            blocos.append(m.group(1) + m.group(2) + "}")
+        else:
+            blocos.append(m.group(2))
+    return "".join(blocos)
 
 
 
 def _conferir_css(css: str) -> None:
     """Nenhuma variavel de CSS pode ser usada sem estar definida.
 
-    Declaracao que referencia variavel inexistente nao aplica — e nao avisa. O
+    Declaracao que referencia variavel inexistente nao aplica, e nao avisa. O
     sintoma e sutil: a regra some, o elemento herda, e a pagina parece «quase
     certa». Ja aconteceu com `--card`, `--bg` e `--ink3`, que nunca existiram.
     """
-    import re
     definidas = set(re.findall(r"(--[\w-]+)\s*:", css))
     usadas = set(re.findall(r"var\((--[\w-]+)\)", css))
     faltam = sorted(usadas - definidas)
     if faltam:
         raise SystemExit("CSS usa variaveis nao definidas: " + ", ".join(faltam))
 
+    # Seletor orfao. Remover uma regra por regex pode deixar para tras o resto
+    # do seletor anterior: `nav.menu{...}` virou `nav`, e o `nav` solto colou no
+    # seletor seguinte, transformando `.hero-faixa` em `nav .hero-faixa`, que
+    # nao casa com nada. A regra continua no arquivo, some da pagina, e o
+    # sintoma foi texto branco sobre fundo transparente.
+    sem_com = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    criticos = (".hero-faixa", ".hubbar", ".card", ".barra", ".p4-doc")
+    for sel in criticos:
+        achou = False
+        for m in re.finditer(re.escape(sel) + r"[^{}]*\{", sem_com):
+            antes = sem_com[:m.start()].rstrip()
+            if not antes or antes[-1] in "}":
+                achou = True
+                break
+        if not achou:
+            raise SystemExit(
+                f"CSS: a regra de {sel} nao comeca um bloco — provavel seletor "
+                f"orfao colado antes dela. A regra existe no arquivo e nao "
+                f"aplica na pagina.")
+
+
+
+def _ancoras_aceitas():
+    """Ancoras que passaram pelo criterio de selecao. So elas viram link.
+
+    Le `produtos/P4_ancoras_revisao.csv`. A coluna `decisor` separa `humano` de
+    `automatico`, e a pagina rotula a origem conforme ela.
+    """
+    sys.path.insert(0, str(ROOT))
+    from tools.p4_revisao import aceitas
+    return aceitas()
 
 
 def _conferir_ancoras(html: str) -> int:
     """Todo link de ancora da pagina tem de resolver para evidencia existente.
 
-    Tres invariantes, conferidos contra o codebook e contra o CSV de revisao:
-    a evidencia existe; foi codificada com confianca alta; e esta marcada como
-    aceita. Um link que erra o alvo afirma falsamente que a evidencia sustenta
-    a afirmacao — e o unico defeito desta pagina que nao se ve olhando.
+    Tres invariantes, conferidos contra o codebook e contra o CSV de revisao: a
+    evidencia existe; foi codificada com confianca alta; e esta marcada como
+    aceita. Um link que erra o alvo afirma falsamente que a evidencia sustenta a
+    afirmacao, e e o unico defeito desta pagina que nao se ve olhando.
     """
-    import re
-    ligs = re.findall(r"painel\.html#evidencias\?int=([^&\"]+)&(?:amp;)?"
-                      r"dim=([^&\"]+)&(?:amp;)?ts=([^\"]+)", html)
+    ligs = re.findall(
+        r'painel\.html#evidencias\?int=([^&"]+)&(?:amp;)?'
+        r'dim=([^&"]+)&(?:amp;)?ts=([^"]+)', html)
     corpus, altas = set(), set()
     for arq in sorted(glob.glob(str(ROOT / "codebook" / "evidencias" / "ENT-*.csv"))):
         with open(arq, encoding="utf-8-sig", newline="") as f:
@@ -201,6 +212,12 @@ def _conferir_ancoras(html: str) -> int:
         raise SystemExit("ancoras invalidas na produto4.html: "
                          + chr(10) + "  ".join(problemas[:10]))
     return len(ligs)
+
+
+
+def _res_kpi_ancoras() -> int:
+    """Quantas afirmacoes da Secao 3 tem ancora aceita."""
+    return len(_ancoras_aceitas())
 
 
 def escreve(rel, txt):
@@ -244,7 +261,9 @@ def main():
         (m["evidencias"], "evidências rastreáveis até o trecho"),
         (f"{m['dimensoes_com_evidencia']}/{m['dimensoes_total']}",
          f"dimensões com evidência, {m['trianguladas']} trianguladas"),
-        (len(c["membros"]), "conselheiros mapeados em seis anos"),
+        # o quarto numero era dos conselheiros, base do Produto 3, que saiu do
+        # Hub em 13/09. Passou a ser a medida do produto corrente.
+        (_res_kpi_ancoras(), "afirmações da Seção 3 ligadas à evidência"),
     ])
     escreve("index.html", pagina(
         "index.html", "Início",
@@ -264,6 +283,11 @@ def main():
                   "A metodologia, a unidade de registro, as regras declaradas e os "
                   "limites assumidos.")))
 
+    # As paginas de conselhos e legislacao sairam em 13/09: eram de produto
+# anterior, nao sao citadas no relatorio, e a de conselhos publicava 124
+# nomes nominalmente — incoerente com a remocao do tipo institucional
+# feita no mesmo dia para impedir o cruzamento pessoa x sessao.
+
     # ------------------------------------------------ Produto 04
     import produto4 as P4
     _dx = P4.DOCX
@@ -281,16 +305,16 @@ def main():
         hero=hero("Produto 04", "Síntese das consultas",
                   "Relatório parcial da consultoria sobre condições habilitantes ao "
                   "financiamento climático urbano de Maringá.")))
-    # o .docx NAO e publicado: contem os quadros nominais de participantes
+    # versao publica e editavel do relatorio, gerada pelo mesmo processo da
+    # pagina: supressoes aplicadas e quadros nominais trocados pela contagem.
+    from tools.p4_docx_publico import gerar as _gerar_docx
+    _r = _gerar_docx(destino=SAIDA / "Produto_04_publico.docx")
+    print(f"  Produto_04_publico.docx: {_r['supressoes']} supressões, "
+          f"{_r['quadros']} quadros agregados, {_r['bytes'] // 1024} KB")
     print(f"  produto4: {_res_p4['afirmacoes']} afirmações, "
           f"{_res_p4['com_ancora']} com âncora, {_res_p4['sem_ancora']} sem "
           f"— {_n_lig} links conferidos contra o codebook")
 
-    escreve("conselhos.html", pagina(
-        "conselhos.html", "Conselhos",
-        f"Os {len(c['membros'])} conselheiros do COMDEMA entre 2021 e 2026, "
-        "com análise de continuidade e composição por grupo.",
-        P.conselhos(c), P.JS_BUSCA))
 
     escreve("instituicoes.html", pagina(
         "instituicoes.html", "Instituições",
@@ -298,10 +322,6 @@ def main():
         "metodologia CCFLA/CEPAL.",
         P.instituicoes(orgs), P.JS_BUSCA))
 
-    escreve("legislacao.html", pagina(
-        "legislacao.html", "Legislação",
-        f"As {len(leis)} normas municipais do arcabouço climático de Maringá.",
-        P.legislacao_pg(leis), P.JS_BUSCA))
 
     # -------------------------------------------------- transcrições
     cabs = {}
@@ -339,7 +359,8 @@ def main():
     # -------------------------------------------------- marca
     md = SAIDA / "marca"
     md.mkdir()
-    for nome in ("brisa.png", "onda.png", "cepal.png"):
+    for nome in ("brisa.png", "onda.png", "cepal.png",
+                 "projeto.png", "projeto-branco.png"):
         shutil.copy(ROOT / "assets" / "marca" / nome, md / nome)
 
     # -------------------------------------------------- painel existente

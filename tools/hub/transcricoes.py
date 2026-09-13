@@ -37,7 +37,7 @@ def converte(caminho):
     if paras and paras[0].startswith("TRANSCRIÇÃO ANONIMIZADA"):
         linhas = paras[0].split("\n")
         for ln in linhas:
-            for campo in ("Setor", "Tipo institucional", "Data", "Duração", "Participantes"):
+            for campo in ("Setor", "Data", "Duração", "Participantes"):
                 m = re.search(campo + r":\s*([^·]+)", ln)
                 if m:
                     cab[campo] = m.group(1).strip()
@@ -77,12 +77,12 @@ def pagina_transcricao(cod, cab, corpo, sessao=None):
     institucional preciso."""
     if sessao:
         meta = (f"Setor: {ROTULO_SETOR.get(sessao['setor_publico'], sessao['setor_publico'])} · "
-                f"Tipo institucional: {sessao['institution_type']} · "
+                ""    # tipo institucional removido: ver tools/hub/dados.py
                 f"Data: {sessao['date']} · Duração: {sessao['minutes']} min · "
                 f"Participantes: {sessao['n_participants']}")
     else:
         meta = " · ".join(f"{k}: {v}" for k, v in cab.items()
-                          if k in ("Setor", "Tipo institucional", "Data", "Duração"))
+                          if k in ("Setor", "Data", "Duração"))
     return f"""
 <p class="sm"><a href="transcricoes.html">&larr; Todas as transcrições</a></p>
 <h1>{cod}</h1>
@@ -114,7 +114,6 @@ def indice(sessoes, cabecalhos):
             f'<tr data-g="{E(setor)}">'
             f'<td><a href="transcricoes/{cod}.html"><strong>{cod}</strong></a></td>'
             f'<td>{E(setor)}</td>'
-            f'<td class="sm">{E(s["institution_type"])}</td>'
             f'<td class="num">{E(s["date"])}</td>'
             f'<td class="num">{E(s["minutes"])} min</td>'
             f'<td class="num">{cab.get("turnos", "n/d")}</td>'
@@ -151,7 +150,7 @@ atores-chave.</p>
 </div>
 <p class="conta" id="conta"></p>
 <div class="tw"><table id="tab">
-<thead><tr><th>Sessão</th><th>Setor</th><th>Tipo institucional</th>
+<thead><tr><th>Sessão</th><th>Setor</th>
 <th class="num">Data</th><th class="num">Duração</th><th class="num">Turnos</th>
 <th class="num">Particip.</th></tr></thead>
 <tbody>{"".join(linhas)}</tbody></table></div>
