@@ -241,18 +241,35 @@ def _link_ancora(r: dict) -> str:
             f'<span class="anc-dim mono">{E(r["dim"])}</span></a>')
 
 
+ROTULO = {
+    "humano": ("âncora revisada", "Âncora conferida por leitura humana."),
+    "automatico": ("âncora por critério automático",
+                   "Selecionada por critério declarado — confiança alta, peso "
+                   "informacional dos termos compartilhados e margem sobre a "
+                   "segunda candidata. Não passou por leitura humana."),
+}
+
+
 def _afirmacao(b: Bloco, n: int, aceitas: dict) -> str:
-    """Uma afirmacao da Secao 3, com ou sem ancoras aceitas."""
+    """Uma afirmacao da Secao 3, com ou sem ancora aceita.
+
+    O rotulo declara QUEM decidiu. Uma ancora escolhida por criterio automatico
+    nao e uma ancora validada, e a pagina nao pode dizer que e: a procedencia da
+    afirmacao e o que esta publicacao oferece.
+    """
     rs = aceitas.get(str(n), [])
     if rs:
+        origem = rs[0].get("decisor") or "automatico"
+        rot, dica = ROTULO.get(origem, ROTULO["automatico"])
         links = "".join(_link_ancora(r) for r in rs)
-        return (f'<li class="af com" id="af-{n}">'
+        return (f'<li class="af com origem-{E(origem)}" id="af-{n}">'
                 f'<span class="af-n">{n}</span>{b.html}'
-                f'<span class="ancs">{links}</span></li>')
+                f'<span class="ancs"><span class="origem" title="{E(dica)}">'
+                f'{E(rot)}</span>{links}</span></li>')
     return (f'<li class="af sem" id="af-{n}">'
             f'<span class="af-n">{n}</span>{b.html}'
-            f'<span class="sem-anc" title="Nenhuma âncora de evidência foi '
-            f'validada para esta afirmação">sem âncora validada</span></li>')
+            f'<span class="sem-anc" title="Nenhuma candidata satisfez o critério '
+            f'de seleção para esta afirmação">sem âncora</span></li>')
 
 
 def corpo_capitulo(cap: dict, afirm_n: dict, aceitas: dict) -> str:
@@ -405,8 +422,10 @@ def pagina(m: dict, aceitas: dict, sub: list[dict], data_docx: str,
         if c["secao3"]:
             ns = [n for n in afirm_n.values()]
             c_com = sum(1 for n in ns if str(n) in aceitas)
-            marca = (f'<p class="contador">{len(ns) - c_com} de {len(ns)} afirmações '
-                     f'desta seção ainda não têm âncora de evidência validada. '
+            marca = (f'<p class="contador"><b>{len(ns) - c_com} de {len(ns)}</b> '
+                     f'afirmações desta seção ficaram <b>sem âncora</b>: nenhuma '
+                     f'evidência do corpus satisfez o critério de seleção para '
+                     f'elas. '
                      f'<button type="button" id="so-sem" aria-pressed="false">'
                      f'mostrar só essas</button></p>')
         secs.append(f'<section class="cap" id="{E(c["id"])}">'
@@ -414,18 +433,34 @@ def pagina(m: dict, aceitas: dict, sub: list[dict], data_docx: str,
                     f"{marca}{corpo_capitulo(c, afirm_n, aceitas)}</section>")
 
     kpis = [(str(n_af), "afirmações na Seção 3"),
-            (str(com), "com âncora validada"),
-            (str(sem), "sem âncora validada"),
+            (str(com), "com âncora de evidência"),
+            (str(sem), "sem âncora"),
             (str(len(sub)), "subcategorias na matriz")]
     faixa = "".join(f'<div><b>{v}</b><span>{r}</span></div>' for v, r in kpis)
 
-    aviso = ("" if com else
-             '<div class="nota alerta"><p><strong>A validação das âncoras ainda '
-             'não começou.</strong> Nenhuma das afirmações da Seção 3 tem âncora '
-             'aceita por revisão humana, e por isso nenhuma aparece com link. '
-             'Sobreposição léxica encontra candidatos; só a leitura decide se a '
-             'evidência sustenta a afirmação. Enquanto a revisão não for feita, '
-             'esta página mostra o relatório sem as ligações.</p></div>')
+    aviso = (
+        '<div class="nota"><p><strong>Como as âncoras foram escolhidas.</strong> '
+        'Para cada afirmação da Seção 3, três candidatas foram levantadas por '
+        'sobreposição de vocabulário com as ' + str(494) + ' evidências, e uma '
+        'foi escolhida — ou nenhuma — por critério declarado: a evidência precisa '
+        'ter sido codificada com <em>confiança alta</em>; a afirmação precisa '
+        'afirmar algo (chamada de lista não ancora); os termos em comum precisam '
+        'somar peso informacional suficiente, medido pela raridade de cada termo '
+        'no próprio corpus; e a melhor candidata precisa vencer a segunda por '
+        'margem. Empate não decide, e por isso não escolhe.</p>'
+        '<p>O critério é conservador de propósito: ele recusa mais do que aceita, '
+        'e erra para o lado de deixar sem âncora. Âncora errada afirmaria '
+        'falsamente que a evidência existe; âncora ausente apenas mostra o que '
+        'não foi possível estabelecer.</p>'
+        '<p><strong>Seleção automática não é validação.</strong> As âncoras desta '
+        'página trazem o rótulo <span class="origem">âncora por critério '
+        'automático</span>; quando passarem por leitura, passam a trazer '
+        '<span class="origem">âncora revisada</span>. O critério completo está em '
+        '<code>tools/p4_selecao.py</code> e cada decisão, com seu motivo, em '
+        '<code>produtos/P4_ancoras_revisao.csv</code>.</p></div>'
+        if com else
+        '<div class="nota alerta"><p><strong>Nenhuma âncora selecionada.</strong> '
+        'A Seção 3 aparece sem ligações para o painel.</p></div>')
 
     return (f"""
 <div class="p4-kpi">{faixa}</div>

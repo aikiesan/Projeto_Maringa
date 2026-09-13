@@ -385,6 +385,10 @@ a.anc .anc-ts,a.anc .anc-dim{opacity:.82}
 .sem-anc{display:inline-block; margin-top:9px; font-size:11.5px; padding:3px 9px;
   border-radius:999px; border:1px dashed var(--mut); color:var(--mut)}
 .sem-anc.exemplo{margin:0}
+.origem{display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px;
+  background:var(--realce); color:var(--ink2); border:1px solid var(--grid)}
+li.af.origem-humano .origem{background:var(--s1); color:#fff; border-color:var(--s1)}
+.p4-doc .nota .origem{margin:0 2px}
 
 /* --- matriz de avaliacao --- */
 table.matriz{border-collapse:collapse; font-size:13px; min-width:100%}

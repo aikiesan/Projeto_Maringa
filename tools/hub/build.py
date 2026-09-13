@@ -103,6 +103,47 @@ def _conferir_css(css: str) -> None:
         raise SystemExit("CSS usa variaveis nao definidas: " + ", ".join(faltam))
 
 
+
+def _conferir_ancoras(html: str) -> int:
+    """Todo link de ancora da pagina tem de resolver para evidencia existente.
+
+    Tres invariantes, conferidos contra o codebook e contra o CSV de revisao:
+    a evidencia existe; foi codificada com confianca alta; e esta marcada como
+    aceita. Um link que erra o alvo afirma falsamente que a evidencia sustenta
+    a afirmacao — e o unico defeito desta pagina que nao se ve olhando.
+    """
+    import re
+    ligs = re.findall(r"painel\.html#evidencias\?int=([^&\"]+)&(?:amp;)?"
+                      r"dim=([^&\"]+)&(?:amp;)?ts=([^\"]+)", html)
+    corpus, altas = set(), set()
+    for arq in sorted(glob.glob(str(ROOT / "codebook" / "evidencias" / "ENT-*.csv"))):
+        with open(arq, encoding="utf-8-sig", newline="") as f:
+            for r in csv.DictReader(f):
+                k = (r["interview"], r["dim"], r["ts"])
+                corpus.add(k)
+                if r["confidence"] == "alta":
+                    altas.add(k)
+    rev = ROOT / "produtos" / "P4_ancoras_revisao.csv"
+    aceitas = set()
+    if rev.exists():
+        with rev.open(encoding="utf-8-sig", newline="") as f:
+            aceitas = {(r["interview"], r["dim"], r["ts"])
+                       for r in csv.DictReader(f) if r["decisao"] == "aceita"}
+    problemas = []
+    for l in ligs:
+        k = tuple(l)
+        if k not in corpus:
+            problemas.append(f"{k}: evidencia inexistente")
+        elif k not in altas:
+            problemas.append(f"{k}: confianca nao e alta")
+        elif aceitas and k not in aceitas:
+            problemas.append(f"{k}: nao marcada como aceita no CSV de revisao")
+    if problemas:
+        raise SystemExit("ancoras invalidas na produto4.html: "
+                         + chr(10) + "  ".join(problemas[:10]))
+    return len(ligs)
+
+
 def escreve(rel, txt):
     p = SAIDA / rel
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -171,6 +212,7 @@ def main():
         m, _ancoras_aceitas(), PB.base()["subcategorias"],
         datetime.date.fromtimestamp(_dx.stat().st_mtime).strftime("%d/%m/%Y"),
         _dx.stat().st_size)
+    _n_lig = _conferir_ancoras(_corpo_p4)
     escreve("produto4.html", pagina(
         "produto4.html", "Produto 04",
         "O Produto 04 da consultoria IPPLAM–CEPAL em versão web navegável, "
@@ -182,7 +224,8 @@ def main():
                   "financiamento climático urbano de Maringá.")))
     # o .docx NAO e publicado: contem os quadros nominais de participantes
     print(f"  produto4: {_res_p4['afirmacoes']} afirmações, "
-          f"{_res_p4['com_ancora']} com âncora, {_res_p4['sem_ancora']} sem")
+          f"{_res_p4['com_ancora']} com âncora, {_res_p4['sem_ancora']} sem "
+          f"— {_n_lig} links conferidos contra o codebook")
 
     escreve("conselhos.html", pagina(
         "conselhos.html", "Conselhos",
