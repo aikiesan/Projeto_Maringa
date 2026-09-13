@@ -233,8 +233,8 @@ def _link_ancora(r: dict) -> str:
     """
     alvo = (f'painel.html#evidencias?int={r["interview"]}'
             f'&dim={r["dim"]}&ts={r["ts"]}')
-    titulo = (f'{r["interview"]} · {r["ts"]} · dimensão {r["dim"]} '
-              f'— {r["dim_nome"]}')
+    titulo = (f'{r["interview"]} · {r["ts"]} · dimensão {r["dim"]}: '
+              f'{r["dim_nome"]}')
     return (f'<a class="anc" href="{E(alvo)}" title="{E(titulo)}">'
             f'<span class="mono">{E(r["interview"])}</span>'
             f'<span class="anc-ts mono">{E(r["ts"])}</span>'
@@ -244,7 +244,7 @@ def _link_ancora(r: dict) -> str:
 ROTULO = {
     "humano": ("âncora revisada", "Âncora conferida por leitura humana."),
     "automatico": ("âncora por critério automático",
-                   "Selecionada por critério declarado — confiança alta, peso "
+                   "Selecionada por critério declarado: confiança alta, peso "
                    "informacional dos termos compartilhados e margem sobre a "
                    "segunda candidata. Não passou por leitura humana."),
 }
@@ -377,7 +377,7 @@ def matriz(sub: list[dict]) -> str:
     linhas = []
     for s in sub:
         polos = " / ".join(s.get("perfil_polos") or [])
-        perfil = s["perfil"] + (f" — {polos}" if polos else "")
+        perfil = s["perfil"] + (f": {polos}" if polos else "")
         barra = (f'<span class="mini"><i style="width:{s["share_inexistente"]}%"></i></span>')
         linhas.append(
             f'<tr><td class="mono">{E(s["subcat"])}</td>'
@@ -396,7 +396,7 @@ def matriz(sub: list[dict]) -> str:
         f'</tr></thead><tbody>{"".join(linhas)}</tbody></table></div>'
         f'<p class="leg">As {len(sub)} subcategorias avaliadas. <b>Dim.</b> é quantas '
         f"dimensões da subcategoria receberam evidência, sobre o total. "
-        f"<b>Maturidade</b> é a <em>moda</em> — o estágio mais registrado —, não a "
+        f"<b>Maturidade</b> é a <em>moda</em>, isto é, o estágio mais registrado, não a "
         f"média: em {bim} das {len(sub)} subcategorias a distribuição é bimodal, e "
         f"nessas a média aponta um estágio intermediário que quase nenhuma evidência "
         f"sustenta. A coluna <b>perfil</b> declara a forma da distribuição e, quando "
@@ -442,7 +442,7 @@ def pagina(m: dict, aceitas: dict, sub: list[dict], data_docx: str,
         '<div class="nota"><p><strong>Como as âncoras foram escolhidas.</strong> '
         'Para cada afirmação da Seção 3, três candidatas foram levantadas por '
         'sobreposição de vocabulário com as ' + str(494) + ' evidências, e uma '
-        'foi escolhida — ou nenhuma — por critério declarado: a evidência precisa '
+        'foi escolhida, ou nenhuma, por critério declarado: a evidência precisa '
         'ter sido codificada com <em>confiança alta</em>; a afirmação precisa '
         'afirmar algo (chamada de lista não ancora); os termos em comum precisam '
         'somar peso informacional suficiente, medido pela raridade de cada termo '
@@ -467,9 +467,9 @@ def pagina(m: dict, aceitas: dict, sub: list[dict], data_docx: str,
 
 <div class="nota">
   <p><strong>Como ler esta página.</strong> É o Produto 04 na íntegra, gerado a
-  partir do documento entregue — nada foi reescrito aqui. O que a versão web
+  partir do documento entregue, e nada foi reescrito aqui. O que a versão web
   acrescenta está na Seção 3: cada afirmação recebe um número e, quando há âncora
-  de evidência validada, links que abrem o painel filtrado no ponto exato — sessão,
+  de evidência, links que abrem o painel filtrado no ponto exato: sessão,
   dimensão e marca de tempo. Afirmação sem âncora validada fica
   <span class="sem-anc exemplo">assim</span>, sem link e contada no topo da seção.</p>
 </div>

@@ -26,7 +26,7 @@ _CONF = {"alta": "Alta", "media": "Média", "baixa": "Baixa"}
 
 
 def _ordena(d, rotulos):
-    return [(rotulos.get(k, k or "—"), v)
+    return [(rotulos.get(k, k or "sem registro"), v)
             for k, v in sorted(d.items(), key=lambda kv: -kv[1])]
 
 
@@ -49,24 +49,24 @@ def inicio(m, c, orgs, leis):
     ESTAGIOS = sum(v for _, v in m["maturidade"])
     MUDAS = ", ".join('<span class="mono">' + E(d) + "</span>" for d in m["mudas"])
     cards = [
-        ("produto4.html", "Produto 04 — o relatório",
+        ("produto4.html", "Produto 04: o relatório",
          f"O relatório de síntese das consultas, em versão web navegável, com a "
          f"Matriz de Avaliação e cada afirmação da Seção 3 ligada à evidência que "
-         f"a sustenta — ou marcada como sem âncora validada."),
+         f"a sustenta, ou marcada como sem âncora."),
         ("painel.html", "Painel de evidências",
          f"As {m['evidencias']} evidências codificadas, cada uma vinculada a uma das "
          f"{m['dimensoes_total']} dimensões, com trecho anonimizado, marca de tempo, "
          "maturidade e alinhamento. Cobertura, lacunas e divergências."),
         ("conselhos.html", "Conselhos",
          f"Os {len(c['membros'])} conselheiros do COMDEMA entre {c['anos'][0]} e "
-         f"{c['anos'][-1]}, com a análise de continuidade — quem permanece, por qual "
+         f"{c['anos'][-1]}, com a análise de continuidade: quem permanece, por qual "
          "vínculo, e o que a rotatividade faz com a memória institucional."),
         ("instituicoes.html", "Instituições",
          f"As {len(orgs)} organizações mapeadas no Produto 3, classificadas pelas quatro "
          "dimensões analíticas da metodologia, com esfera, natureza e justificativa."),
         ("legislacao.html", "Legislação",
          f"As {len(leis)} normas municipais que formam o arcabouço climático de Maringá "
-         "— o que cada uma institui e onde estão as lacunas de regulamentação."),
+         "Que cada uma institui, e onde estão as lacunas de regulamentação."),
         ("transcricoes.html", "Transcrições",
          f"As {m['sessoes']} entrevistas na íntegra, em camada anonimizada, com as marcas "
          "de tempo que ancoram as evidências."),
@@ -94,7 +94,7 @@ def inicio(m, c, orgs, leis):
   barras(m["maturidade_completa"], "var(--s1)", total=m["evidencias"]),
   f"As {m['evidencias']} evidências pela situação que registram. A escala de estágios "
   f"vai de <em>inexistente</em> a <em>efetivo</em> e soma {ESTAGIOS}; as "
-  f"{m['evidencias'] - ESTAGIOS} restantes estão fora da escala — "
+  f"{m['evidencias'] - ESTAGIOS} restantes estão fora da escala: "
   f"<em>sem evidência</em> marca pendência de reinquirição, não ausência constatada, "
   f"e é registrada à parte justamente para não ser lida como <em>inexistente</em>. "
   f"Os extremos da escala concentram {inex} e "
@@ -114,7 +114,7 @@ def inicio(m, c, orgs, leis):
   barras(ALINH_ORD(m), "var(--s4)", total=m["evidencias"]),
   "<em>Convergente</em>: outra sessão diz o mesmo. <em>Complementar</em>: acrescenta "
   "sem contradizer. <em>Isolada</em>: nenhuma outra sessão toca o ponto. "
-  "<em>Divergente</em>: outra sessão diz o contrário — essas são preservadas, não "
+  "<em>Divergente</em>: outra sessão diz o contrário. Essas são preservadas, não "
   "resolvidas. Duas evidências não têm alinhamento registrado: ambas são "
   "<em>sem evidência</em>, categoria que não tem com o que se alinhar.",
   G.tabela(["Alinhamento", "Evidências"], ALINH_ORD(m)))}
@@ -158,7 +158,7 @@ não falha de coleta.</p>
 <div class="grade g2">
   <div class="card">
     <h3>Quatro eixos, {m['dimensoes_total']} dimensões</h3>
-    <p class="sm">Política climática, finanças, dados e governança — as categorias da
+    <p class="sm">Política climática, finanças, dados e governança. São as categorias da
     metodologia CCFLA/CEPAL, priorizadas para Maringá no Produto 2 da consultoria.
     {m['dimensoes_com_evidencia']} receberam evidência; {m['trianguladas']} foram
     confirmadas por duas ou mais sessões independentes.</p>
@@ -168,7 +168,7 @@ não falha de coleta.</p>
     <p class="sm">{m['alinhamento'].get('convergente', 0)} evidências convergentes,
     {m['alinhamento'].get('complementar', 0)} complementares,
     {m['alinhamento'].get('divergente', 0)} divergentes. Onde as fontes discordam, a
-    divergência foi mantida — nunca resolvida por predominância de setor. São elas o
+    divergência foi mantida, nunca resolvida por predominância de setor. São elas o
     material da validação participativa.</p>
   </div>
 </div>
@@ -237,8 +237,9 @@ acompanhar uma agenda de prazo longo.</p>
 <h2>Permanência dos conselheiros, 2021–2026</h2>
 
 <p>Dos {len(c['membros'])} conselheiros que passaram pelo COMDEMA nesses seis anos,
-<strong>{len(seis)}</strong> estiveram presentes em todos eles. {um_ou_dois} —
-{round(100 * um_ou_dois / len(c['membros']))}% do total — apareceram em um ou dois
+<strong>{len(seis)}</strong> estiveram presentes em todos eles. Outros
+{um_ou_dois}, ou {round(100 * um_ou_dois / len(c['membros']))}% do total,
+apareceram em um ou dois
 anos apenas.</p>
 
 <p>A composição é reconduzida a cada ano por portaria. O gráfico abaixo mostra a
@@ -289,7 +290,7 @@ representado, ano a ano.</p>
 <div class="nota">
   <p><strong>Por que estes nomes aparecem.</strong> A composição de conselho
   municipal é ato público, publicada em portaria. Os nomes aqui vêm dessa fonte, não
-  das entrevistas — e nenhuma informação deste Hub liga um conselheiro a uma sessão
+  das entrevistas, e nenhuma informação deste Hub liga um conselheiro a uma sessão
   de entrevista.</p>
 </div>
 """
@@ -319,7 +320,7 @@ JS_BUSCA = """<script>
 # =============================================================== INSTITUIÇÕES
 def instituicoes(orgs):
     import collections
-    por_grupo = collections.Counter(o.get("group_type", "—") for o in orgs)
+    por_grupo = collections.Counter(o.get("group_type", "não informado") for o in orgs)
     por_dim = collections.Counter(o["dim"] for o in orgs if o["dim"])
     dims = {"D1": "Política climática", "D2": "Financiamento e capacidade fiscal",
             "D3": "Dados e inteligência climática", "D4": "Governança e articulação"}
@@ -394,14 +395,14 @@ instituto ambiental próprio desde 2022.</p>
 <p>As fragilidades se concentram em outro lugar, e a escuta institucional as
 confirma uma a uma: <strong>ausência de metas climáticas quantificadas</strong>,
 ausência de sistema específico de monitoramento e avaliação, e ausência de
-rastreabilidade orçamentária da despesa climática. Ou seja — a lei institui, mas
+rastreabilidade orçamentária da despesa climática. Ou seja: a lei institui, mas
 não estabelece como se mede se funcionou. É a mesma distância entre formalizar e
 efetivar que o diagnóstico das entrevistas registra.</p>
 
 <div class="nota">
   <p><strong>O caso do IPTU Verde.</strong> Instituído pela Lei nº 9.860, de 2014, e
-  alterado em 2024, aparece nas quatro frentes da escuta — poder público, setor
-  privado, academia e sociedade civil — sempre pelo mesmo conjunto de críticas:
+  alterado em 2024, aparece nas quatro frentes da escuta (poder público, setor
+  privado, academia e sociedade civil), sempre pelo mesmo conjunto de críticas:
   divulgação insuficiente, restrição a pessoas físicas e burocracia de acesso. Um
   instrumento com dez anos de existência formal cuja efetividade nenhuma fonte do
   corpus sustenta.</p>
@@ -418,7 +419,7 @@ efetivar que o diagnóstico das entrevistas registra.</p>
 <tbody>{linhas}</tbody></table></div>
 
 <p class="sm mut">A íntegra das normas consta do acervo documental do projeto. Esta
-tabela é o índice do mapeamento, não a fonte legal — para citação, consulte o texto
+tabela é o índice do mapeamento, não a fonte legal. Para citação, consulte o texto
 publicado pelo município.</p>
 """
 

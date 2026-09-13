@@ -2,7 +2,7 @@
 """A página «O projeto»: o que é a consultoria e sob que regras a evidência
 foi produzida.
 
-Página **descritiva**. Ela diz o que foi feito e sob que regra — não o que os
+Página **descritiva**. Ela diz o que foi feito e sob que regra, não o que os
 dados significam. Conclusão é do Produto 04, assinada, e é lá que ela deve ser
 lida. Aqui não há tese: há procedimento.
 
@@ -22,16 +22,16 @@ def render(m: dict, c: dict, orgs: list, leis: list, sub: list) -> str:
 <h2>A consultoria</h2>
 
 <p>Este Hub e o material que ele abre pertencem a uma consultoria técnica
-contratada pelo <strong>IPPLAM</strong> — Instituto de Pesquisa e Planejamento
-Urbano de Maringá — no âmbito da cooperação com a <strong>CEPAL/ONU</strong>,
-executada pela Brisa Soluções Ambientais, sobre as <em>condições habilitantes ao
-financiamento climático urbano</em> de Maringá.</p>
+contratada pelo <strong>IPPLAM</strong> (Instituto de Pesquisa e Planejamento
+Urbano de Maringá), no âmbito da cooperação com a <strong>CEPAL/ONU</strong>, e
+executada pela Brisa Soluções Ambientais. O objeto são as <em>condições
+habilitantes ao financiamento climático urbano</em> de Maringá.</p>
 
 <p><strong>Condição habilitante</strong> é um termo técnico, e vale fixá-lo: não é
 um projeto nem uma obra. É o arranjo que precisa existir <em>antes</em>, para que
-o financiamento climático seja possível — uma política com meta declarada, um
-orçamento que permita identificar o gasto climático, um inventário de emissões,
-uma instância que coordene secretarias. A avaliação verifica, condição por
+o financiamento climático seja possível. Uma política com meta declarada. Um
+orçamento que permita identificar o gasto climático. Um inventário de emissões.
+Uma instância que coordene secretarias. A avaliação verifica, condição por
 condição, se ela existe, em que estágio está, e com que evidência se pode afirmar
 isso.</p>
 
@@ -40,8 +40,8 @@ isso.</p>
 <p>A referência é <em>Assessing Subnational Enabling Framework Conditions for
 Urban Climate Finance</em> (CCFLA / Urban-Act, 2024), adaptada e priorizada para
 Maringá no Produto 2 desta consultoria. Ela organiza
-{m['dimensoes_total']} dimensões em quatro eixos — política climática; orçamento e
-finanças; dados climáticos; coordenação vertical e horizontal — agrupadas em
+{m['dimensoes_total']} dimensões em quatro eixos (política climática; orçamento e
+finanças; dados climáticos; coordenação vertical e horizontal), agrupadas em
 {len(sub)} subcategorias.</p>
 
 <div class="grade g2">
@@ -103,13 +103,13 @@ fica como lastro, conferível na transcrição.</p>
     arquivo versionado. Corrigir um número significa corrigir a fonte, nunca a
     página.</p></div>
   <div class="card"><h3>Moda, não média</h3>
-    <p class="sm">A Matriz reporta a maturidade pela moda — o estágio mais
+    <p class="sm">A Matriz reporta a maturidade pela moda, isto é, o estágio mais
     registrado. Em {bimodais} das {len(sub)} subcategorias a distribuição é
     bimodal, e nessas a média apontaria um estágio intermediário que quase nenhuma
     evidência sustenta.</p></div>
 </div>
 
-<h2>O que a anonimização protege — e o que não protege</h2>
+<h2>O que a anonimização protege, e o que não protege</h2>
 
 <p>As entrevistas foram concedidas sob termo de consentimento que garante
 confidencialidade. Não aparecem em página alguma deste Hub: nome de participante
@@ -134,7 +134,7 @@ concessionárias e órgãos estaduais.</p>
 <div class="nota">
   <p><strong>Conselheiro é exceção declarada.</strong> A composição de conselho
   municipal é ato público, publicada em portaria. Por isso os
-  {len(c['membros'])} conselheiros do COMDEMA aparecem nominalmente — mas apenas
+  {len(c['membros'])} conselheiros do COMDEMA aparecem nominalmente, mas apenas
   na página de conselhos. Em qualquer outra página, nome de conselheiro seria
   falha, e a varredura que precede cada publicação trata assim.</p>
 </div>

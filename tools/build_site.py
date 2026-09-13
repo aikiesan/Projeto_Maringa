@@ -184,8 +184,8 @@ def aba_visao(d, m) -> str:
 cada uma um trecho anonimizado com marca de tempo, vinculado a uma dimensão e classificado
 quanto à maturidade que revela e à confiança que merece.</p>
 <p>A unidade de registro não é a entrevista nem a resposta: é a evidência. Por isso
-{m['n_tri']} dimensões já têm evidência de mais de uma sessão — é onde a triangulação
-vale — e {m['n_div']} registros foram marcados como divergência, preservadas em vez de
+{m['n_tri']} dimensões já têm evidência de mais de uma sessão, que é onde a
+triangulação vale, e {m['n_div']} registros foram marcados como divergência, preservadas em vez de
 resolvidas por predominância de fonte.</p>
 
 <h2>Distribuição por eixo</h2>
@@ -270,7 +270,7 @@ def aba_codebook(d, m) -> str:
             f'<th>Evid.</th><th>Sessões</th></tr></thead><tbody>{linhas}</tbody></table></div>')
     return ("<h2>As 55 dimensões e o que cada uma recebeu</h2>"
             "<p>Prioridade atribuída a Maringá no Produto&nbsp;2. «Evid.» é o total de evidências "
-            "codificadas na dimensão; «Sessões», de quantas entrevistas distintas elas vêm — "
+            "codificadas na dimensão; «Sessões», de quantas entrevistas distintas elas vêm. "
             "duas ou mais é onde a triangulação começa.</p>" + "".join(blocos))
 
 
@@ -280,7 +280,7 @@ def aba_evidencias(d, m) -> str:
     return f"""
 <h2>Evidência codificada, sessão a sessão</h2>
 <p>{len(d['evidence'])} evidências. Filtre por eixo, tipo, setor, sessão ou dimensão, ou
-busque no trecho e na paráfrase. A lista é paginada — 25 por página.</p>
+busque no trecho e na paráfrase. A lista é paginada, 25 por página.</p>
 <div class="filters" id="evfil">
   <span class="lbl">Eixo</span><span id="fax"></span>
   <span class="lbl">Tipo</span><span id="fty"></span>
@@ -329,7 +329,7 @@ Entre elas, com prioridade «Muito alta»: {txt_crit}.</p>
   leitura integral: <span class="c">2.2.2</span> rastreamento de gastos climáticos,
   <span class="c">2.3.2</span> uso do fundo municipal de meio ambiente e
   <span class="c">3.1.3</span> inventário municipal de GEE. Nenhuma foi alcançada pela
-  pré-triagem por palavra-chave — a codificação é mais fina que a triagem.</p>
+  pré-triagem por palavra-chave, e a codificação é mais fina que a triagem.</p>
 </div>
 
 <h2>Matriz dimensão × sessão</h2>
@@ -343,7 +343,7 @@ a contagem; a coluna à esquerda traz a prioridade.</p>
 <tbody>{li_sem}</tbody></table></div>
 
 <h2>Onde estão as lacunas codificadas</h2>
-<p>{len(lac)} evidências foram classificadas como <strong>lacuna</strong> — ausência declarada
+<p>{len(lac)} evidências foram classificadas como <strong>lacuna</strong>, ou seja, ausência declarada
 ou constatada. As vinte dimensões que mais as concentram:</p>
 <div class="scroll"><table>
 <thead><tr><th>Cód.</th><th>Dimensão</th><th>Prioridade</th><th>Lacunas</th></tr></thead>
@@ -371,7 +371,7 @@ def aba_integridade(d, m) -> str:
 <h2>As ressalvas que acompanham estes números</h2>
 <p>Levantadas por <span class="c">tools/ingest_registros.py</span>, que confere cada registro
 contra a Lista de Entrevistas e a pasta de termos assinados, e detecta duplicata por md5 do
-texto da transcrição — não por nome de pasta.</p>
+texto da transcrição, não por nome de pasta.</p>
 <div class="scroll"><table>
 <thead><tr><th>Item</th><th>Situação</th><th>Como está tratado aqui</th></tr></thead><tbody>
 <tr><td><span class="pill crit">Sem TCLE</span></td>
@@ -386,22 +386,22 @@ texto da transcrição — não por nome de pasta.</p>
         instituição foi atribuído por conferência.</td></tr>
 <tr><td><span class="pill warn">Sessões conjuntas</span></td>
     <td>{cod(conj)} reúnem dois participantes na mesma sessão.</td>
-    <td>Contadas como uma sessão. A codificação separa por falante na leitura — a diarização
+    <td>Contadas como uma sessão. A codificação separa por falante na leitura, porque a diarização
         automática não separa: em <span class="c">ENT-001-ENT-002</span> ela atribui todos os
         turnos a um único nome.</td></tr>
 <tr><td><span class="pill acc">Corrigido</span></td>
     <td>A duplicata registrada em 01/09 entre <span class="c">ENT-011</span> e
         <span class="c">ENT-012</span> <strong>não se confirma</strong>.</td>
     <td>A pasta ENT-011 contém a sessão conjunta <span class="c">ENT-010-ENT-011</span> e
-        <span class="c">ENT-012</span> tem registro próprio, com md5 e conteúdo distintos —
+        <span class="c">ENT-012</span> tem registro próprio, com md5 e conteúdo distintos.
         confirmado na leitura integral das duas transcrições.</td></tr>
 <tr><td><span class="pill warn">Reidentificação</span></td>
-    <td>Instituições singulares — órgão ambiental, liderança do Executivo, Legislativo — são
+    <td>Instituições singulares (órgão ambiental, liderança do Executivo, Legislativo) são
         identificáveis pelo próprio rótulo genérico.</td>
     <td>Risco residual assumido e registrado. A proteção vale contra a leitura casual, não
         contra quem conhece a estrutura da prefeitura.</td></tr>
 <tr><td><span class="pill warn">Alegações de parte</span></td>
-    <td>Sessões sem TCLE trazem alegações graves não verificadas — retrocesso no licenciamento,
+    <td>Sessões sem TCLE trazem alegações graves não verificadas: retrocesso no licenciamento,
         saldo de fundo não executado, desvio de recurso.</td>
     <td>Codificadas como <strong>divergência</strong> ou <strong>percepção</strong> de confiança
         baixa, com remissão explícita à verificação documental na Matriz&nbsp;2. Nenhuma é
@@ -684,13 +684,13 @@ def main() -> int:
   <h1>Repositório de Entrevistas de Maringá</h1>
   <p class="sub">{m['horas']} de escuta institucional em {len(live)} sessões, lidas contra as 55
   dimensões da metodologia. Todas codificadas: {len(ev)} evidências rastreáveis até o trecho que
-  as sustenta — e os silêncios que continuam de pé.</p>
+  as sustenta, e os silêncios que continuam de pé.</p>
   <div class="kpis">{kpi_html}</div>
 </div></header>
 <nav class="tabs" role="tablist"><div class="in">{nav}</div></nav>
 <main>{secs}</main>
 <footer><div class="wrap">
-  <p>Projeto CEPAL/IPPLAM — Maringá (PR). Camada anonimizada: nenhum nome, contato ou instituição
+  <p>Projeto CEPAL/IPPLAM, Maringá (PR). Camada anonimizada: nenhum nome, contato ou instituição
   nominal do participante entra aqui. Gerado por <span class="c">tools/build_site.py</span> a
   partir de <span class="c">codebook/dashboard.json</span> ({esc(d['generated'])}). {stamp}.</p>
 </div></footer>

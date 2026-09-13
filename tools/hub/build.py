@@ -46,6 +46,25 @@ def _fonte_transcricoes():
 
 
 
+
+# A altura da barra do Hub muda com a largura da tela. As abas do painel sao
+# sticky em top:0 e passariam por baixo dela; o deslocamento e MEDIDO no
+# carregamento e a cada redimensionamento, porque um valor fixo erra em algum
+# tamanho de tela e o sintoma (aba escondida atras da barra) so aparece rolando.
+HUBBAR_JS = (
+    "<script>(function(){"
+    "function medir(){"
+    "var b=document.querySelector('.hubbar');"
+    "if(!b)return;"
+    "document.documentElement.style.setProperty('--hubbar-h',"
+    "Math.round(b.getBoundingClientRect().height)+'px');"
+    "}"
+    "addEventListener('resize',medir);"
+    "addEventListener('DOMContentLoaded',medir);"
+    "medir();"
+    "})();</" "script>"
+)
+
 def _painel_documento(corpo: str) -> str:
     """Embrulha o painel num documento HTML de verdade.
 
@@ -57,6 +76,45 @@ def _painel_documento(corpo: str) -> str:
     """
     if corpo.lstrip()[:9].lower().startswith("<!doctype"):
         return corpo
+    from base import NAV
+    itens = "".join(
+        '<a href="' + h + '"' + (' aria-current="page"' if h == "painel.html" else "")
+        + ">" + r + "</a>" for h, r in NAV)
+    # Classes proprias (`hubbar`), nao as do Hub: o painel traz folha de estilo
+    # propria, com `.top` e `.wrap` ja definidos para outra coisa. Reusar os
+    # nomes quebraria o layout dele.
+    barra = (
+        '<div class="hubbar"><div class="hubbar-in">'
+        '<a class="hubbar-marca" href="index.html">'
+        '<img src="marca/brisa.png" alt="Brisa Soluções Ambientais">'
+        "<b>Maringá em Ação pelo Clima</b></a>"
+        '<nav class="hubbar-menu" aria-label="Navegação do Hub">' + itens + "</nav>"
+        "</div></div>")
+    estilo = (
+        "<style>"
+        ".hubbar{position:sticky;top:0;z-index:60;background:#fcfcfb;"
+        "border-bottom:2px solid #e2e6de;box-shadow:0 1px 0 rgba(11,11,11,.10)}"
+        ".hubbar-in{max-width:1140px;margin:0 auto;padding:9px 22px;"
+        "display:flex;gap:16px;align-items:center}"
+        ".hubbar-marca{display:flex;gap:9px;align-items:center;"
+        "text-decoration:none;color:#0b0b0b;font-size:14px;white-space:nowrap}"
+        ".hubbar-marca img{height:19px;width:auto}"
+        ".hubbar-menu{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto;"
+        "padding:3px;background:#f7f8f5;border:1px solid #e2e6de;"
+        "border-radius:11px;max-width:100%}"
+        ".hubbar-menu a{flex:0 0 auto;text-decoration:none;color:#4b5a51;font-size:13.5px;"
+        "font-weight:560;padding:7px 13px;border-radius:8px;white-space:nowrap}"
+        ".hubbar-menu a:hover{background:#eef5f0;color:#255438}"
+        '.hubbar-menu a[aria-current="page"]{background:#255438;color:#fff;'
+        "font-weight:700}"
+        # as abas do painel ja sao sticky em top:0; descem para nao passar por baixo
+        "nav.tabs{top:var(--hubbar-h,58px)!important;z-index:20!important}"
+        "@media (max-width:700px){.hubbar-in{padding:8px 14px;gap:10px}"
+        ".hubbar-marca b{display:none}"
+        ".hubbar-menu{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}"
+        ".hubbar-menu::-webkit-scrollbar{display:none}}"
+        "@media print{.hubbar{display:none}}"
+        "</style>" + HUBBAR_JS)
     cabeca = [
         "<!doctype html>",
         '<html lang="pt-BR">',
@@ -71,7 +129,8 @@ def _painel_documento(corpo: str) -> str:
         "<body>",
     ]
     nl = chr(10)
-    return nl.join(cabeca) + nl + corpo + nl + "</body>" + nl + "</html>" + nl
+    return (nl.join(cabeca) + estilo + nl + barra + nl + corpo + nl
+            + "</body>" + nl + "</html>" + nl)
 
 
 
@@ -178,7 +237,7 @@ def main():
         "Consultoria IPPLAM · CEPAL/ONU · Metodologia CCFLA",
         "Condições habilitantes ao financiamento climático urbano de Maringá",
         "Todo o material da avaliação, aberto e rastreável: a escuta institucional, "
-        "a base documental, o mapeamento de atores e o arcabouço legal — "
+        "a base documental, o mapeamento de atores e o arcabouço legal. "
         "<strong>cada afirmação ligada à evidência que a sustenta</strong>.")
     h_ini += faixa_kpi([
         (m["sessoes"], f"sessões de entrevista, {m['horas']} de escuta"),

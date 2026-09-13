@@ -73,9 +73,9 @@ a:hover{color:var(--ink)}
 img{max-width:100%}
 
 /* ---- cabeçalho ---- */
-header.top{border-bottom:1px solid var(--grid); background:var(--surface);
-  position:sticky; top:0; z-index:20;
-  backdrop-filter:saturate(1.6) blur(8px)}
+header.top{border-bottom:2px solid var(--grid); background:var(--surface);
+  position:sticky; top:0; z-index:30;
+  backdrop-filter:saturate(1.6) blur(8px); box-shadow:0 1px 0 var(--ring)}
 header.top .wrap{display:flex; align-items:center; gap:16px; flex-wrap:wrap;
   padding-block:11px}
 .marca{display:flex; align-items:center; gap:10px; text-decoration:none;
@@ -83,14 +83,30 @@ header.top .wrap{display:flex; align-items:center; gap:16px; flex-wrap:wrap;
 .marca img{height:19px; width:auto; display:block; filter:var(--logo)}
 .marca b{font-weight:650; font-size:14.5px; letter-spacing:-.012em}
 .marca i{font-style:normal; color:var(--mut); font-weight:400}
-nav.menu{display:flex; gap:1px; flex-wrap:wrap; margin-left:auto}
-nav.menu a{
-  text-decoration:none; color:var(--ink2); font-size:13.5px;
-  padding:6px 11px; border-radius:8px; white-space:nowrap;
-}
+nav/* O menu tem de PARECER um controle, nao um rodape de texto: trilho com
+   fundo e contorno, item corrente preenchido com a cor da marca. Em tela
+   estreita rola na horizontal em vez de quebrar em varias linhas, porque
+   menu quebrado em tres fileiras deixa de ser lido como menu. */
+.menu{display:flex; flex-wrap:wrap; gap:2px; margin-left:auto; padding:3px;
+  background:var(--plane); border:1px solid var(--grid); border-radius:11px;
+  max-width:100%}
+nav.menu a{flex:0 0 auto; text-decoration:none; color:var(--ink2);
+  font-size:13.5px;
+  font-weight:560; padding:7px 13px; border-radius:8px; white-space:nowrap;
+  transition:background .12s, color .12s}
 nav.menu a:hover{background:var(--realce); color:var(--floresta)}
-nav.menu a[aria-current="page"]{background:var(--realce); color:var(--ink);
-  font-weight:640; box-shadow:inset 0 0 0 1px var(--ring)}
+/* menu-celular: em tela estreita, oito itens em varias fileiras comeriam
+   meia tela. Vira uma fileira que rola, com a barra de rolagem escondida
+   porque ela sozinha custava 23px de altura no cabecalho. */
+@media (max-width:700px){
+  .menu{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;
+    -webkit-overflow-scrolling:touch}
+  .menu::-webkit-scrollbar{display:none}
+}
+.menu a[aria-current="page"]:hover{background:var(--floresta-2);
+  color:var(--sobre-marca)}
+nav.menu a[aria-current="page"]{background:var(--floresta);
+  color:var(--sobre-marca); font-weight:700}
 
 /* ---- hero ---- */
 .hero-faixa{

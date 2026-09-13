@@ -96,7 +96,7 @@ def pagina_transcricao(cod, cab, corpo, sessao=None):
   nominais, por serem informação pública. As marcas de tempo são as do registro
   original e ancoram as evidências codificadas. Reticências entre parênteses
   <span class="corte">(…)</span> indicam trecho suprimido por risco de
-  reidentificação — a relação completa dos cortes consta do
+  reidentificação. A relação completa dos cortes consta do
   <a href="dados.html">produto</a>.</p>
 </div>
 
@@ -117,7 +117,7 @@ def indice(sessoes, cabecalhos):
             f'<td class="sm">{E(s["institution_type"])}</td>'
             f'<td class="num">{E(s["date"])}</td>'
             f'<td class="num">{E(s["minutes"])} min</td>'
-            f'<td class="num">{cab.get("turnos", "—")}</td>'
+            f'<td class="num">{cab.get("turnos", "n/d")}</td>'
             f'<td class="num">{E(s["n_participants"])}</td></tr>')
     setores = sorted({ROTULO_SETOR.get(s["setor_publico"], s["setor_publico"])
                       for s in sessoes})
@@ -127,7 +127,7 @@ def indice(sessoes, cabecalhos):
 <h1>Transcrições</h1>
 
 <p class="lede">As {len(sessoes)} sessões de entrevista na íntegra, em camada
-anonimizada — {tot_min // 60}h{tot_min % 60:02d} de escuta institucional com
+anonimizada, somando {tot_min // 60}h{tot_min % 60:02d} de escuta institucional com
 {sum(int(s['n_participants']) for s in sessoes)} participantes dos quatro grupos de
 atores-chave.</p>
 
@@ -135,7 +135,7 @@ atores-chave.</p>
   <p><strong>O que foi feito com estes textos.</strong> Nomes de participantes, de
   entrevistadores e de terceiros citados foram substituídos por rótulos; contatos e
   links, suprimidos. Em três sessões o cargo do participante o identifica
-  independentemente do nome — nessas, os trechos autoidentificadores também foram
+  independentemente do nome. Nessas, os trechos autoidentificadores também foram
   suprimidos, cada corte marcado no texto e registrado em relação anexa ao produto.
   Subsiste risco residual de reidentificação por parte de quem conheça a estrutura
   institucional do município: ele é assumido e decorre da própria natureza de um
