@@ -224,16 +224,57 @@ class TestSupressao(unittest.TestCase):
     def nova(self, **kw):
         campos = dict(fonte="transcricao", alvo="ENT-999", paragrafo=7,
                       texto=self.TEXTO, trecho=self.TRECHO,
+                      substituto=S.MARCA,
                       motivo="presidencia nominal de comissao identifica a pessoa")
         campos.update(kw)
         return S.nova(**campos)
 
     def test_trecho_sai_e_marca_entra(self):
+        """`substituto` com a marca: o corte fica visível, que é a convenção."""
         sup = self.nova()
         saida = S.aplicar_em(self.TEXTO, sup)
         self.assertNotIn("presidi a comissão", saida)
         self.assertNotIn("2019", saida)
         self.assertIn(S.MARCA, saida)
+
+    def test_substituto_vazio_remove_sem_marca(self):
+        """`substituto` vazio: o trecho sai e nada entra.
+
+        É o tratamento certo quando o que identifica é o marcador de primeira
+        pessoa e não o conteúdo: «o contrato aqui no IAM» perde só o «aqui no
+        IAM» e a frase segue inteira. A coluna é literal justamente para que
+        este caso seja expressável.
+        """
+        sup = self.nova(substituto="")
+        saida = S.aplicar_em(self.TEXTO, sup)
+        self.assertNotIn("presidi a comissão", saida)
+        self.assertNotIn(S.MARCA, saida)
+        self.assertIn("conheço o processo", saida)
+
+    def test_substituto_com_texto_troca_o_trecho(self):
+        """`substituto` com texto: substituição, como `redacao.py` faz com nome."""
+        sup = self.nova(substituto="participei da comissão e ")
+        saida = S.aplicar_em(self.TEXTO, sup)
+        self.assertIn("participei da comissão e ", saida)
+        self.assertNotIn("presidi", saida)
+        self.assertNotIn("Câmara", saida)
+
+    def test_trecho_no_fim_do_paragrafo(self):
+        """Sufixo vazio é borda legítima, não declaração malformada.
+
+        Um trecho que termina o parágrafo não tem o que vir depois dele.
+        Exigir prefixo e sufixo não vazios fazia esses casos nunca casarem, e o
+        sintoma era uma supressão declarada que a geração recusava aplicar.
+        """
+        texto = "[participante 1]: avançando um pouco, eu sou do Instituto X"
+        trecho = "eu sou do Instituto X"
+        sup = S.nova("transcricao", "ENT-999", 3, texto, trecho,
+                     "vinculo institucional no fim do paragrafo",
+                     substituto=S.MARCA)
+        self.assertEqual(sup.sufixo, "")
+        saida = S.aplicar_em(texto, sup)
+        self.assertNotIn("Instituto X", saida)
+        self.assertTrue(saida.endswith(S.MARCA))
 
     def test_resto_do_turno_sobrevive(self):
         saida = S.aplicar_em(self.TEXTO, self.nova())
@@ -280,6 +321,37 @@ class TestSupressao(unittest.TestCase):
                   "texto": self.TEXTO}]
         with self.assertRaises(S.SupressaoNaoAplicada):
             S.aplicar_em_turnos(corpo, "ENT-999", [sup])
+
+    def test_tolerante_aplica_o_que_falta(self):
+        """A camada publicada recebe material que JA passou pelo pipeline."""
+        sup = self.nova()
+        pars = ["outro turno", "", self.TEXTO]
+        sup = self.nova(paragrafo=2)
+        saida, novas, ja = S.aplicar_tolerante(pars, "transcricao", "ENT-999", [sup])
+        self.assertEqual((novas, ja), (1, 0))
+        self.assertIn(S.MARCA, saida[2])
+
+    def test_tolerante_aceita_o_que_ja_estava_aplicado(self):
+        """O Anexo 05 já traz os cortes antigos escritos como (…).
+
+        Exigir que essas âncoras casem de novo faria a geração falhar sempre.
+        """
+        sup = self.nova(paragrafo=0)
+        pars = ["[participante 1]: " + S.MARCA + "por isso conheço o processo."]
+        saida, novas, ja = S.aplicar_tolerante(pars, "transcricao", "ENT-999", [sup])
+        self.assertEqual((novas, ja), (0, 1))
+        self.assertEqual(saida, pars)
+
+    def test_tolerante_reprova_quando_nem_casa_nem_esta_aplicado(self):
+        """A tolerância é estreita: fora dos dois casos, levanta.
+
+        Âncora que não casa e não está aplicada é proteção perdida em silêncio,
+        que é o desfecho que este módulo existe para impedir.
+        """
+        sup = self.nova(paragrafo=0)
+        pars = ["[participante 1]: um turno qualquer, sem o trecho declarado."]
+        with self.assertRaises(S.SupressaoNaoAplicada):
+            S.aplicar_tolerante(pars, "transcricao", "ENT-999", [sup])
 
     def test_sessao_sem_supressao_passa_intacta(self):
         corpo = [{"idx": 7, "ts": "00:00:20", "rotulo": "[participante 1]",

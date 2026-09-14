@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Converte as transcrições anonimizadas (.docx) em páginas do Hub."""
 import re, os, glob, html
+from pathlib import Path
 from docx import Document
 
 E = html.escape
@@ -31,7 +32,27 @@ def converte(caminho):
     """Devolve (codigo, cabecalho_dict, html_do_corpo)."""
     cod = os.path.basename(caminho).replace("_Transcricao_anonimizada.docx", "")
     doc = Document(caminho)
-    paras = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
+
+    # As supressoes declaradas sao aplicadas AQUI, na geracao da pagina, e nao
+    # so no pipeline de anonimizacao. A razao: o Anexo 05 que esta ferramenta le
+    # e um zip ja gerado, e uma declaracao nova em codebook/supressoes.csv so
+    # chegaria ao publico depois de regerar o anexo inteiro, o que depende do
+    # acervo e do vault. Aplicando na camada publicada, a pagina respeita a
+    # declaracao mesmo com o anexo velho.
+    #
+    # Os indices das declaracoes sao de `doc.paragraphs` cru. O filtro de
+    # paragrafos vazios vem DEPOIS, senao os indices deslizam e a supressao cai
+    # no paragrafo errado.
+    brutos = [p.text for p in doc.paragraphs]
+    import sys as _sys
+    _sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from tools.supressoes import aplicar_tolerante
+    brutos, _novas, _ja = aplicar_tolerante(brutos, "transcricao", cod)
+    if _novas:
+        print(f"    {cod}: {_novas} supressao(oes) aplicada(s) na publicacao"
+              + (f", {_ja} ja vinham do anexo" if _ja else ""))
+
+    paras = [t.strip() for t in brutos if t.strip()]
 
     cab = {}
     if paras and paras[0].startswith("TRANSCRIÇÃO ANONIMIZADA"):

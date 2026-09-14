@@ -37,7 +37,7 @@ ARQUIVO = ROOT / "codebook" / "supressoes.csv"
 MARCA = "(…)"
 
 CAMPOS = ("fonte", "alvo", "paragrafo", "prefixo", "sufixo",
-          "sha256", "n_chars", "motivo")
+          "sha256", "n_chars", "substituto", "motivo")
 
 
 class SupressaoNaoAplicada(RuntimeError):
@@ -53,6 +53,16 @@ class Supressao:
     sufixo: str
     sha256: str
     n_chars: int
+    # O que entra no lugar do trecho, LITERAL. Para cortar marcando, escreve-se
+    # a propria marca `(…)` na coluna; vazio significa remover sem por nada.
+    #
+    # A coluna ser literal e deliberado. Antes, vazio significava «corta e
+    # marca», e entao nao havia como expressar «remove o marcador e nao poe
+    # nada» — que e o tratamento certo quando o que identifica e o marcador de
+    # primeira pessoa e nao o conteudo. «nos aqui da Defesa Civil, a gente
+    # tomou» com substituto «a Defesa Civil tomou» deixa a frase inteira e
+    # retira a atribuicao da sessao ao orgao.
+    substituto: str
     motivo: str
 
     def chave(self):
@@ -73,7 +83,9 @@ def carregar(caminho: Path = ARQUIVO) -> list[Supressao]:
                 fonte=r["fonte"].strip(), alvo=r["alvo"].strip(),
                 paragrafo=int(r["paragrafo"]), prefixo=r["prefixo"],
                 sufixo=r["sufixo"], sha256=r["sha256"].strip(),
-                n_chars=int(r["n_chars"]), motivo=r["motivo"]))
+                n_chars=int(r["n_chars"]),
+                substituto=r.get("substituto") or "",
+                motivo=r["motivo"]))
     return out
 
 
@@ -93,22 +105,37 @@ _RECUOS = (None, 14, 8, 4)
 
 
 def _casar(texto: str, s: Supressao):
+    """Acha o trecho declarado, pelo contexto, conferindo o sha256.
+
+    Prefixo ou sufixo vazios sao legitimos e significam borda: um trecho no fim
+    do paragrafo nao tem o que vir depois dele. Exigir os dois nao vazios fazia
+    esses casos nunca casarem, e o sintoma era uma supressao declarada que a
+    geracao recusava aplicar — pior do que nao ter declarado.
+    """
     for r in _RECUOS:
         pre = s.prefixo if r is None else s.prefixo[-r:]
         suf = s.sufixo if r is None else s.sufixo[:r]
-        if not pre or not suf:
-            continue
+        if not s.prefixo and not s.sufixo:
+            return None            # sem contexto algum nao ha como localizar
         de = 0
         while True:
-            i = texto.find(pre, de)
-            if i < 0:
-                break
-            ini = i + len(pre)
-            j = texto.find(suf, ini)
-            if j < 0:
-                break
+            if pre:
+                i = texto.find(pre, de)
+                if i < 0:
+                    break
+                ini = i + len(pre)
+            else:
+                i, ini = 0, 0      # trecho no inicio do paragrafo
+            if suf:
+                j = texto.find(suf, ini)
+                if j < 0:
+                    break
+            else:
+                j = len(texto)     # trecho no fim do paragrafo
             if sha(texto[ini:j]) == s.sha256:
                 return ini, j
+            if not pre:
+                break
             de = i + 1
     return None
 
@@ -122,7 +149,7 @@ def aplicar_em(texto: str, s: Supressao) -> str:
             f"({s.n_chars} caracteres, sha {s.sha256[:12]}…). O material mudou — "
             f"reveja a supressão antes de publicar. Proteção NÃO aplicada.")
     ini, j = achado
-    return texto[:ini] + MARCA + texto[j:]
+    return texto[:ini] + s.substituto + texto[j:]
 
 
 def aplicar(paragrafos: dict[int, str], fonte: str, alvo: str,
@@ -142,7 +169,8 @@ def aplicar(paragrafos: dict[int, str], fonte: str, alvo: str,
 
 
 def nova(fonte: str, alvo: str, paragrafo: int, texto: str,
-         trecho: str, motivo: str, ctx: int = 26) -> Supressao:
+         trecho: str, motivo: str, substituto: str = "",
+         ctx: int = 26) -> Supressao:
     """Cria a declaracao a partir do texto e do trecho a remover.
 
     O prefixo e o sufixo sao recortes curtos do entorno — contexto, nao o
@@ -155,7 +183,8 @@ def nova(fonte: str, alvo: str, paragrafo: int, texto: str,
     return Supressao(fonte=fonte, alvo=alvo, paragrafo=paragrafo,
                      prefixo=texto[max(0, i - ctx):i],
                      sufixo=texto[i + len(trecho):i + len(trecho) + ctx],
-                     sha256=sha(trecho), n_chars=len(trecho), motivo=motivo)
+                     sha256=sha(trecho), n_chars=len(trecho),
+                     substituto=substituto, motivo=motivo)
 
 
 def aplicar_em_turnos(corpo: list[dict], code: str,
@@ -183,3 +212,42 @@ def aplicar_em_turnos(corpo: list[dict], code: str,
                 f"NÃO foi aplicada.")
         t["texto"] = aplicar_em(t["texto"], s)
     return corpo, len(minhas)
+
+
+def aplicar_tolerante(paragrafos: list[str], fonte: str, alvo: str,
+                      sups: list[Supressao] | None = None) -> tuple[list[str], int, int]:
+    """Aplica as supressoes a uma lista de paragrafos, tolerando as ja aplicadas.
+
+    Serve a camada publicada do Hub. As transcricoes que ela recebe vem do
+    Anexo 05, que **ja passou** pelo pipeline: os sete cortes originais estao
+    dentro dele, escritos como `(…)`. Exigir que essas ancoras casem de novo
+    faria a geracao falhar sempre.
+
+    A tolerancia e estreita de proposito: se a ancora nao casa, o paragrafo tem
+    de conter o substituto declarado — a prova de que o tratamento ja esta la.
+    Fora desses dois casos, levanta. Ancora que nao casa e nao esta aplicada e
+    protecao perdida em silencio, que e o que este modulo existe para impedir.
+
+    Devolve (paragrafos, aplicadas, ja_estavam).
+    """
+    sups = carregar() if sups is None else sups
+    minhas = [x for x in sups if x.fonte == fonte and x.alvo == alvo]
+    out = list(paragrafos)
+    novas = ja = 0
+    for x in minhas:
+        if x.paragrafo >= len(out):
+            raise SupressaoNaoAplicada(
+                f"{alvo} §{x.paragrafo}: paragrafo nao existe ({len(out)} no "
+                f"material). O material mudou e a protecao NAO foi aplicada.")
+        alvo_txt = out[x.paragrafo]
+        if _casar(alvo_txt, x) is not None:
+            out[x.paragrafo] = aplicar_em(alvo_txt, x)
+            novas += 1
+        elif (x.substituto or MARCA) in alvo_txt:
+            ja += 1
+        else:
+            raise SupressaoNaoAplicada(
+                f"{alvo} §{x.paragrafo}: a ancora nao casa e o tratamento "
+                f"declarado nao esta no paragrafo. {x.n_chars} caracteres, sha "
+                f"{x.sha256[:12]}…. Protecao NAO aplicada.")
+    return out, novas, ja
