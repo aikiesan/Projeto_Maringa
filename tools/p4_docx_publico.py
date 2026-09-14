@@ -92,36 +92,12 @@ def _limpa_paragrafo(par, texto: str) -> None:
         r.text = ""
 
 
-def _aplicar_supressao(par, sup) -> bool:
-    """Aplica uma supressão mexendo só nos runs que o trecho atravessa.
-
-    Reescrever o parágrafo inteiro seria mais simples e perderia o negrito do
-    rótulo que abre cada afirmação da Seção 3. O mapa de deslocamentos existe
-    para preservá-lo.
-    """
-    from tools.supressoes import _casar, MARCA
-    achado = _casar(par.text, sup)
-    if achado is None:
-        return False
-    ini, fim = achado
-    pos, primeiro = 0, True
-    for r in par.runs:
-        a, b = pos, pos + len(r.text)
-        pos = b
-        if b <= ini or a >= fim:
-            continue
-        antes = r.text[:max(0, ini - a)]
-        depois = r.text[max(0, fim - a):] if fim - a < len(r.text) else ""
-        r.text = antes + (MARCA if primeiro else "") + depois
-        primeiro = False
-    return True
-
-
 def gerar(origem: Path = ORIGEM, destino: Path = DESTINO) -> dict:
     import docx
     sys.path.insert(0, str(ROOT / "tools" / "hub"))
     import produto4 as P4
-    from tools.supressoes import carregar
+    from tools.supressoes import carregar, aplicar_em_paragrafo
+    from tools.p4_travessoes import aplicar_no_doc as _tirar_travessoes
 
     doc = docx.Document(str(origem))
     P4.guarda(doc, origem)            # a mesma trava: 367 paragrafos, ultimo titulo
@@ -134,7 +110,7 @@ def gerar(origem: Path = ORIGEM, destino: Path = DESTINO) -> dict:
         if s.paragrafo >= len(pars):
             falhas.append(f"§{s.paragrafo} fora do intervalo")
             continue
-        if _aplicar_supressao(pars[s.paragrafo], s):
+        if aplicar_em_paragrafo(pars[s.paragrafo], s):
             aplicadas += 1
         else:
             falhas.append(f"§{s.paragrafo} nao casou")
@@ -143,6 +119,12 @@ def gerar(origem: Path = ORIGEM, destino: Path = DESTINO) -> dict:
                          + "; ".join(falhas)
                          + ". Publicar sem um corte declarado e pior do que nao "
                            "publicar.")
+
+    # travessoes: pedido de 13/09, autorizado em 14/09 apos conferencia do diff.
+    # Vem DEPOIS das supressoes: as ancoras casam contra o texto como ele esta na
+    # origem, e reescrever a pontuacao antes moveria o contexto. Corta-se,
+    # depois pontua-se.
+    _trav = _tirar_travessoes(doc)
 
     # quadros nominais -> contagem
     setores = _setores_do_codebook()
@@ -162,6 +144,7 @@ def gerar(origem: Path = ORIGEM, destino: Path = DESTINO) -> dict:
     destino.parent.mkdir(parents=True, exist_ok=True)
     doc.save(str(destino))
     return {"supressoes": aplicadas, "quadros": quadros,
+            "travessoes": _trav["antes"], "pontuados": _trav["paragrafos"],
             "paragrafos": len(doc.paragraphs), "tabelas": len(doc.tables),
             "bytes": destino.stat().st_size}
 

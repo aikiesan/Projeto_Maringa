@@ -115,7 +115,10 @@ fica como lastro, conferível na transcrição.</p>
 confidencialidade. Não aparecem em página alguma deste Hub: nome de participante
 ou de entrevistador, cargo específico, a instituição nominal do próprio
 entrevistado, contato ou qualquer identificador direto. Cada sessão é identificada
-por código, setor e tipo institucional genérico.</p>
+apenas por código e setor. O tipo institucional deixou de aparecer em 13/09: dos
+15 rótulos, 13 eram únicos de uma só sessão e, ao lado da lista nominal de
+entrevistados, que é entregável do termo de referência, funcionavam como
+crachá.</p>
 
 <p>Aparecem nominalmente, por serem informação pública: órgãos de fato
 (SEMOP, IPPLAM, Defesa Civil), leis e instrumentos, contratos publicados,
@@ -132,11 +135,30 @@ concessionárias e órgãos estaduais.</p>
 </div>
 
 <div class="nota">
+  <p><strong>O limite que a anonimização não alcança.</strong> Quem fala uma hora
+  sobre o próprio trabalho diz onde trabalha. Medimos isso: contamos, na fala de
+  cada participante, quantas vezes ele nomeia o próprio empregador junto de uma
+  marca de primeira pessoa. Nas sessões em que isso é recorrente, publicar a
+  transcrição integral e proteger o local de trabalho são objetivos incompatíveis:
+  o número de cortes necessário destruiria o conteúdo. Essas sessões foram
+  retiradas da camada pública em 14/09 e integram o anexo de entrega à
+  coordenação. O critério, a medida de cada sessão e a data da decisão estão
+  declarados no codebook do projeto, e uma verificação automática refaz a medida
+  a cada publicação: se uma sessão retida voltar ao ar, ou se a medida divergir
+  da declarada, a publicação é reprovada.</p>
+  <p>A anonimização protege o nome. Ela não protege o emprego de quem falou sobre
+  o próprio trabalho, e é por isso que a decisão aqui não é de anonimização, e sim
+  de o que se publica.</p>
+</div>
+
+<div class="nota">
   <p><strong>Conselheiro é exceção declarada.</strong> A composição de conselho
   municipal é ato público, publicada em portaria. Por isso os
-  {len(c['membros'])} conselheiros do COMDEMA aparecem nominalmente, mas apenas
-  na página de conselhos. Em qualquer outra página, nome de conselheiro seria
-  falha, e a varredura que precede cada publicação trata assim.</p>
+  {len(c['membros'])} conselheiros do COMDEMA constam da portaria. A página que os
+  listava saiu deste Hub em 13/09: publicar {len(c['membros'])} nomes ao lado do
+  corpus não acrescentava nada ao diagnóstico e ampliava a superfície de
+  reidentificação. Hoje nome de conselheiro em qualquer página é falha, sem
+  exceção, e a varredura que precede cada publicação trata assim.</p>
 </div>
 
 <h2>Quem executa</h2>

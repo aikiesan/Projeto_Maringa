@@ -125,20 +125,49 @@ def pagina_transcricao(cod, cab, corpo, sessao=None):
 """
 
 
-def indice(sessoes, cabecalhos):
-    linhas = []
+# A marca das sessões retidas é genérica e igual para todas: o porquê mora em
+# `codebook/retencao_publica.csv`, que não é publicado. Dizer aqui o motivo, o
+# critério ou o número seria repor por outro caminho o rótulo por sessão que
+# saiu da camada pública em 13/09.
+MARCA_RETIDA = "não publicada nesta camada · consta do anexo de entrega"
+
+
+def indice(sessoes, cabecalhos, publicadas=None):
+    """O índice lista as 17, com as retidas marcadas e sem link.
+
+    Listar só as publicadas contradiria o resto do Hub, que conta 17 sessões em
+    todos os números, e deixaria sem resposta quem seguisse uma evidência do
+    painel até a transcrição.
+    """
+    linhas, n_retidas = [], 0
     for s in sorted(sessoes, key=lambda x: x["code"]):
         cod = s["code"]
         cab = cabecalhos.get(cod, {})
         setor = ROTULO_SETOR.get(s["setor_publico"], s["setor_publico"])
+        publica = publicadas is None or cod in publicadas
+        if publica:
+            celula = f'<td><a href="transcricoes/{cod}.html"><strong>{cod}</strong></a></td>'
+        else:
+            n_retidas += 1
+            celula = (f'<td><strong>{cod}</strong>'
+                      f'<br><span class="sm mut">{MARCA_RETIDA}</span></td>')
         linhas.append(
             f'<tr data-g="{E(setor)}">'
-            f'<td><a href="transcricoes/{cod}.html"><strong>{cod}</strong></a></td>'
+            f'{celula}'
             f'<td>{E(setor)}</td>'
             f'<td class="num">{E(s["date"])}</td>'
             f'<td class="num">{E(s["minutes"])} min</td>'
             f'<td class="num">{cab.get("turnos", "n/d")}</td>'
             f'<td class="num">{E(s["n_participants"])}</td></tr>')
+    # Os dois números da nota são derivados, não digitados: um vem da contagem
+    # de retidas feita acima, o outro do codebook de supressões.
+    from tools.supressoes import carregar as _sups
+    # Conta só entre as sessões que o leitor tem diante de si: falar dos cortes
+    # das retidas seria descrever texto que não está nesta página.
+    n_com_corte = len({x.alvo for x in _sups() if x.fonte == "transcricao"
+                       and (publicadas is None or x.alvo in publicadas)})
+    retidas_frase = (f"; {n_retidas} integram o anexo de entrega e não esta camada"
+                     if n_retidas else "")
     setores = sorted({ROTULO_SETOR.get(s["setor_publico"], s["setor_publico"])
                       for s in sessoes})
     opts = "".join(f'<option value="{E(g)}">{E(g)}</option>' for g in setores)
@@ -146,18 +175,27 @@ def indice(sessoes, cabecalhos):
     return f"""
 <h1>Transcrições</h1>
 
-<p class="lede">As {len(sessoes)} sessões de entrevista na íntegra, em camada
-anonimizada, somando {tot_min // 60}h{tot_min % 60:02d} de escuta institucional com
+<p class="lede">As {len(sessoes)} sessões de entrevista, em camada anonimizada,
+somando {tot_min // 60}h{tot_min % 60:02d} de escuta institucional com
 {sum(int(s['n_participants']) for s in sessoes)} participantes dos quatro grupos de
-atores-chave.</p>
+atores-chave. {len(sessoes) - n_retidas} estão publicadas na íntegra
+aqui{retidas_frase}.</p>
 
 <div class="nota">
   <p><strong>O que foi feito com estes textos.</strong> Nomes de participantes, de
   entrevistadores e de terceiros citados foram substituídos por rótulos; contatos e
-  links, suprimidos. Em três sessões o cargo do participante o identifica
-  independentemente do nome. Nessas, os trechos autoidentificadores também foram
-  suprimidos, cada corte marcado no texto e registrado em relação anexa ao produto.
-  Subsiste risco residual de reidentificação por parte de quem conheça a estrutura
+  links, suprimidos. Em {n_com_corte} sessões há trechos suprimidos porque o cargo, a
+  filiação declarada ou o local de trabalho identificavam o participante
+  independentemente do nome; cada corte está marcado no texto e registrado em relação
+  anexa ao produto.</p>
+  <p><strong>Por que {n_retidas} sessões não estão aqui.</strong> Medimos quantas vezes
+  o participante nomeia o próprio empregador junto de uma marca de primeira pessoa.
+  Nas sessões em que isso é recorrente, publicar a transcrição integral e proteger o
+  local de trabalho de quem falou por uma hora sobre o próprio trabalho são objetivos
+  incompatíveis: seriam necessários tantos cortes que o conteúdo não sobreviveria.
+  Essas sessões foram retiradas desta camada e integram o anexo de entrega à
+  coordenação, com o critério e a decisão registrados no codebook do projeto.</p>
+  <p>Subsiste risco residual de reidentificação por parte de quem conheça a estrutura
   institucional do município: ele é assumido e decorre da própria natureza de um
   corpus em que a representatividade setorial exige ouvir quem ocupa posição única
   na estrutura municipal.</p>

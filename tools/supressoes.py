@@ -152,6 +152,96 @@ def aplicar_em(texto: str, s: Supressao) -> str:
     return texto[:ini] + s.substituto + texto[j:]
 
 
+def aplicar_em_paragrafo(par, s: Supressao) -> bool:
+    """Aplica a supressao DENTRO de um paragrafo, preservando os runs.
+
+    `par` e um paragrafo do python-docx, mas este modulo nao importa `docx`: o
+    que se exige do objeto e `.text` (a concatenacao dos runs), `.runs` (cada um
+    com `.text` gravavel) e `.add_run`. O duck type e deliberado — a regra de
+    supressao mora aqui, e nao no gerador de .docx.
+
+    Reescrever `par.text` inteiro seria mais simples e destruiria a formatacao: a
+    maioria dos paragrafos das transcricoes tem mais de um run, e na Secao 3 do
+    Produto 4 o rotulo que abre a afirmacao e negrito. Por isso o intervalo e
+    casado contra o texto concatenado e so os runs atravessados sao reescritos.
+
+    Devolve True se aplicou, False se a ancora nao casou.
+    """
+    achado = _casar(par.text, s)
+    if achado is None:
+        return False
+    ini, fim = achado
+    if not par.runs:                       # paragrafo sem run, caso defensivo
+        par.add_run(aplicar_em(par.text, s))
+        return True
+    pos, primeiro = 0, True
+    for r in par.runs:
+        a, b = pos, pos + len(r.text)
+        pos = b
+        if b <= ini or a >= fim:
+            continue
+        antes = r.text[:max(0, ini - a)]
+        depois = r.text[max(0, fim - a):] if fim - a < len(r.text) else ""
+        # O substituto entra uma vez so, no primeiro run atravessado. Ele e
+        # LITERAL: antes daqui saia `MARCA` fixo, e as cinco supressoes cujo
+        # substituto e outra coisa produziam arquivo divergente da pagina.
+        r.text = antes + (s.substituto if primeiro else "") + depois
+        primeiro = False
+    return True
+
+
+def _ja_aplicada(texto: str, s: Supressao) -> bool:
+    """Diz se o tratamento declarado ja esta neste paragrafo.
+
+    Com substituto nao vazio a prova e direta: o substituto esta la. Com
+    substituto VAZIO nao ha o que procurar — a remocao nao deixa marca — e
+    procurar `MARCA` daria negativo sempre, fazendo a geracao falhar sobre
+    material que ja estava correto. A prova positiva nesse caso e que o prefixo
+    e o sufixo ficaram ADJACENTES, isto e, que o que havia entre eles saiu.
+
+    Se o trecho ainda estiver no paragrafo, prefixo e sufixo nao sao adjacentes
+    e esta funcao devolve False, que e o comportamento que o modulo inteiro
+    existe para garantir.
+    """
+    if s.substituto:
+        return s.substituto in texto
+    for r in _RECUOS:
+        pre = s.prefixo if r is None else s.prefixo[-r:]
+        suf = s.sufixo if r is None else s.sufixo[:r]
+        if not pre and not suf:
+            continue
+        if not pre:
+            if texto.startswith(suf):
+                return True
+        elif not suf:
+            if texto.endswith(pre):
+                return True
+        elif pre + suf in texto:
+            return True
+    return False
+
+
+def _decidir(texto: str, s: Supressao) -> str:
+    """O unico lugar onde se decide o que fazer com uma supressao.
+
+    Devolve `aplicar`, `ja` ou `falha`. Existe para que a pagina e o .docx de
+    entrega nao tenham duas copias da regra: a equivalencia entre as duas saidas
+    passa a ser estrutural, e nao disciplina de quem edita.
+    """
+    if _casar(texto, s) is not None:
+        return "aplicar"
+    if _ja_aplicada(texto, s):
+        return "ja"
+    return "falha"
+
+
+def _falha(alvo: str, s: Supressao) -> SupressaoNaoAplicada:
+    return SupressaoNaoAplicada(
+        f"{alvo} §{s.paragrafo}: a ancora nao casa e o tratamento declarado "
+        f"nao esta no paragrafo. {s.n_chars} caracteres, sha "
+        f"{s.sha256[:12]}…. Protecao NAO aplicada.")
+
+
 def aplicar(paragrafos: dict[int, str], fonte: str, alvo: str,
             sups: list[Supressao] | None = None) -> tuple[dict[int, str], int]:
     """Aplica todas as supressoes de (fonte, alvo). Devolve (paragrafos, n)."""
@@ -240,14 +330,82 @@ def aplicar_tolerante(paragrafos: list[str], fonte: str, alvo: str,
                 f"{alvo} §{x.paragrafo}: paragrafo nao existe ({len(out)} no "
                 f"material). O material mudou e a protecao NAO foi aplicada.")
         alvo_txt = out[x.paragrafo]
-        if _casar(alvo_txt, x) is not None:
+        caso = _decidir(alvo_txt, x)
+        if caso == "aplicar":
             out[x.paragrafo] = aplicar_em(alvo_txt, x)
             novas += 1
-        elif (x.substituto or MARCA) in alvo_txt:
+        elif caso == "ja":
             ja += 1
         else:
-            raise SupressaoNaoAplicada(
-                f"{alvo} §{x.paragrafo}: a ancora nao casa e o tratamento "
-                f"declarado nao esta no paragrafo. {x.n_chars} caracteres, sha "
-                f"{x.sha256[:12]}…. Protecao NAO aplicada.")
+            raise _falha(alvo, x)
     return out, novas, ja
+
+
+def aplicar_em_evidencias(evidencias, sups: list[Supressao] | None = None) -> int:
+    """Aplica as supressoes de `fonte=evidencia` aos trechos do painel.
+
+    A terceira superficie. As duas primeiras eram a transcricao e o Produto 4;
+    o campo `excerpt` de `codebook/evidencias/` e publicado no painel e nao
+    passava por aqui. O efeito era um corte valer numa superficie e nao na
+    outra: em ENT-003 a transcricao perdia «aqui no orgao ambiental municipal»
+    e o painel republicava a frase inteira.
+
+    `evidencias` e a lista de dicts com `interview` e `excerpt`, na ordem em que
+    o painel a le. O `paragrafo` da declaracao e o indice da evidencia DENTRO da
+    sessao, nessa mesma ordem. Se a ordem mudar, `_casar` nao acha o trecho e a
+    geracao falha, que e o comportamento certo: e o material que mudou.
+    """
+    sups = carregar() if sups is None else sups
+    minhas = [s for s in sups if s.fonte == "evidencia"]
+    if not minhas:
+        return 0
+    por_sessao: dict[str, list] = {}
+    for e in evidencias:
+        por_sessao.setdefault(e["interview"], []).append(e)
+    n = 0
+    for s in minhas:
+        fila = por_sessao.get(s.alvo, [])
+        if s.paragrafo >= len(fila):
+            raise SupressaoNaoAplicada(
+                f"{s.alvo} evidencia #{s.paragrafo}: nao existe ({len(fila)} na "
+                f"sessao). O codebook mudou e a protecao NAO foi aplicada.")
+        ev = fila[s.paragrafo]
+        caso = _decidir(ev.get("excerpt") or "", s)
+        if caso == "aplicar":
+            ev["excerpt"] = aplicar_em(ev["excerpt"], s)
+            n += 1
+        elif caso != "ja":
+            raise _falha(s.alvo + " evidencia", s)
+    return n
+
+
+def aplicar_em_doc(paragrafos, fonte: str, alvo: str,
+                   sups: list[Supressao] | None = None) -> tuple[int, int]:
+    """Aplica as supressoes aos paragrafos de um .docx, preservando os runs.
+
+    `paragrafos` e `doc.paragraphs`, na ordem CRUA: sao esses os indices que
+    `codebook/supressoes.csv` declara, porque a pagina tambem os le antes de
+    descartar os vazios (`tools/hub/transcricoes.py`). Indexar sobre a lista ja
+    filtrada deslocaria todas as declaracoes.
+
+    Mesma decisao de `aplicar_tolerante`, pelo mesmo `_decidir`. Devolve
+    (aplicadas, ja_estavam).
+    """
+    sups = carregar() if sups is None else sups
+    minhas = [x for x in sups if x.fonte == fonte and x.alvo == alvo]
+    novas = ja = 0
+    for x in minhas:
+        if x.paragrafo >= len(paragrafos):
+            raise SupressaoNaoAplicada(
+                f"{alvo} §{x.paragrafo}: paragrafo nao existe ({len(paragrafos)} "
+                f"no material). O material mudou e a protecao NAO foi aplicada.")
+        par = paragrafos[x.paragrafo]
+        caso = _decidir(par.text, x)
+        if caso == "aplicar":
+            aplicar_em_paragrafo(par, x)
+            novas += 1
+        elif caso == "ja":
+            ja += 1
+        else:
+            raise _falha(alvo, x)
+    return novas, ja

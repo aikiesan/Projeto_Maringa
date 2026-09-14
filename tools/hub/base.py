@@ -94,10 +94,20 @@ header.top .wrap{display:flex; align-items:center; gap:16px; flex-wrap:wrap;
   color:var(--sobre-marca); position:relative; overflow:hidden;
   border-bottom:3px solid var(--menta);
 }
-.hero-faixa::after{
-  content:""; position:absolute; right:-60px; bottom:-40px; width:540px; height:286px;
-  background:url(marca/onda.png) right bottom/contain no-repeat;
-  opacity:.16; pointer-events:none;
+/* O mapa da cidade e elemento declarado da identidade, e a capa oficial o usa
+   grande, sangrando pela direita, em verde sobre o petroleo. Aqui ele entra por
+   mascara e nao por imagem: o arquivo e um so, em tom neutro, e a cor vem do
+   token, o que evita publicar o mesmo mapa duas vezes so para mudar de cor.
+   Sem suporte a mascara o enfeite simplesmente nao aparece, que e melhor do que
+   um bloco verde chapado no lugar dele. */
+.hero-faixa::after{content:none}
+@supports ((mask-image:url("")) or (-webkit-mask-image:url(""))){
+  .hero-faixa::after{
+    content:""; position:absolute; right:-8%; top:0; width:58%; height:100%;
+    background:var(--menta); opacity:.32; pointer-events:none;
+    -webkit-mask:url(marca/mapa-cidade.png) center/cover no-repeat;
+    mask:url(marca/mapa-cidade.png) center/cover no-repeat;
+  }
 }
 .hero-faixa .wrap{padding-block:56px 48px; position:relative; z-index:1}
 .hero-faixa .selo{
@@ -125,7 +135,22 @@ h2{font-size:clamp(20px,2.8vw,26px); line-height:1.22; letter-spacing:-.017em;
    border-top:1px solid var(--grid)}
 h2:first-child{border-top:0; padding-top:0; margin-top:0}
 h3{font-size:16.5px; letter-spacing:-.008em; margin:30px 0 8px; font-weight:640}
-p{margin:0 0 14px; max-width:74ch}
+/* Texto justificado, pedido de 14/09. Justificar sem hifenizacao abre rios de
+   espaco no meio da coluna, e em portugues, com palavras longas, abre muito: a
+   hifenizacao automatica e o que torna a justificacao legivel, e ela depende do
+   `lang="pt-BR"` que o documento ja declara. `text-wrap:pretty` evita a linha
+   final orfa, que a justificacao deixa mais visivel.
+   Nao se justifica tudo: celula de tabela, rotulo de KPI, legenda e texto curto
+   ficam a esquerda, porque justificar duas ou tres palavras so estica o espaco. */
+p{margin:0 0 14px; max-width:74ch; text-align:justify; text-justify:inter-word;
+  hyphens:auto; -webkit-hyphens:auto; text-wrap:pretty}
+/* A excecao e por FUNCAO, nao por tamanho de fonte: o que nao se justifica e
+   rotulo, legenda de numero, linha de contagem e o lede de abertura, que tem
+   duas ou tres linhas e estica visivelmente. O texto dos cartoes, com 39
+   caracteres de medida, justifica bem com hifenizacao e entra na regra geral. */
+td p, th p, .kpi p, figcaption, .conta, .marca, .hubbar p,
+.lede, .hero-faixa p, .quadro-suprimido p, .linha-ano .tot, .faixa-kpi p{
+  text-align:left; hyphens:manual}
 .lede{font-size:clamp(16px,2.1vw,18.5px); line-height:1.55; color:var(--ink2);
   max-width:70ch; margin-bottom:24px}
 .mut{color:var(--mut)}
@@ -435,9 +460,12 @@ def pagina(arquivo, titulo, descricao, corpo, extra_js="", hero=""):
 <meta property="og:description" content="{descricao}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Maringá em Ação pelo Clima">
-<meta property="og:image" content="marca/projeto.png">
-<meta name="twitter:card" content="summary">
-<link rel="icon" href="marca/projeto.png" type="image/png">
+<meta property="og:image" content="marca/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="marca/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="marca/favicon.png">
 <link rel="stylesheet" href="hub.css">
 {CAB.JS_PRE}
 </head>

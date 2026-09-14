@@ -223,6 +223,27 @@ for p in sorted(SAIDA.rglob("*")):
                 achados.append((rel, "conselheiro fora de lugar:" + nome,
                                 txt[max(0, m.start() - 60):m.end() + 40]))
 
+# ---------------------------------------------------------------- retencao
+# O portao le `codebook/retencao_publica.csv` por conta propria, e nao confia no
+# gerador. Pega os dois casos que o `continue` do build nao pega: alguem mexeu
+# no laco, e `hub_saida/` velho que nao foi limpo antes de publicar.
+from tools.hub import retencao as _R                                # noqa: E402
+
+for _cod in _R.confere_saida(SAIDA / "transcricoes"):
+    achados.append((f"transcricoes/{_cod}.html", "sessao retida publicada",
+                    "autoidentificacao de empregador; ver codebook/retencao_publica.csv"))
+
+_retidas = _R.retidas()
+for _p in sorted(SAIDA.rglob("*")):
+    if not _p.is_file() or _p.suffix.lower() not in (".html", ".xml", ".css", ".json"):
+        continue
+    _t = _p.read_text(encoding="utf-8", errors="ignore")
+    for _cod in sorted(_retidas):
+        if f"transcricoes/{_cod}.html" in _t:
+            achados.append((str(_p.relative_to(SAIDA)).replace("\\", "/"),
+                            "link para sessao retida:" + _cod,
+                            "a pagina nao existe e o link nao pode existir"))
+
 if achados:
     print(f"{len(achados)} ACHADO(S) — o Hub NÃO pode ser publicado\n")
     vistos = {}

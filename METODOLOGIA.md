@@ -106,6 +106,36 @@ cruzar dimensão × órgão, que é o eixo da Matriz 1.
 e por setor, atribuindo achados a órgão nominal só quando a informação for de fato pública
 (um contrato publicado, uma lei, uma competência legal).
 
+**Revisto em 13/09:** o tipo institucional saiu da camada pública. Dos 15 rótulos, 13 eram
+únicos de uma única sessão e, ao lado da lista nominal de entrevistados, funcionavam como
+crachá. Ele permanece no codebook, que não é publicado.
+
+### O limite medido: autoidentificação de empregador
+
+Quem fala uma hora sobre o próprio trabalho diz onde trabalha, e nenhuma substituição de
+nome alcança isso. Em 14/09 a autoidentificação passou a ser **medida**, e não apenas
+declarada: para cada sessão conta-se quantas vezes o participante nomeia o próprio
+empregador a menos de 60 caracteres de uma marca de primeira pessoa, sendo o termo do
+empregador declarado por sessão em `codebook/retencao_publica.csv`. ENT-013 mede 15, o
+maior do corpus.
+
+A medida ancorada no termo substituiu uma primeira versão ancorada no gatilho de primeira
+pessoa, que era dominada por ruído: em ENT-009, sete das nove passagens eram «Olha», «Mas»
+e «Continua», palavras capitalizadas por começo de frase, e o número que sustentava reter
+ENT-008 contava dez ocorrências de «meio ambiente» como substantivo comum.
+
+**Caminho adotado:** nas sessões em que a autoidentificação é recorrente, publicar a
+transcrição integral e proteger o local de trabalho são objetivos incompatíveis, porque o
+número de cortes necessário destruiria o conteúdo. Oito sessões foram retiradas da camada
+pública e integram o anexo de entrega; nove continuam publicadas na íntegra. A decisão de
+cada sessão, com critério, medida, data e quem decidiu, está em
+`codebook/retencao_publica.csv`, e `tools/hub/retencao.py` refaz a medida a cada
+publicação: sessão retida que reapareça, ou medida que divirja da declarada, reprova a
+publicação.
+
+A anonimização protege o nome. Ela não protege o emprego de quem falou sobre o próprio
+trabalho, e por isso a decisão aqui não é de anonimização, e sim de o que se publica.
+
 ---
 
 ## 4. Escalas de registro

@@ -38,6 +38,11 @@ saida_triagem/
 # trechos do texto original — nada disso vai ao repositório.
 saida_anonimizacao/
 
+# saída do anexo de entrega (tools/transcricoes_entrega.py): as 17 transcrições
+# com os cortes dentro do arquivo. São transcrições de acervo, mesma regra de
+# saida_anonimizacao/ — não vão ao repositório.
+saida_entrega/
+
 # contatos nominais dos pontos focais (Produto 3) e saídas do painel que os embutem
 data/contacts.json
 docs/data/contacts.json

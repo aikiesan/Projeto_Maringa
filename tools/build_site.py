@@ -97,7 +97,13 @@ section.tab[hidden]{display:none!important}
 h2{font:600 21px/1.3 var(--serif);margin:30px 0 10px;letter-spacing:-.01em}
 h2:first-child{margin-top:0}
 h3{font:600 15px/1.4 var(--sans);margin:22px 0 6px}
-p{margin:0 0 12px;max-width:74ch}
+/* Justificacao, pedido de 14/09, com a mesma regra do Hub: hifenizacao ligada,
+   porque justificar portugues sem hifenizar abre rios no meio da coluna, e o
+   `lang="pt-BR"` do documento e o que a habilita. Fora da regra ficam celula de
+   tabela, rotulo e legenda, onde justificar duas palavras so estica o espaco. */
+p{margin:0 0 12px;max-width:74ch;text-align:justify;text-justify:inter-word;
+  hyphens:auto;-webkit-hyphens:auto;text-wrap:pretty}
+td p,th p,.mut.sm,.kpi p,figcaption,#lockform p{text-align:left;hyphens:manual}
 .mut{color:var(--mut)}
 .c{font-family:var(--mono);font-size:.88em;background:var(--neu-bg);padding:1px 5px;border-radius:4px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:15px 17px;margin:0 0 12px}
@@ -628,6 +634,13 @@ show(inicial);
 
 def main() -> int:
     d = json.loads(DATA.read_text(encoding="utf-8"))
+    # Terceira superficie das supressoes. O `excerpt` da evidencia e publicado
+    # aqui, e ate 14/09 nao passava por `tools/supressoes.py`: o corte de
+    # ENT-003 valia na transcricao e o painel republicava a frase inteira.
+    # Falha dura, como nas outras duas superficies.
+    sys.path.insert(0, str(ROOT))
+    from tools.supressoes import aplicar_em_evidencias
+    _n_sup = aplicar_em_evidencias(d["evidence"])
     ev = d["evidence"]
     live = [i for i in d["interviews"] if not i["duplicate"]]
     dims = {x["code"]: x for x in d["dimensions"]}

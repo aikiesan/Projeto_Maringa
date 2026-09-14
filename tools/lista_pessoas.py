@@ -50,8 +50,21 @@ def carregar(caminho: Path, minimo: int = 20) -> list[str]:
             v = row[col]
             if isinstance(v, str):
                 limpo = _so_o_nome(v)
+                # A aba PESSOAS de «Lista de Entrevistas.xlsx» repete o
+                # cabecalho na linha 39, onde comeca um segundo bloco. Sem esta
+                # guarda, a palavra «Nome» entrava na lista como se fosse uma
+                # pessoa, e a varredura reprovava qualquer documento com uma
+                # tabela que tivesse coluna «Nome». Os nomes do segundo bloco
+                # continuam sendo lidos: o que se descarta e so o cabecalho.
+                if limpo and limpo.strip().lower() in _ROTULOS_CABECALHO:
+                    continue
                 if limpo:
                     nomes.add(limpo)
+
+    # `read_only=True` mantem o arquivo aberto ate o close explicito. Sem isto o
+    # handle fica pendurado enquanto o processo viver, e no Windows a planilha
+    # nao pode ser movida nem apagada por mais ninguem.
+    wb.close()
 
     if not abas_lidas:
         raise ListaIndisponivel(
@@ -64,12 +77,14 @@ def carregar(caminho: Path, minimo: int = 20) -> list[str]:
     return sorted(nomes)
 
 
+_ROTULOS_CABECALHO = ("nome", "nome completo", "entrevistado", "participante")
+
+
 def _coluna_nome(ws) -> int | None:
     """Índice 0-based da coluna cujo cabeçalho é «Nome», na primeira linha."""
     for row in ws.iter_rows(min_row=1, max_row=1, values_only=True):
         for i, c in enumerate(row or ()):
-            if isinstance(c, str) and c.strip().lower() in ("nome", "nome completo",
-                                                            "entrevistado", "participante"):
+            if isinstance(c, str) and c.strip().lower() in _ROTULOS_CABECALHO:
                 return i
     return None
 

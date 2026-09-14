@@ -361,5 +361,232 @@ class TestSupressao(unittest.TestCase):
         self.assertEqual(saida[0]["texto"], self.TEXTO)
 
 
+class _Run:
+    def __init__(self, texto):
+        self.text = texto
+
+
+class _Par:
+    """Dublê de parágrafo do python-docx.
+
+    `tools.supressoes` não importa `docx`: exige de um parágrafo apenas `.text`,
+    `.runs` e `.add_run`. O dublê existe para que a regra de supressão seja
+    testável sem depender da biblioteca nem de um arquivo no disco.
+    """
+
+    def __init__(self, *textos):
+        self.runs = [_Run(t) for t in textos]
+
+    @property
+    def text(self):
+        return "".join(r.text for r in self.runs)
+
+    def add_run(self, texto):
+        self.runs.append(_Run(texto))
+        return self.runs[-1]
+
+
+class TestSupressaoEmParagrafo(unittest.TestCase):
+    """`aplicar_em_paragrafo`: o corte dentro do .docx, sem perder formatação.
+
+    O parágrafo real é multi-run, e reescrevê-lo inteiro apagaria o negrito do
+    rótulo que abre cada afirmação da Seção 3. Aqui cada run é uma string, e o
+    que se verifica é que só os runs atravessados pelo trecho mudam.
+    """
+
+    ABRE = "[participante 1]: "
+    ALVO = "Eu presidi a comissão de meio ambiente da Câmara em 2019, e "
+    FECHA = "por isso conheço o processo."
+
+    def nova(self, **kw):
+        campos = dict(fonte="transcricao", alvo="ENT-999", paragrafo=0,
+                      texto=self.ABRE + self.ALVO + self.FECHA,
+                      trecho=self.ALVO, substituto=S.MARCA,
+                      motivo="presidencia nominal de comissao identifica a pessoa")
+        campos.update(kw)
+        return S.nova(**campos)
+
+    def par(self):
+        return _Par(self.ABRE, self.ALVO, self.FECHA)
+
+    def test_runs_fora_do_trecho_ficam_intactos(self):
+        par = self.par()
+        self.assertTrue(S.aplicar_em_paragrafo(par, self.nova()))
+        self.assertEqual(len(par.runs), 3)
+        self.assertEqual(par.runs[0].text, self.ABRE)
+        self.assertEqual(par.runs[2].text, self.FECHA)
+        self.assertNotIn("presidi", par.text)
+
+    def test_substituto_literal_entra_no_lugar_da_marca(self):
+        """O defeito que este teste fixa: o aplicador inseria `MARCA` fixo.
+
+        Cinco das supressões de transcrição declaram substituto que não é a
+        marca. Com o defeito, o .docx de entrega saía divergente da página
+        publicada justamente nesses cinco pontos.
+        """
+        sup = self.nova(substituto="participei da comissão e ")
+        par = self.par()
+        self.assertTrue(S.aplicar_em_paragrafo(par, sup))
+        self.assertIn("participei da comissão e ", par.text)
+        self.assertNotIn(S.MARCA, par.text)
+        self.assertNotIn("Câmara", par.text)
+
+    def test_equivale_ao_aplicador_de_texto(self):
+        """Arquivo e página têm de produzir o mesmo texto, por construção."""
+        for substituto in (S.MARCA, "", "participei da comissão e "):
+            with self.subTest(substituto=substituto):
+                sup = self.nova(substituto=substituto)
+                par = self.par()
+                S.aplicar_em_paragrafo(par, sup)
+                self.assertEqual(par.text, S.aplicar_em(self.ABRE + self.ALVO + self.FECHA, sup))
+
+    def test_ancora_que_nao_casa_devolve_falso(self):
+        par = _Par("[participante 1]: um turno sem o trecho declarado.")
+        self.assertFalse(S.aplicar_em_paragrafo(par, self.nova()))
+
+    def test_aplicar_em_doc_usa_o_indice_cru(self):
+        """Os índices declarados são os de `doc.paragraphs`, vazios inclusive."""
+        sup = self.nova(paragrafo=2)
+        pars = [_Par("cabeçalho"), _Par(""), self.par(), _Par("depois")]
+        novas, ja = S.aplicar_em_doc(pars, "transcricao", "ENT-999", [sup])
+        self.assertEqual((novas, ja), (1, 0))
+        self.assertNotIn("presidi", pars[2].text)
+        self.assertEqual(pars[3].text, "depois")
+
+
+class TestJaAplicada(unittest.TestCase):
+    """`_ja_aplicada`: reconhecer o tratamento sem afrouxar a proteção."""
+
+    TEXTO = ("[participante 1]: o contrato aqui no Instituto Fictício de "
+             "Planejamento venceu em 2019.")
+    TRECHO = "aqui no Instituto Fictício de Planejamento "
+
+    def nova(self, substituto=""):
+        return S.nova(fonte="transcricao", alvo="ENT-999", paragrafo=0,
+                      texto=self.TEXTO, trecho=self.TRECHO,
+                      substituto=substituto,
+                      motivo="local de trabalho do participante")
+
+    def test_trecho_ainda_presente_nao_conta_como_aplicada(self):
+        """O teste negativo que importa.
+
+        Se um parágrafo intocado passasse por «já tratado», a proteção sumiria
+        em silêncio, que é o desfecho que o módulo inteiro existe para impedir.
+        """
+        self.assertFalse(S._ja_aplicada(self.TEXTO, self.nova()))
+        self.assertFalse(S._ja_aplicada(self.TEXTO, self.nova(S.MARCA)))
+
+    def test_substituto_vazio_reconhece_contextos_adjacentes(self):
+        """Remoção sem marca não deixa o que procurar.
+
+        A prova positiva é que prefixo e sufixo ficaram colados. Sem isso,
+        reprocessar um arquivo já corrigido fazia a geração falhar duro sobre
+        material que estava certo.
+        """
+        sup = self.nova()
+        tratado = S.aplicar_em(self.TEXTO, sup)
+        self.assertNotIn(S.MARCA, tratado)
+        self.assertTrue(S._ja_aplicada(tratado, sup))
+
+    def test_tolerante_aceita_remocao_sem_marca(self):
+        sup = self.nova()
+        tratado = S.aplicar_em(self.TEXTO, sup)
+        _, novas, ja = S.aplicar_tolerante([tratado], "transcricao", "ENT-999",
+                                           [sup])
+        self.assertEqual((novas, ja), (0, 1))
+
+    def test_substituto_com_texto_e_prova_direta(self):
+        sup = self.nova("no órgão ")
+        tratado = S.aplicar_em(self.TEXTO, sup)
+        self.assertTrue(S._ja_aplicada(tratado, sup))
+
+
+class TestPremissaProduto4(unittest.TestCase):
+    def test_supressoes_do_produto4_usam_a_marca(self):
+        """Premissa da correção do `substituto`, fixada para caducar com aviso.
+
+        As duas declarações de `fonte=produto4` têm substituto igual à marca, e
+        por isso trocar `MARCA` fixo por `s.substituto` não alterou o Word
+        público. Se um dia alguém declarar ali um substituto literal, este teste
+        avisa, em vez de o arquivo mudar calado.
+        """
+        do_p4 = [s for s in S.carregar() if s.fonte == "produto4"]
+        self.assertTrue(do_p4, "nenhuma supressão de produto4 no codebook")
+        for s in do_p4:
+            self.assertEqual(s.substituto, S.MARCA, f"§{s.paragrafo}")
+
+
+class TestEquivalenciaEntrega(unittest.TestCase):
+    """A trava do anexo de entrega: arquivo e página têm de dizer o mesmo.
+
+    Se divergirem, quem lê o `.docx` e quem lê a página veem proteções
+    diferentes para o mesmo trecho, que é o defeito que a ferramenta existe
+    para fechar.
+    """
+
+    def comparar(self, esperado, obtido):
+        from tools.transcricoes_entrega import comparar
+        return comparar(esperado, obtido, "ENT-999")
+
+    def test_iguais_passam(self):
+        pars = ["cabeçalho", "", "um turno qualquer."]
+        self.assertIsNone(self.comparar(pars, list(pars)))
+
+    def test_texto_divergente_aborta_nomeando_o_indice(self):
+        esperado = ["cabeçalho", "", "o trecho tratado (…) segue."]
+        obtido = ["cabeçalho", "", "o trecho NÃO tratado segue."]
+        with self.assertRaises(SystemExit) as caso:
+            self.comparar(esperado, obtido)
+        self.assertIn("§2", str(caso.exception))
+
+    def test_contagem_divergente_aborta(self):
+        with self.assertRaises(SystemExit):
+            self.comparar(["a", "b"], ["a"])
+
+
+class TestListaPessoas(unittest.TestCase):
+    """A lista de participantes não pode absorver linha de cabeçalho.
+
+    A aba PESSOAS da planilha real repete o cabeçalho no meio, onde começa um
+    segundo bloco. Sem guarda, a palavra «Nome» entrava como se fosse gente, e a
+    varredura reprovava qualquer documento com uma tabela de coluna «Nome».
+    """
+
+    def _planilha(self, caminho, linhas):
+        from openpyxl import Workbook
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "PESSOAS"
+        ws.append(["#", "Nome", "Email"])
+        for i, n in enumerate(linhas, start=1):
+            ws.append([i, n, ""])
+        wb.save(caminho)
+
+    def carregar(self, linhas, minimo=1):
+        from tools.lista_pessoas import carregar
+        with TemporaryDirectory() as td:
+            p = os.path.join(td, "lista.xlsx")
+            self._planilha(p, linhas)
+            return carregar(p, minimo=minimo)
+
+    def test_cabecalho_repetido_no_meio_nao_vira_pessoa(self):
+        nomes = self.carregar(["Joana Fictícia", "Nome", "Pedro Fictício"])
+        self.assertNotIn("Nome", nomes)
+        self.assertIn("Joana Fictícia", nomes)
+        self.assertIn("Pedro Fictício", nomes)
+
+    def test_nomes_depois_do_cabecalho_repetido_continuam_sendo_lidos(self):
+        """O segundo bloco é gente de verdade: descartar a linha, não o bloco."""
+        nomes = self.carregar(["Joana Fictícia", "Nome", "Ana Fictícia",
+                               "Carlos Fictício"])
+        self.assertEqual(len(nomes), 3)
+
+    def test_outros_rotulos_de_cabecalho_tambem_saem(self):
+        for rotulo in ("Participante", "Entrevistado", "NOME COMPLETO"):
+            with self.subTest(rotulo=rotulo):
+                nomes = self.carregar(["Joana Fictícia", rotulo])
+                self.assertNotIn(rotulo, nomes)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

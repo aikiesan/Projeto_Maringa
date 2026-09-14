@@ -485,6 +485,14 @@ def pagina(m: dict, aceitas: dict, sub: list[dict], data_docx: str,
   sessão.</span>
 </div>
 
+<div class="p4-baixar">
+  <a class="botao" href="Relatorio_Codificacao.docx" download>Baixar a codificação em Word (.docx)</a>
+  <span class="mut sm">Como o corpus foi codificado e o que a codificação produziu:
+  base da avaliação, cobertura por prioridade, a matriz das subcategorias com a
+  maturidade por moda, a leitura por eixo e por grupo de atores, e as dimensões que
+  atravessaram o corpus sem evidência. Derivado do codebook, editável.</span>
+</div>
+
 <div class="p4">
   <aside class="p4-sum">
     <details open><summary>Sumário</summary>{sumario(caps)}</details>

@@ -90,9 +90,12 @@ RUIDO = {
 # e local de trabalho. Ficam declarados para que a ferramenta possa REPROVAR
 # quando aparecer algo novo, em vez de so listar e depender de alguem comparar
 # com a memoria.
+# ENT-005 «Elninho» saiu daqui em 14/09, quando a sessao deixou a camada
+# publica: a dispensa deixou de corresponder a um candidato varrido e virou
+# numero no rodape. A leitura fica registrada porque continua valendo se a
+# sessao voltar: era o fenomeno El Nino, nao instituicao, e o padrao casou por
+# «nossa regiao».
 DISPENSADOS = {
-    ("ENT-005", "Elninho"):
-        "fenomeno El Nino, nao instituicao; o padrao casou por «nossa regiao»",
     ("ENT-009", "Parque do Ingá"):
         "parque publico da cidade; «a gente fez jardim de chuva aqui no» fala "
         "da cidade, nao do empregador do participante",
@@ -136,6 +139,21 @@ def varrer() -> list[dict]:
                     "nota": "",
                 })
     return achados
+
+
+def dispensas_orfas(achados) -> list[str]:
+    """Dispensas que nao correspondem mais a nada na saida varrida.
+
+    Uma dispensa e a declaracao de que um candidato FOI LIDO e nao e local de
+    trabalho. Quando a sessao sai da camada publica, ou quando o trecho some por
+    outra razao, a dispensa deixa de corresponder a alguma coisa e passa a ser
+    so um numero no rodape: a ferramenta segue dizendo «2 dispensado(s)» sem
+    que existam dois. Declaracao que nao corresponde a nada e ruido que faz o
+    relatorio parecer mais examinado do que esta.
+    """
+    vivos = {(x["sessao"], x["instituicao"]) for x in achados}
+    return [f"{sessao} «{inst}»" for (sessao, inst) in sorted(DISPENSADOS)
+            if (sessao, inst) not in vivos]
 
 
 def main() -> int:
@@ -190,6 +208,16 @@ def main() -> int:
                   f" ({x['gatilho']})")
         print("  Ou declare a supressao em codebook/supressoes.csv, ou acrescente")
         print("  a DISPENSADOS com o motivo da leitura. Nao publique antes.")
+        return 1
+
+    orfas = dispensas_orfas(ach)
+    if orfas:
+        print()
+        print(f"{len(orfas)} DISPENSA(S) ORFA(S):")
+        for o in orfas:
+            print("  " + o)
+        print("  O candidato nao aparece mais na saida varrida. Retire a entrada")
+        print("  de DISPENSADOS, ou explique na nota por que ela continua ali.")
         return 1
 
     print()

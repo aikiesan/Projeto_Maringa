@@ -14,35 +14,19 @@ import dados as D
 from base import CSS, pagina, hero, faixa_kpi
 import paginas as P
 import transcricoes as T
+# A fonte das transcricoes mora em tools/acervo.py: tres ferramentas leem o
+# mesmo material, e onde ele vive e regra de acervo, nao de apresentacao.
+from tools.acervo import fonte_transcricoes, ANON, ANON_ZIP
+import retencao as R
 
 ROOT = Path(__file__).resolve().parents[2]
 SAIDA = ROOT / "hub_saida"
-ANON = ROOT / "saida_anonimizacao"
-ANON_ZIP = ROOT / "anexos" / "Anexo_05_Transcricoes_Anonimizadas.zip"
 BASE_URL = "https://aikiesan.github.io/Maringa/"
 PAINEL = ROOT / "site" / "publico.html"
 UP = ROOT
 
 
 
-@contextlib.contextmanager
-def _fonte_transcricoes():
-    """Diretorio com os .docx anonimizados.
-
-    Prefere `saida_anonimizacao/` quando existe (a saida corrente de
-    `anonimizar_transcricoes.py`); senao extrai o Anexo 05 para um diretorio
-    temporario que e apagado no fim — o acervo nao deve deixar copia solta.
-    """
-    if ANON.is_dir() and any(ANON.glob("*.docx")):
-        yield ANON
-        return
-    if ANON_ZIP.exists():
-        with tempfile.TemporaryDirectory(prefix="hub_transc_") as td:
-            with zipfile.ZipFile(ANON_ZIP) as z:
-                z.extractall(td)
-            yield Path(td)
-        return
-    yield None
 
 
 
@@ -100,7 +84,7 @@ def _painel_documento(corpo: str) -> str:
         '<meta name="description" content="As 494 evidências codificadas '
         'das 17 sessões, filtráveis por eixo, tipo, setor, sessão '
         'e dimensão.">',
-        '<link rel="icon" href="marca/projeto.png" type="image/png">',
+        '<link rel="icon" href="marca/favicon.png" type="image/png">',
         CAB.JS_PRE,
         estilo,
         "</head>",
@@ -311,6 +295,12 @@ def main():
     _r = _gerar_docx(destino=SAIDA / "Produto_04_publico.docx")
     print(f"  Produto_04_publico.docx: {_r['supressoes']} supressões, "
           f"{_r['quadros']} quadros agregados, {_r['bytes'] // 1024} KB")
+    # relatorio de codificacao: descreve o corpus, e nao as pessoas. Sai junto
+    # para que a varredura o alcance no mesmo passo que as paginas.
+    from tools.relatorio_codificacao import gerar as _gerar_codif
+    _rc = _gerar_codif(destino=SAIDA / "Relatorio_Codificacao.docx")
+    print(f"  Relatorio_Codificacao.docx: {_rc['tabelas']} tabelas, "
+          f"{_rc['bytes'] // 1024} KB")
     print(f"  produto4: {_res_p4['afirmacoes']} afirmações, "
           f"{_res_p4['com_ancora']} com âncora, {_res_p4['sem_ancora']} sem "
           f"— {_n_lig} links conferidos contra o codebook")
@@ -326,7 +316,7 @@ def main():
     # -------------------------------------------------- transcrições
     cabs = {}
     corpos = {}
-    with _fonte_transcricoes() as origem:
+    with fonte_transcricoes() as origem:
         docx_transc = sorted(glob.glob(str(origem / "*.docx"))) if origem else []
         for f in docx_transc:
             cod, cab, corpo = T.converte(f)
@@ -337,7 +327,15 @@ def main():
               + " nem " + str(ANON_ZIP) + ". O indice sairá vazio.")
 
     por_cod = {s["code"]: s for s in ss}
+    # A conversao roda para as 17, porque e ela que dispara `aplicar_tolerante` e
+    # mantem as ancoras das retidas sob verificacao. O que muda e o que se ESCREVE:
+    # se a conversao pulasse as retidas, uma ancora apodreceria em silencio e so
+    # falharia na entrega.
+    R.confere_cobertura([s["code"] for s in ss])
+    _publicadas = R.publicas()
     for cod, corpo in corpos.items():
+        if cod not in _publicadas:
+            continue
         html_pg = pagina("transcricoes.html", cod,
                          f"Transcrição anonimizada da sessão {cod}.",
                          T.pagina_transcricao(cod, cabs[cod], corpo,
@@ -353,14 +351,15 @@ def main():
     escreve("transcricoes.html", pagina(
         "transcricoes.html", "Transcrições",
         f"As {len(ss)} entrevistas na íntegra, em camada anonimizada.",
-        T.indice(ss, cabs), P.JS_BUSCA))
+        T.indice(ss, cabs, _publicadas), P.JS_BUSCA))
 
 
     # -------------------------------------------------- marca
     md = SAIDA / "marca"
     md.mkdir()
-    for nome in ("brisa.png", "onda.png", "cepal.png",
-                 "projeto.png", "projeto-branco.png"):
+    for nome in ("brisa.png", "cepal.png", "projeto.png", "projeto-branco.png",
+                 "projeto-grafite.png", "simbolo.png", "simbolo-branco.png",
+                 "mapa-cidade.png", "favicon.png", "og.jpg"):
         shutil.copy(ROOT / "assets" / "marca" / nome, md / nome)
 
     # -------------------------------------------------- painel existente
@@ -370,7 +369,8 @@ def main():
     # -------------------------------------------------- sitemap
     from base import NAV as _NAV
     _hoje = datetime.date.today().isoformat()
-    _urls = [h for h, _ in _NAV] + [f"transcricoes/{c}.html" for c in sorted(corpos)]
+    _urls = [h for h, _ in _NAV] + [f"transcricoes/{c}.html"
+                                    for c in sorted(corpos) if c in _publicadas]
     _xml = ['<?xml version="1.0" encoding="UTF-8"?>',
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in _urls:
@@ -379,6 +379,23 @@ def main():
     escreve("sitemap.xml", chr(10).join(_xml))
     escreve("robots.txt", f"User-agent: *{chr(10)}Allow: /{chr(10)}"
                           f"Sitemap: {BASE_URL}sitemap.xml{chr(10)}")
+
+    # -------------------------------------------------- trava da retencao
+    # Um `continue` no laco nao e trava: se alguem mexer no laco, ele deixa de
+    # pular e nada acusa. Esta conferencia le a SAIDA de verdade, e e por isso
+    # que ela roda aqui e nao ali em cima.
+    _vazados = R.confere_saida(SAIDA / "transcricoes")
+    if _vazados:
+        raise SystemExit(
+            "sessoes retidas foram publicadas: " + ", ".join(_vazados)
+            + ". Elas saem da camada publica por autoidentificacao de empregador "
+              "(codebook/retencao_publica.csv). Nada foi publicado.")
+    _indice = (SAIDA / "transcricoes.html").read_text(encoding="utf-8")
+    _links = [c for c in R.retidas() if f'href="transcricoes/{c}.html"' in _indice]
+    if _links:
+        raise SystemExit(
+            "o indice linka sessao retida: " + ", ".join(sorted(_links))
+            + ". A pagina nao existe e o link nao pode existir. Nada foi publicado.")
 
     # relatório
     n = sum(1 for _ in SAIDA.rglob("*") if _.is_file())
