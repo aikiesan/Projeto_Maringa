@@ -55,7 +55,8 @@ def gerar(origem: Path = ORIGEM, destino: Path = DESTINO) -> dict:
 
     destino.parent.mkdir(parents=True, exist_ok=True)
     doc.save(str(destino))
-    return {"travessoes": r["antes"], "pontuados": r["paragrafos"],
+    return {"travessoes_reescritos": r["antes"],
+            "paragrafos_repontuados": r["paragrafos"],
             "paragrafos": len(doc.paragraphs), "tabelas": quadros,
             "destino": destino, "bytes": destino.stat().st_size}
 
@@ -63,8 +64,9 @@ def gerar(origem: Path = ORIGEM, destino: Path = DESTINO) -> dict:
 def main() -> int:
     r = gerar()
     print(f"{r['destino']}")
-    for k in ("travessoes", "pontuados", "paragrafos", "tabelas", "bytes"):
-        print(f"  {k:12} {r[k]}")
+    for k in ("travessoes_reescritos", "paragrafos_repontuados", "paragrafos",
+              "tabelas", "bytes"):
+        print(f"  {k:24} {r[k]}")
     print("  quadros nominais PRESERVADOS · supressoes NAO aplicadas")
     print("  FORA do git e fora do Hub. Entrega por canal proprio.")
     return 0

@@ -144,7 +144,8 @@ def gerar(origem: Path = ORIGEM, destino: Path = DESTINO) -> dict:
     destino.parent.mkdir(parents=True, exist_ok=True)
     doc.save(str(destino))
     return {"supressoes": aplicadas, "quadros": quadros,
-            "travessoes": _trav["antes"], "pontuados": _trav["paragrafos"],
+            "travessoes_reescritos": _trav["antes"],
+            "paragrafos_repontuados": _trav["paragrafos"],
             "paragrafos": len(doc.paragraphs), "tabelas": len(doc.tables),
             "bytes": destino.stat().st_size}
 
@@ -153,7 +154,7 @@ def main() -> int:
     r = gerar()
     print(f"{DESTINO.relative_to(ROOT)}")
     for k, v in r.items():
-        print(f"  {k:14} {v}")
+        print(f"  {k:24} {v}")
     return 0
 
 
