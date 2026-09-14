@@ -322,8 +322,12 @@ footer.pe p{max-width:76ch}
   border-left:3px solid var(--s2); border-radius:8px; background:var(--surface)}
 
 /* --- duas colunas: sumario fixo + documento --- */
-.p4{display:grid; grid-template-columns:250px minmax(0,1fr); gap:34px;
-  align-items:start}
+/* O sumario tem 44 itens, e a 250px 34 deles quebravam em duas ou mais linhas:
+   uma coluna estreita de rotulos esfarrapados colada ao texto por 34px de vao.
+   A largura e o vao passam a acompanhar a tela, e o ponto de colapso sobe de
+   900px para 1080px, que era a faixa onde as duas colunas coexistiam apertadas. */
+.p4{display:grid; grid-template-columns:clamp(250px,29vw,390px) minmax(0,1fr);
+  gap:clamp(34px,4.5vw,64px); align-items:start}
 .p4-sum{position:sticky; top:72px; max-height:calc(100vh - 96px);
   overflow-y:auto; font-size:13px}
 .p4-sum>details{border:1px solid var(--grid); border-radius:8px;
@@ -331,16 +335,17 @@ footer.pe p{max-width:76ch}
 .p4-sum>details>summary{cursor:pointer; font-weight:700; padding:2px 0}
 .p4-sum>details>summary.sumario ul{list-style:none; margin:8px 0 0; padding:0}
 .sumario ul ul{margin:2px 0 6px 0}
-.sumario a{display:block; padding:3px 6px; border-radius:5px; color:var(--ink2);
-  text-decoration:none; line-height:1.35}
+.sumario a{display:block; padding:4px 7px; margin-bottom:1px; border-radius:5px;
+  color:var(--ink2); text-decoration:none; line-height:1.28;
+  text-align:left; hyphens:manual}
 .sumario a:hover{background:var(--grid); color:var(--ink)}
 .sumario a.aqui{background:var(--s1); color:#fff}
 .sumario .n1>a{font-weight:700; color:var(--ink); margin-top:5px}
 .sumario .cn{display:inline-block; min-width:16px; color:var(--s1);
   font-variant-numeric:tabular-nums; font-weight:700}
 .sumario .n1>a.aqui .cn{color:#fff}
-.sumario li.n2 a{padding-left:20px; font-size:12.5px}
-.sumario li.n3 a{padding-left:32px; font-size:12.5px; color:var(--mut)}
+.sumario li.n2 a{padding-left:13px; font-size:12.5px}
+.sumario li.n3 a{padding-left:24px; font-size:12.5px; color:var(--mut)}
 
 /* --- o documento --- */
 .p4-doc{max-width:74ch}
@@ -412,7 +417,7 @@ table.matriz td.perfil{font-size:12px; color:var(--ink2)}
   background:var(--grid); border-radius:3px; margin-right:7px; overflow:hidden}
 .mini i{display:block; height:100%; background:var(--s2); border-radius:3px}
 
-@media (max-width:900px){
+@media (max-width:1080px){
   .p4{grid-template-columns:1fr; gap:16px}
   .p4-sum{position:static; max-height:none}
   .p4-doc{max-width:none}

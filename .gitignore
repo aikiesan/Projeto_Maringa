@@ -43,6 +43,11 @@ saida_anonimizacao/
 # saida_anonimizacao/ — não vão ao repositório.
 saida_entrega/
 
+# pasta de montagem da entrega, criada a mao para arrastar ao Drive. Guarda o
+# Produto 04 completo, com os quadros nominais, e a relação de cortes, que traz
+# o texto suprimido. Mesma regra de saida_entrega/: não vai ao repositório.
+ENTREGA/
+
 # contatos nominais dos pontos focais (Produto 3) e saídas do painel que os embutem
 data/contacts.json
 docs/data/contacts.json

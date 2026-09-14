@@ -508,6 +508,15 @@ def pagina(m: dict, aceitas: dict, sub: list[dict], data_docx: str,
 JS = """
 <script>
 (function () {
+  // Em uma coluna o sumario vai para CIMA do documento. Aberto, ele empurra o
+  // texto em cerca de 1200px, e o leitor rola um indice inteiro antes de chegar
+  // ao relatorio. O atributo `open` sai abaixo do ponto de colapso do layout,
+  // que e o mesmo 1080px declarado no CSS. Em tela larga a coluna e lateral e o
+  // sumario continua aberto, que e onde ele ajuda.
+  var sum = document.querySelector(".p4-sum > details");
+  if (sum && window.matchMedia("(max-width:1080px)").matches) {
+    sum.removeAttribute("open");
+  }
   var b = document.getElementById("so-sem");
   if (b) b.addEventListener("click", function () {
     var on = b.getAttribute("aria-pressed") !== "true";
