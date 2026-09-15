@@ -81,12 +81,11 @@ def evidencias():
     for f in sorted(glob.glob(str(BASE / "codebook" / "evidencias" / "*.csv"))):
         out += _csv(f)
     for e in out:
-        # as paráfrases carregam marcas escritas durante a codificação que não
-        # pertencem à camada aberta: sinalizador de risco e a pendência de TCLE,
-        # esta última superada pela confirmação da coordenação.
-        e["paraphrase"] = _sem_risco(e["paraphrase"]) \
-            .replace("SESSÃO SEM TCLE.", "").replace("Sessão sem TCLE.", "") \
-            .replace("sessão sem TCLE,", "sessão,").strip()
+        # as paráfrases carregam marca de risco escrita durante a codificação,
+        # que não pertence à camada aberta. A marca de pendência de TCLE não é
+        # mais removida aqui: ela saiu do próprio codebook, e limpá-la na
+        # leitura faria uma regressão na fonte passar despercebida.
+        e["paraphrase"] = _sem_risco(e["paraphrase"]).strip()
     return out
 
 

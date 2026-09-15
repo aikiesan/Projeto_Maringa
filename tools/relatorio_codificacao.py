@@ -123,7 +123,7 @@ def gerar(destino: Path = DESTINO) -> dict:
            + " e não " + str(con["evidencias"]) + ": "
            + " e ".join(f"{n} classificada{'s' if n > 1 else ''} como «{k}»"
                         for k, n in fora.items())
-           + " ficam fora da escala. «Sem evidência» é pendência de reinquirição, "
+           + " ficam fora da escala. «Sem evidência» é pendência de verificação documental, "
              "não ausência constatada, e somá-la a «inexistente» transformaria "
              "pendência em achado.")
 
@@ -157,7 +157,11 @@ def gerar(destino: Path = DESTINO) -> dict:
         cobertas = sum(s["n_cobertas"] for s in doeixo)
         totd = sum(s["n_dimensoes"] for s in doeixo)
         modas = [s["maturidade_rotulo"] for s in doeixo]
-        dominante = max(set(modas), key=modas.count)
+        # sem o set(): em empate, max() devolve o PRIMEIRO de maior contagem, e a
+        # ordem da lista e a das subcategorias. Com set(), o desempate seguia a
+        # ordem de iteracao do conjunto, que muda a cada processo pela
+        # aleatorizacao de hash — o mesmo codebook gerava frases diferentes.
+        dominante = max(modas, key=modas.count)
         S.corpo(doc,
                 f"{len(doeixo)} subcategorias, {cobertas} de {totd} dimensões com "
                 f"evidência, {ev} evidências. Maturidade modal predominante: "
@@ -186,7 +190,7 @@ def gerar(destino: Path = DESTINO) -> dict:
     S.corpo(doc,
             f"{len(sem)} das {cob['dimensoes_total']} dimensões atravessaram o corpus "
             "sem qualquer evidência codificada. Ausência de evidência é resultado, e "
-            "não falha de coleta: uma dimensão de prioridade alta sobre a qual "
+            "não falha de coleta: uma dimensão prioritária sobre a qual "
             "ninguém falou é achado do diagnóstico.")
     S.tabela(doc,
              ("Dimensão", "Prioridade", "Subcategoria", "Nome"),
@@ -202,9 +206,11 @@ def gerar(destino: Path = DESTINO) -> dict:
     S.item(doc, f"{cob['divergencias']} evidências divergem entre si e foram "
                 "preservadas, nunca resolvidas por predominância de fonte.",
            prefixo_negrito="Divergência. ")
-    S.item(doc, f"{con['com_tcle']} das {con['sessoes']} sessões têm Termo de "
-                "Consentimento arquivado."
-                + (f" Pendentes: {', '.join(con['sem_tcle'])}." if con["sem_tcle"] else ""),
+    S.item(doc, (f"As {con['sessoes']} sessões têm Termo de Consentimento Livre e "
+                 "Esclarecido assinado e arquivado no acervo do projeto."
+                 if not con["sem_tcle"] else
+                 f"{con['com_tcle']} das {con['sessoes']} sessões têm Termo de "
+                 f"Consentimento arquivado. Pendentes: {', '.join(con['sem_tcle'])}."),
            prefixo_negrito="Consentimento. ")
     S.item(doc, "Nomes de participantes, de entrevistadores e de terceiros citados "
                 "foram substituídos por rótulos; trechos autoidentificadores foram "

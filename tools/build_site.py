@@ -191,7 +191,7 @@ cada uma um trecho anonimizado com marca de tempo, vinculado a uma dimensão e c
 quanto à maturidade que revela e à confiança que merece.</p>
 <p>A unidade de registro não é a entrevista nem a resposta: é a evidência. Por isso
 {m['n_tri']} dimensões já têm evidência de mais de uma sessão, que é onde a
-triangulação vale, e {m['n_div']} registros foram marcados como divergência, preservadas em vez de
+triangulação vale, e {m['n_div']} evidências têm alinhamento divergente, preservadas em vez de
 resolvidas por predominância de fonte.</p>
 
 <h2>Distribuição por eixo</h2>
@@ -207,20 +207,14 @@ resolvidas por predominância de fonte.</p>
     <strong>{tipos.get('lacuna',0)}</strong> lacunas ·
     <strong>{tipos.get('oportunidade',0)}</strong> oportunidades ·
     <strong>{tipos.get('percepcao',0)}</strong> percepções ·
-    <strong>{tipos.get('divergencia',0)}</strong> divergências.</p></div>
+    <strong>{tipos.get('divergencia',0)}</strong> do tipo divergência.</p></div>
   <div class="card"><h3 style="margin-top:0">A ausência é resultado</h3>
     <p class="mut" style="font-size:13.5px;margin:0">Uma dimensão «Muito alta» que atravessa
     o corpus sem evidência é achado do diagnóstico, não falha de coleta. A aba
     <em>Cobertura e lacunas</em> mostra quais são.</p></div>
-  <div class="card"><h3 style="margin-top:0">Sem TCLE</h3>
-    <p class="mut" style="font-size:13.5px;margin:0">{m['n_sem_tcle']} sessões estão codificadas
-    e marcadas, mas <strong>não alimentam o diagnóstico</strong> enquanto o termo assinado não
-    for localizado. Cada evidência delas traz a marca no texto.</p></div>
 </div>
 """
 
-
-NOTCLE = '<span class="pill crit">sem TCLE</span>'
 
 
 def aba_corpus(d, m) -> str:
@@ -228,14 +222,13 @@ def aba_corpus(d, m) -> str:
     mx = max((i.get("minutes") or 0) for i in live) or 1
     linhas = "".join(
         f'<tr><td><span class="c">{esc(i["code"])}</span></td>'
-        f'<td>{esc(i.get("sector"))}</td><td>{esc(i.get("institution_type"))}</td>'
+        f'<td>{esc(i.get("sector"))}</td>'
         f'<td class="num">{esc(i.get("date","")[8:10])}/{esc(i.get("date","")[5:7])}</td>'
         f'<td class="num">{i.get("minutes") or ""}</td>'
         f'<td style="min-width:80px"><div class="bar"><i style="width:{round(100*(i.get("minutes") or 0)/mx)}%"></i></div></td>'
         f'<td class="num">{i.get("turns") or ""}</td>'
         f'<td class="num">{i.get("participant_share") or ""}%</td>'
-        f'<td class="num">{m["byint"].get(i["code"], 0)}</td>'
-        f'<td>{NOTCLE if not i["tcle"] else ""}</td></tr>'
+        f'<td class="num">{m["byint"].get(i["code"], 0)}</td></tr>'
         for i in sorted(live, key=lambda x: x.get("date") or ""))
     setores = Counter(i.get("sector") for i in live)
     cards = "".join(
@@ -250,8 +243,8 @@ def aba_corpus(d, m) -> str:
 evidências codificadas a partir da sessão.</p>
 <div class="three" style="margin-bottom:16px">{cards}</div>
 <div class="scroll"><table>
-<thead><tr><th>Código</th><th>Setor</th><th>Tipo de instituição</th><th>Data</th><th>Min</th>
-<th></th><th>Turnos</th><th>Fala part.</th><th>Evid.</th><th></th></tr></thead>
+<thead><tr><th>Código</th><th>Setor</th><th>Data</th><th>Min</th>
+<th></th><th>Turnos</th><th>Fala part.</th><th>Evid.</th></tr></thead>
 <tbody>{linhas}</tbody></table></div>
 """
 
@@ -363,6 +356,9 @@ def aba_divergencias(d, m) -> str:
 <p>Conflito entre fontes sobre a mesma condição habilitante. A consolidação do Produto&nbsp;2
 mantém a divergência registrada em vez de resolvê-la por predominância de fonte: onde duas
 fontes discordam, o que se verifica é o documento, não a autoridade de quem falou.</p>
+<p>A medida publicada de divergência é o <strong>alinhamento</strong> da evidência. Esta aba
+reúne também os registros classificados com o <strong>tipo</strong> divergência cujo alinhamento
+é outro: são duas leituras distintas do mesmo corpus, e a contagem abaixo separa as duas.</p>
 <p class="count" id="divcount"></p>
 <div id="divlist"></div>
 """
@@ -373,6 +369,22 @@ def aba_integridade(d, m) -> str:
     sem = [i["code"] for i in live if not i["tcle"]]
     conj = [i["code"] for i in live if (i.get("n_participants") or 1) > 1]
     cod = lambda xs: ", ".join(f'<span class="c">{esc(x)}</span>' for x in xs)  # noqa: E731
+    # O campo `tcle` continua vindo do codebook, e a linha segue o dado: com as
+    # 17 sessões com termo assinado e arquivado, o ramo de pendência não é
+    # alcançável. Ele permanece porque a alternativa — afirmar o consentimento
+    # incondicionalmente — diria na página algo que o codebook não sustenta, se
+    # alguém marcar uma sessão como pendente.
+    linha_tcle = (
+        f'<tr><td><span class="pill acc">Consentimento</span></td>\n'
+        f'    <td>As {len(live)} sessões constam com termo de consentimento assinado.</td>\n'
+        f'    <td>O campo <span class="c">tcle</span> vem do codebook e nunca é marcado por\n'
+        f'        inferência.</td></tr>'
+    ) if not sem else (
+        f'<tr><td><span class="pill warn">Consentimento</span></td>\n'
+        f'    <td>{len(sem)} de {len(live)} sessões sem termo assinado localizado: {cod(sem)}.</td>\n'
+        f'    <td>O campo <span class="c">tcle</span> vem do codebook e nunca é marcado por\n'
+        f'        inferência.</td></tr>'
+    )
     return f"""
 <h2>As ressalvas que acompanham estes números</h2>
 <p>Levantadas por <span class="c">tools/ingest_registros.py</span>, que confere cada registro
@@ -380,11 +392,7 @@ contra a Lista de Entrevistas e a pasta de termos assinados, e detecta duplicata
 texto da transcrição, não por nome de pasta.</p>
 <div class="scroll"><table>
 <thead><tr><th>Item</th><th>Situação</th><th>Como está tratado aqui</th></tr></thead><tbody>
-<tr><td><span class="pill crit">Sem TCLE</span></td>
-    <td>{len(sem)} de {len(live)} sessões sem termo assinado localizado: {cod(sem)}.</td>
-    <td>Foram codificadas e cada evidência delas traz a marca «sessão sem TCLE» no texto.
-        Aparecem na matriz e <strong>não devem alimentar o diagnóstico</strong> até o termo ser
-        localizado. O campo <span class="c">tcle</span> nunca é marcado por inferência.</td></tr>
+{linha_tcle}
 <tr><td><span class="pill warn">Fora da Lista</span></td>
     <td>Em <span class="c">ENT-009</span> e <span class="c">ENT-017-ENT-018</span> há falante
         que não consta da Lista de Entrevistas.</td>
@@ -407,7 +415,7 @@ texto da transcrição, não por nome de pasta.</p>
     <td>Risco residual assumido e registrado. A proteção vale contra a leitura casual, não
         contra quem conhece a estrutura da prefeitura.</td></tr>
 <tr><td><span class="pill warn">Alegações de parte</span></td>
-    <td>Sessões sem TCLE trazem alegações graves não verificadas: retrocesso no licenciamento,
+    <td>O corpus traz alegações graves não verificadas: retrocesso no licenciamento,
         saldo de fundo não executado, desvio de recurso.</td>
     <td>Codificadas como <strong>divergência</strong> ou <strong>percepção</strong> de confiança
         baixa, com remissão explícita à verificação documental na Matriz&nbsp;2. Nenhuma é
@@ -574,8 +582,15 @@ function initEv(){
 
 /* --------------------------------------------------------- divergências */
 function initDiv(){
-  const list = D.evidence.filter(e => e.type === "divergencia" || e.alignment === "divergente");
-  document.getElementById("divcount").textContent = list.length + " registros";
+  // a lista e a UNIAO: as 50 evidencias de alinhamento divergente mais as
+  // tipificadas como divergencia cujo alinhamento e outro. Estreitar a lista
+  // para o alinhamento tiraria essas ultimas da unica aba que as reune.
+  const al = D.evidence.filter(e => e.alignment === "divergente");
+  const so = D.evidence.filter(e => e.type === "divergencia" && e.alignment !== "divergente");
+  const list = al.concat(so);
+  document.getElementById("divcount").textContent =
+    list.length + " registros: " + al.length + " com alinhamento divergente e "
+    + so.length + " tipificados como divergência com outro alinhamento";
   document.getElementById("divlist").innerHTML = list.map(evcard).join("");
 }
 
@@ -656,8 +671,12 @@ def main() -> int:
         "axname": {a["num"]: a["name"] for a in d["axes"]},
         "horas": f"{minutos // 60}h{minutos % 60:02d}",
         "n_tri": sum(1 for c, s in intbydim.items() if len(s) > 1),
-        "n_div": sum(1 for e in ev if e["type"] == "divergencia" or e.get("alignment") == "divergente"),
-        "n_sem_tcle": sum(1 for i in live if not i["tcle"]),
+        # a medida publicada de divergencia e o ALINHAMENTO, nao o tipo: e o
+        # numero do Produto 04, do Anexo 05 e de produto4.html. A uniao com
+        # `type == "divergencia"` dava 53, que nao corresponde a numero
+        # documentado nenhum e dividia o nome com a contagem por tipo.
+        "n_div": sum(1 for e in ev if e.get("alignment") == "divergente"),
+        "n_tipo_div": sum(1 for e in ev if e["type"] == "divergencia"),
     }
     hoje = date.today()
     stamp = f"{MESES[hoje.month - 1].capitalize()} de {hoje.year}"
@@ -685,7 +704,7 @@ def main() -> int:
         (len(ev), "evidências rastreáveis"),
         (f"{len(bydim)}/55", "dimensões com evidência"),
         (m["n_tri"], "dimensões trianguladas"),
-        (m["n_div"], "divergências preservadas"),
+        (m["n_div"], "evidências com alinhamento divergente"),
     ]
     kpi_html = "".join(f'<div class="kpi"><b>{esc(a)}</b><span>{esc(b)}</span></div>' for a, b in kpis)
 
@@ -741,7 +760,7 @@ def main() -> int:
     print(f"public/index.html: {'CIFRADA com senha' if senha else 'EM CLARO — sem senha configurada'}")
     print(f"index.html: {len(html)//1024} KB · {len(abas)} abas · {len(ev)} evidências de "
           f"{len(byint)} sessões · {len(bydim)}/55 dimensões · {m['n_tri']} trianguladas · "
-          f"{m['n_div']} divergências")
+          f"{m['n_div']} com alinhamento divergente")
     return 0
 
 

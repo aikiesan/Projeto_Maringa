@@ -57,11 +57,8 @@ def inicio(m, c, orgs, leis):
          f"As {m['evidencias']} evidências codificadas, cada uma vinculada a uma das "
          f"{m['dimensoes_total']} dimensões, com trecho anonimizado, marca de tempo, "
          "maturidade e alinhamento. Cobertura, lacunas e divergências."),
-        ("instituicoes.html", "Instituições",
-         f"As {len(orgs)} organizações mapeadas no Produto 3, classificadas pelas quatro "
-         "dimensões analíticas da metodologia, com esfera, natureza e justificativa."),
         ("transcricoes.html", "Transcrições",
-         f"As {m['sessoes']} entrevistas na íntegra, em camada anonimizada, com as marcas "
+         "As sessões anonimizadas publicadas, com as marcas "
          "de tempo que ancoram as evidências."),
     ]
     grade = "".join(

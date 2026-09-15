@@ -117,8 +117,8 @@ def pagina_transcricao(cod, cab, corpo, sessao=None):
   nominais, por serem informação pública. As marcas de tempo são as do registro
   original e ancoram as evidências codificadas. Reticências entre parênteses
   <span class="corte">(…)</span> indicam trecho suprimido por risco de
-  reidentificação. A relação completa dos cortes consta do
-  <a href="dados.html">produto</a>.</p>
+  reidentificação. O registro integral dos cortes é mantido pela
+  consultoria.</p>
 </div>
 
 <div class="transc">{corpo}</div>

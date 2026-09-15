@@ -18,7 +18,6 @@ NAV = [
     ("projeto.html", "O projeto"),
     ("produto4.html", "Produto 04"),
     ("painel.html", "Painel de evidências"),
-    ("instituicoes.html", "Instituições"),
     ("transcricoes.html", "Transcrições"),
 ]
 

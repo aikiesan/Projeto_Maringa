@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-06",
+ "generated": "2026-09-15",
  "axes": [
   {
    "num": 1,
@@ -1452,7 +1452,7 @@
    "institution_type": "Secretaria municipal de governo",
    "block": "PUB",
    "date": "2026-08-07",
-   "n_participants": 1,
+   "n_participants": 2,
    "tcle": true,
    "status": "Codificada",
    "notes": "Sessão conjunta de dois códigos; inclui responsável por captação de recursos. A transcrição automática atribui todos os turnos a um único falante — os dois participantes não estão separados na diarização; a codificação por falante foi feita por leitura, não por rótulo.",
@@ -1586,9 +1586,9 @@
    "block": "PRI",
    "date": "2026-08-13",
    "n_participants": 1,
-   "tcle": false,
+   "tcle": true,
    "status": "Codificada",
-   "notes": "Participante não consta da Lista de Entrevistas nem dos termos assinados",
+   "notes": "",
    "minutes": 55,
    "turns": 432,
    "chars": 40100,
@@ -1624,9 +1624,9 @@
    "block": "PUB",
    "date": "2026-08-14",
    "n_participants": 1,
-   "tcle": false,
+   "tcle": true,
    "status": "Codificada",
-   "notes": "Registro proprio, com md5 distinto de ENT-011; a duplicata anotada em 01/09 nao se confirma. Poder Legislativo municipal. Sem TCLE localizado.",
+   "notes": "Registro proprio, com md5 distinto de ENT-011; a duplicata anotada em 01/09 nao se confirma. Poder Legislativo municipal.",
    "minutes": 52,
    "turns": 374,
    "chars": 39085,
@@ -1662,7 +1662,7 @@
    "block": "SOC",
    "date": "2026-08-19",
    "n_participants": 1,
-   "tcle": false,
+   "tcle": true,
    "status": "Codificada",
    "notes": "",
    "minutes": 41,
@@ -1700,7 +1700,7 @@
    "block": "PRI",
    "date": "2026-08-27",
    "n_participants": 1,
-   "tcle": false,
+   "tcle": true,
    "status": "Codificada",
    "notes": "",
    "minutes": 33,
@@ -6136,7 +6136,7 @@
    "question": "PRI1",
    "type": "declaracao",
    "excerpt": "[participante]: «os problemas principais são alagamentos e seca. São dois pontos. E agora também tornados (…) os tornados que nós víamos aqui eram os ventos. Nunca houve essa palavra tornado. Eram ventos assim de 50, 60, 70 km. Ventos de 200, 300 km, nunca»",
-   "paraphrase": "Tríade de risco — alagamento, seca e vento de alta intensidade — com registro de mudança qualitativa no fenômeno eólico. Confirma a seca apontada em ENT-005 como risco reconhecido fora do bloco público, e é a segunda menção do corpus a um risco que a leitura oficial não prioriza. SESSÃO SEM TCLE.",
+   "paraphrase": "Tríade de risco — alagamento, seca e vento de alta intensidade — com registro de mudança qualitativa no fenômeno eólico. Confirma a seca apontada em ENT-005 como risco reconhecido fora do bloco público, e é a segunda menção do corpus a um risco que a leitura oficial não prioriza.",
    "ts": "00:05:44",
    "keywords": [
     "alagamento",
@@ -6155,7 +6155,7 @@
    "question": "PRI1",
    "type": "declaracao",
    "excerpt": "[participante]: «quando fizeram o projeto paisagístico não pensaram muito bem nisso. Por exemplo, a gente tem [uma espécie exótica de grande porte], é lindo, uma árvore africana, mas a raiz dela é muito superficial. E nós temos centenas de milhares (…) elas acabam sendo um risco tanto para a parte de abastecimento de energia quanto para a própria população, risco de vida»",
-   "paraphrase": "Causa técnica da queda de árvores identificada na escolha de espécies exóticas de enraizamento superficial no projeto paisagístico original. É a explicação estrutural para a convergência de quatro sessões sobre arborização como vulnerabilidade — e implica substituição de estoque, não apenas manejo. SESSÃO SEM TCLE.",
+   "paraphrase": "Causa técnica da queda de árvores identificada na escolha de espécies exóticas de enraizamento superficial no projeto paisagístico original. É a explicação estrutural para a convergência de quatro sessões sobre arborização como vulnerabilidade — e implica substituição de estoque, não apenas manejo.",
    "ts": "00:05:44",
    "keywords": [
     "arborizacao",
@@ -6174,7 +6174,7 @@
    "question": "PRI2",
    "type": "lacuna",
    "excerpt": "[participante]: «a gente tem um plano de arborização aqui já aprovado de legislações passadas, mas ele não tem sido muito bem efetivado. Se destoca uma árvore, mas não replanta (…) alguns pontos que eu tô vendo que estão meses sem [reposição]»",
-   "paraphrase": "LACUNA DE IMPLEMENTAÇÃO. O plano de arborização existe em norma e não é executado na etapa de reposição. Converge com o déficit relatado em ENT-006 e com a ausência de plano de manejo apontada em ENT-007 — três sessões independentes descrevendo a mesma falha. SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA DE IMPLEMENTAÇÃO. O plano de arborização existe em norma e não é executado na etapa de reposição. Converge com o déficit relatado em ENT-006 e com a ausência de plano de manejo apontada em ENT-007 — três sessões independentes descrevendo a mesma falha.",
    "ts": "00:05:44",
    "keywords": [
     "plano de arborizacao",
@@ -6192,7 +6192,7 @@
    "question": "PRI1",
    "type": "declaracao",
    "excerpt": "[participante]: «nos bairros novos nós não temos praticamente arborização. A zona central, que você viu muito bonita, bem cuidada, é uma coisa; a periferia é outra totalmente diferente. Não tem fiscalização (…) no passeio público, nas calçadas, o pessoal não planta»",
-   "paraphrase": "Segunda confirmação da desigualdade territorial da infraestrutura verde (a primeira é ENT-007), com acréscimo relevante: o loteamento novo nasce sem arborização e a fiscalização não alcança nem o centro nem a periferia. O passivo se amplia a cada novo empreendimento. SESSÃO SEM TCLE.",
+   "paraphrase": "Segunda confirmação da desigualdade territorial da infraestrutura verde (a primeira é ENT-007), com acréscimo relevante: o loteamento novo nasce sem arborização e a fiscalização não alcança nem o centro nem a periferia. O passivo se amplia a cada novo empreendimento.",
    "ts": "00:08:39",
    "keywords": [
     "desigualdade territorial",
@@ -6211,7 +6211,7 @@
    "question": "PRI4",
    "type": "declaracao",
    "excerpt": "[participante]: «nós temos aqui um estudo da [universidade pública] que mostra que em torno do [parque central] é 5º a menos, ou seja, mais fresco do que [em um bairro novo] que praticamente não tem árvore ou que tem árvores muito baixas»",
-   "paraphrase": "DADO DE EXPOSIÇÃO EXISTENTE. Estudo acadêmico local quantifica diferença de 5 °C entre o entorno do parque central e bairro novo sem arborização. Converge com a pesquisa de gradiente térmico metropolitano relatada em ENT-006: há produção local sobre ilha de calor, e ela não alimenta o planejamento. Dimensão «Muito alta». SESSÃO SEM TCLE.",
+   "paraphrase": "DADO DE EXPOSIÇÃO EXISTENTE. Estudo acadêmico local quantifica diferença de 5 °C entre o entorno do parque central e bairro novo sem arborização. Converge com a pesquisa de gradiente térmico metropolitano relatada em ENT-006: há produção local sobre ilha de calor, e ela não alimenta o planejamento. Dimensão «Muito alta».",
    "ts": "00:22:25",
    "keywords": [
     "ilha de calor",
@@ -6230,7 +6230,7 @@
    "question": "PRI2",
    "type": "declaracao",
    "excerpt": "[participante]: «na legislação municipal foi demandado o dobro de área do que o Código Florestal determina (…) a mata ciliar aqui é o dobro. Se o [Código] determina o mínimo de 30, aqui é 60; se é 50, é 100. Então toda a região — inclusive a parte rural — eles não cumprem, porque não tem fiscalização»",
-   "paraphrase": "ACHADO. A norma ambiental municipal é mais exigente que a federal na faixa ciliar, e a exigência não é fiscalizada. Padrão que se repete em todo o corpus: a condição habilitante normativa está acima da média e a de implementação está abaixo — o gargalo não é legislar. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO. A norma ambiental municipal é mais exigente que a federal na faixa ciliar, e a exigência não é fiscalizada. Padrão que se repete em todo o corpus: a condição habilitante normativa está acima da média e a de implementação está abaixo — o gargalo não é legislar.",
    "ts": "00:08:39",
    "keywords": [
     "mata ciliar",
@@ -6249,7 +6249,7 @@
    "question": "PRI2",
    "type": "divergencia",
    "excerpt": "[participante]: «agora o [órgão ambiental municipal] (…) sancionado pela prefeitura (…) é você não precisar de nenhum laudo técnico, como por exemplo o RIMA, estudos de impacto ambiental, de vizinhança. Esses estudos você não precisa para abrir uma indústria, um loteamento (…) você vai lá e assina um termo dizendo que vai cumprir a legislação»",
-   "paraphrase": "ALEGAÇÃO DE RETROCESSO REGULATÓRIO. Relato de decreto municipal que teria substituído a exigência de estudo de impacto ambiental e de vizinhança por termo de compromisso do empreendedor. Registrada como divergência a verificar documentalmente na Matriz 2 (o decreto e sua redação), não como fato: é alegação de parte interessada, em sessão sem TCLE, e contradiz frontalmente a narrativa de maturidade de ENT-008. Se confirmada, é o achado regulatório mais grave do corpus.",
+   "paraphrase": "ALEGAÇÃO DE RETROCESSO REGULATÓRIO. Relato de decreto municipal que teria substituído a exigência de estudo de impacto ambiental e de vizinhança por termo de compromisso do empreendedor. Registrada como divergência a verificar documentalmente na Matriz 2 (o decreto e sua redação), não como fato: é alegação de parte interessada e contradiz frontalmente a narrativa de maturidade de ENT-008. Se confirmada, é o achado regulatório mais grave do corpus.",
    "ts": "00:08:39",
    "keywords": [
     "licenciamento",
@@ -6268,7 +6268,7 @@
    "question": "PRI9",
    "type": "divergencia",
    "excerpt": "[participante]: «ele tirou todas as pessoas de carreira que realmente falavam: não, você não vai instalar essa indústria poluidora aqui (…) tirou todas essas pessoas [do órgão ambiental]»",
-   "paraphrase": "ALEGAÇÃO DE ESVAZIAMENTO TÉCNICO. Relato de afastamento de servidores de carreira das funções de análise ambiental por decisão política. Registrada como divergência a triangular: diverge da leitura de ENT-008, que atribui a fragilidade da equipe à ausência de priorização orçamentária ao longo de oito anos, não a afastamento deliberado. As duas leituras descrevem a mesma escassez com causas opostas. SESSÃO SEM TCLE.",
+   "paraphrase": "ALEGAÇÃO DE ESVAZIAMENTO TÉCNICO. Relato de afastamento de servidores de carreira das funções de análise ambiental por decisão política. Registrada como divergência a triangular: diverge da leitura de ENT-008, que atribui a fragilidade da equipe à ausência de priorização orçamentária ao longo de oito anos, não a afastamento deliberado. As duas leituras descrevem a mesma escassez com causas opostas.",
    "ts": "00:14:28",
    "keywords": [
     "capacidade tecnica",
@@ -6286,7 +6286,7 @@
    "question": "PRI6",
    "type": "oportunidade",
    "excerpt": "[participante]: «eu vou tirar essas [árvores] e tenho que reflorestar em qualquer lugar 10 mudas para cada árvore (…) não se faz a contagem de estoque de carbono que essa árvore tem e que ela estava captando. Tinha que ser feita a mensuração de carbono para fazer uma compensação equiparada»",
-   "paraphrase": "OPORTUNIDADE TÉCNICA. Proposta de substituir a compensação por contagem de mudas por compensação equiparada em estoque de carbono mensurado. Converte a compensação ambiental em ativo quantificável e dialoga diretamente com a calculadora de valoração de carbono em desenvolvimento no órgão ambiental (ENT-008). SESSÃO SEM TCLE.",
+   "paraphrase": "OPORTUNIDADE TÉCNICA. Proposta de substituir a compensação por contagem de mudas por compensação equiparada em estoque de carbono mensurado. Converte a compensação ambiental em ativo quantificável e dialoga diretamente com a calculadora de valoração de carbono em desenvolvimento no órgão ambiental (ENT-008).",
    "ts": "00:11:37",
    "keywords": [
     "compensacao ambiental",
@@ -6305,7 +6305,7 @@
    "question": "PRI3",
    "type": "oportunidade",
    "excerpt": "[participante]: «primeiro, galerias pluviais (…) foi feito um estudo [em que] foi instalado um poço de infiltração e deu certo. Esse poço custou R$ 30.000 (…) o professor que organizou esse estudo falou: pelo menos 100 poços precisariam aqui em Maringá (…) Já tem 3 anos que esse poço tá lá e não colmatou»",
-   "paraphrase": "PROJETO PRONTO, COM CUSTO E VALIDAÇÃO. Poço de infiltração testado em campo há três anos sem colmatação, custo unitário de R$ 30 mil e escala necessária estimada em 100 unidades — cerca de R$ 3 milhões. É a proposta de investimento em adaptação mais barata, mais específica e melhor evidenciada de todo o corpus, e está parada. SESSÃO SEM TCLE.",
+   "paraphrase": "PROJETO PRONTO, COM CUSTO E VALIDAÇÃO. Poço de infiltração testado em campo há três anos sem colmatação, custo unitário de R$ 30 mil e escala necessária estimada em 100 unidades — cerca de R$ 3 milhões. É a proposta de investimento em adaptação mais barata, mais específica e melhor evidenciada de todo o corpus, e está parada.",
    "ts": "00:17:06",
    "keywords": [
     "poco de infiltracao",
@@ -6325,7 +6325,7 @@
    "question": "PRI4",
    "type": "declaracao",
    "excerpt": "[participante]: «eu conversei com o professor que organizou esse estudo»",
-   "paraphrase": "O estudo do poço de infiltração foi produzido pela academia local e validado em campo, e não foi convertido em programa municipal. Mais um caso do padrão registrado em ENT-006: conhecimento local disponível e não integrado à decisão de investimento. SESSÃO SEM TCLE.",
+   "paraphrase": "O estudo do poço de infiltração foi produzido pela academia local e validado em campo, e não foi convertido em programa municipal. Mais um caso do padrão registrado em ENT-006: conhecimento local disponível e não integrado à decisão de investimento.",
    "ts": "00:17:06",
    "keywords": [
     "universidade",
@@ -6344,7 +6344,7 @@
    "question": "PRI7",
    "type": "declaracao",
    "excerpt": "[participante]: «a [companhia de saneamento], que tem a concessão aqui, teve a concessão renovada (…) e ela não cumpriu o plano de saneamento ainda da cidade. Tem vários pontos de bairros que não têm saneamento»",
-   "paraphrase": "Alegação de descumprimento do plano de saneamento por concessionária com contrato renovado. Contrasta com ENT-008, que registra repasse da mesma concessionária ao fundo ambiental: o contrato de concessão é simultaneamente fonte de recurso ambiental e objeto de inadimplemento alegado. Ponto a verificar documentalmente. SESSÃO SEM TCLE.",
+   "paraphrase": "Alegação de descumprimento do plano de saneamento por concessionária com contrato renovado. Contrasta com ENT-008, que registra repasse da mesma concessionária ao fundo ambiental: o contrato de concessão é simultaneamente fonte de recurso ambiental e objeto de inadimplemento alegado. Ponto a verificar documentalmente.",
    "ts": "00:17:06",
    "keywords": [
     "concessao",
@@ -6363,7 +6363,7 @@
    "question": "PRI1",
    "type": "declaracao",
    "excerpt": "[participante]: «a gente já ficou sem água aqui, mais de 10 dias, porque deu uma enchente e queimou as bombas de captação (…) que é no rio [único ponto de captação] (…) o ponto de captação poderia ser o rio [de outra bacia], que é uma outra alternativa»",
-   "paraphrase": "Segunda confirmação independente do desabastecimento por alagamento da captação (a primeira é ENT-005), com a mesma proposta de redundância entre bacias. Duas fontes de setores diferentes descrevendo o mesmo evento e a mesma solução — a convergência mais específica do corpus sobre infraestrutura crítica. SESSÃO SEM TCLE.",
+   "paraphrase": "Segunda confirmação independente do desabastecimento por alagamento da captação (a primeira é ENT-005), com a mesma proposta de redundância entre bacias. Duas fontes de setores diferentes descrevendo o mesmo evento e a mesma solução — a convergência mais específica do corpus sobre infraestrutura crítica.",
    "ts": "00:17:06",
    "keywords": [
     "abastecimento",
@@ -6382,7 +6382,7 @@
    "question": "PRI5",
    "type": "divergencia",
    "excerpt": "[participante]: «tem dinheiro, tem mais de 30 milhões lá no [fundo do órgão ambiental]. Poderia fazer isso, não fazem»",
-   "paraphrase": "ALEGAÇÃO DE SALDO NÃO EXECUTADO. Relato de mais de R$ 30 milhões disponíveis no fundo ambiental sem aplicação. Se confirmado, inverte o diagnóstico da dimensão: o problema do fundo municipal não seria de arrecadação, e sim de capacidade de executar — o que converge exatamente com o gargalo de duas pessoas descrito em ENT-008. Valor a verificar em balanço na Matriz 2. SESSÃO SEM TCLE.",
+   "paraphrase": "ALEGAÇÃO DE SALDO NÃO EXECUTADO. Relato de mais de R$ 30 milhões disponíveis no fundo ambiental sem aplicação. Se confirmado, inverte o diagnóstico da dimensão: o problema do fundo municipal não seria de arrecadação, e sim de capacidade de executar — o que converge exatamente com o gargalo de duas pessoas descrito em ENT-008. Valor a verificar em balanço na Matriz 2.",
    "ts": "00:17:06",
    "keywords": [
     "FUNDEMA",
@@ -6401,7 +6401,7 @@
    "question": "PRI6",
    "type": "declaracao",
    "excerpt": "[participante]: «o dinheiro tá aí, do governo federal. Eu mesmo tô participando de um recurso da FINEP junto com a [universidade]. Tem 500 milhões lá, 500 milhões voltados para isso. E ninguém vai atrás»",
-   "paraphrase": "Há chamada federal de porte acessível via parceria com universidade, e a participação em curso é da iniciativa privada com a academia, sem o município. Confirma o padrão de ENT-008 (captação bem-sucedida ocorre por entidade parceira, não pelo município) e mostra que a janela federal está aberta. SESSÃO SEM TCLE.",
+   "paraphrase": "Há chamada federal de porte acessível via parceria com universidade, e a participação em curso é da iniciativa privada com a academia, sem o município. Confirma o padrão de ENT-008 (captação bem-sucedida ocorre por entidade parceira, não pelo município) e mostra que a janela federal está aberta.",
    "ts": "00:41:47",
    "keywords": [
     "FINEP",
@@ -6420,7 +6420,7 @@
    "question": "PRI9",
    "type": "percepcao",
    "excerpt": "[participante]: «e quando vai atrás tem gente sempre querendo morder (…) a falta de vontade de trabalhar com isso, porque infelizmente politicamente isso não dá voto. Não dá voto»",
-   "paraphrase": "Duas barreiras alegadas à captação: risco de desvio e ausência de retorno eleitoral do investimento em prevenção. A segunda é estrutural e independe de qualquer juízo sobre a primeira — obra que evita dano não é visível, e por isso perde na disputa orçamentária. SESSÃO SEM TCLE.",
+   "paraphrase": "Duas barreiras alegadas à captação: risco de desvio e ausência de retorno eleitoral do investimento em prevenção. A segunda é estrutural e independe de qualquer juízo sobre a primeira — obra que evita dano não é visível, e por isso perde na disputa orçamentária.",
    "ts": "00:41:47",
    "keywords": [
     "captacao",
@@ -6439,7 +6439,7 @@
    "question": "PRI6",
    "type": "oportunidade",
    "excerpt": "[participante]: «todos os prédios de Maringá agora serão obrigados a serem construídos de uma forma para captar a água da chuva, para ele ter o próprio abastecimento (…) usar um teto verde, pelo menos, maior área de permeabilidade — não é só uma calçada de paver, mas áreas realmente permeáveis. Isso pode ser feito por forma de lei»",
-   "paraphrase": "OPORTUNIDADE REGULATÓRIA. Exigência de captação de água pluvial, cobertura verde e permeabilidade efetiva no código de obras, com custo assumido pelo empreendedor. Instrumento de adaptação sem impacto orçamentário direto, e que responde à impermeabilização apontada em ENT-006, ENT-007 e ENT-008. SESSÃO SEM TCLE.",
+   "paraphrase": "OPORTUNIDADE REGULATÓRIA. Exigência de captação de água pluvial, cobertura verde e permeabilidade efetiva no código de obras, com custo assumido pelo empreendedor. Instrumento de adaptação sem impacto orçamentário direto, e que responde à impermeabilização apontada em ENT-006, ENT-007 e ENT-008.",
    "ts": "00:41:47",
    "keywords": [
     "codigo de obras",
@@ -6458,7 +6458,7 @@
    "question": "PRI9",
    "type": "divergencia",
    "excerpt": "[participante]: «não deixar instalar (…) o data center (…) eles estão gastando 72 milhões em desapropriação já. Aí vai gastar mais uns 40, 50 milhões só para mudar uma rua (…) para uma empresa que não vai gerar um emprego aqui, nenhum, e vai sugar a água da gente»",
-   "paraphrase": "DIVERGÊNCIA SOBRE PRIORIDADE DE INVESTIMENTO. Alegação de aporte público expressivo em desapropriação e infraestrutura viária para atrair empreendimento intensivo em água, em cidade cuja captação é de ponto único. Registra o conflito entre política de atração econômica e agenda hídrica — e a ordem de grandeza citada supera em muito qualquer valor de investimento climático mencionado no corpus. Verificar na Matriz 2. SESSÃO SEM TCLE.",
+   "paraphrase": "DIVERGÊNCIA SOBRE PRIORIDADE DE INVESTIMENTO. Alegação de aporte público expressivo em desapropriação e infraestrutura viária para atrair empreendimento intensivo em água, em cidade cuja captação é de ponto único. Registra o conflito entre política de atração econômica e agenda hídrica — e a ordem de grandeza citada supera em muito qualquer valor de investimento climático mencionado no corpus. Verificar na Matriz 2.",
    "ts": "00:49:01",
    "keywords": [
     "data center",
@@ -6478,7 +6478,7 @@
    "question": "PRI4",
    "type": "lacuna",
    "excerpt": "[participante]: «eu, como advogada, ainda tenho dificuldade de encontrar certos documentos que deveriam ser muito mais acessíveis, porque são públicos. Eu queria achar uma certa licitação ou dispensa, algum processo — eu tenho dificuldade para encontrar»",
-   "paraphrase": "LACUNA DE ACESSO. Dificuldade de localizar licitações, dispensas e processos administrativos relatada por profissional do direito. Se o acesso é difícil para quem tem formação jurídica, o rastreamento do gasto climático por terceiros é inviável — o que qualifica o achado de ENT-005 sobre o observatório social operar como capacidade externa. SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA DE ACESSO. Dificuldade de localizar licitações, dispensas e processos administrativos relatada por profissional do direito. Se o acesso é difícil para quem tem formação jurídica, o rastreamento do gasto climático por terceiros é inviável — o que qualifica o achado de ENT-005 sobre o observatório social operar como capacidade externa.",
    "ts": "00:22:25",
    "keywords": [
     "transparencia",
@@ -6497,7 +6497,7 @@
    "question": "PRI7",
    "type": "declaracao",
    "excerpt": "[participante]: «infelizmente a sociedade civil tem poucos [espaços], como o instituto de que eu faço parte (…) é por meio dele que eu tenho me movimentado, fiscalizado os órgãos públicos — não só a prefeitura, o próprio [órgão ambiental estadual] também — cobrando do Ministério Público»",
-   "paraphrase": "Existe organização técnica ambiental atuando como fiscal externo e acionando o Ministério Público. Segunda estrutura de controle social identificada no corpus, ao lado do observatório de contas de ENT-005 — ambas fora da administração e não articuladas a ela. SESSÃO SEM TCLE.",
+   "paraphrase": "Existe organização técnica ambiental atuando como fiscal externo e acionando o Ministério Público. Segunda estrutura de controle social identificada no corpus, ao lado do observatório de contas de ENT-005 — ambas fora da administração e não articuladas a ela.",
    "ts": "00:26:35",
    "keywords": [
     "OSC",
@@ -6516,7 +6516,7 @@
    "question": "PRI7",
    "type": "divergencia",
    "excerpt": "[participante]: «depois que eu saí, [a entidade] tá calada. Colocaram uma pessoa que não entende nada da área ambiental para ser representante no conselho (…) o prefeito anterior, a pedido dele, eu fui retirada do [conselho municipal de meio ambiente] porque eu fiz denúncias»",
-   "paraphrase": "ALEGAÇÃO DE ESVAZIAMENTO DA REPRESENTAÇÃO. Relato de substituição de representante técnica em conselho ambiental após denúncias, e de perda de qualificação técnica da cadeira. Registrada como divergência frente a ENT-008, que descreve os conselhos como espaço ativo de participação da sociedade civil organizada. A existência formal do conselho e a qualidade efetiva de sua representação são coisas distintas. SESSÃO SEM TCLE.",
+   "paraphrase": "ALEGAÇÃO DE ESVAZIAMENTO DA REPRESENTAÇÃO. Relato de substituição de representante técnica em conselho ambiental após denúncias, e de perda de qualificação técnica da cadeira. Registrada como divergência frente a ENT-008, que descreve os conselhos como espaço ativo de participação da sociedade civil organizada. A existência formal do conselho e a qualidade efetiva de sua representação são coisas distintas.",
    "ts": "00:26:35",
    "keywords": [
     "conselho",
@@ -6535,7 +6535,7 @@
    "question": "PRI7",
    "type": "declaracao",
    "excerpt": "[participante]: «eu escrevi 25 sugestões quando era presidente da comissão do meio ambiente [da entidade profissional] (…) eu entreguei nas mãos [da liderança do Executivo], com 25 ideias baseadas em ciência e legislação federal»",
-   "paraphrase": "SEGUNDA OFERTA TÉCNICA ENTREGUE E SEM DESDOBRAMENTO. Documento com 25 propostas fundamentadas entregue diretamente ao Executivo, sem retorno relatado. Converge exatamente com a carta de ENT-007: a sociedade civil técnica de Maringá produz e entrega proposta ao poder público, e não há fluxo institucional que a receba, avalie e responda. SESSÃO SEM TCLE.",
+   "paraphrase": "SEGUNDA OFERTA TÉCNICA ENTREGUE E SEM DESDOBRAMENTO. Documento com 25 propostas fundamentadas entregue diretamente ao Executivo, sem retorno relatado. Converge exatamente com a carta de ENT-007: a sociedade civil técnica de Maringá produz e entrega proposta ao poder público, e não há fluxo institucional que a receba, avalie e responda.",
    "ts": "00:31:11",
    "keywords": [
     "proposta",
@@ -6554,7 +6554,7 @@
    "question": "PRI7",
    "type": "lacuna",
    "excerpt": "[participante]: «educação ambiental (…) não pode ser mais transversal, ela tem que ser uma disciplina, que até agora não foi implantada no município e nem pelo estado. Tem lei federal desde 2023. Até agora nada»",
-   "paraphrase": "Alegação de norma federal de educação ambiental não implementada em âmbito municipal e estadual. Sinaliza um canal de formação disponível e não acionado, relevante para a lacuna de percepção causa–consequência que ENT-008 identifica como obstáculo central. SESSÃO SEM TCLE.",
+   "paraphrase": "Alegação de norma federal de educação ambiental não implementada em âmbito municipal e estadual. Sinaliza um canal de formação disponível e não acionado, relevante para a lacuna de percepção causa–consequência que ENT-008 identifica como obstáculo central.",
    "ts": "00:31:11",
    "keywords": [
     "educacao ambiental",
@@ -6573,7 +6573,7 @@
    "question": "PRI7",
    "type": "declaracao",
    "excerpt": "[participante]: «eu dou muitas palestras sobre mudanças climáticas para crianças, adolescentes, para empresários (…) gratuitamente (…) eu percebo que eles escutam, mas não conectam com a realidade. Só conectam quando acontecer um desastre»",
-   "paraphrase": "Terceira formulação convergente do mesmo diagnóstico (com ENT-004 e ENT-008): a informação circula e não se converte em nexo causal percebido, e a conexão só se faz depois do dano. Aqui vem de quem faz a atividade de sensibilização de forma voluntária e continuada. SESSÃO SEM TCLE.",
+   "paraphrase": "Terceira formulação convergente do mesmo diagnóstico (com ENT-004 e ENT-008): a informação circula e não se converte em nexo causal percebido, e a conexão só se faz depois do dano. Aqui vem de quem faz a atividade de sensibilização de forma voluntária e continuada.",
    "ts": "00:28:04",
    "keywords": [
     "sensibilizacao",
@@ -6592,7 +6592,7 @@
    "question": "PRI8",
    "type": "declaracao",
    "excerpt": "[participante]: «esqueça os outros [municípios], é mil vezes pior. Não tem nem secretaria do meio ambiente, a grande parte. Não tem esgoto, não tem tratamento, não tem nada»",
-   "paraphrase": "Assimetria de capacidade na região: os municípios conurbados não têm sequer estrutura ambiental. Qualifica a proposta de cooperação regional das demais sessões — a articulação não seria entre pares, e sim de Maringá como prestador de capacidade, no modelo do corpo técnico compartilhado descrito em ENT-007. SESSÃO SEM TCLE.",
+   "paraphrase": "Assimetria de capacidade na região: os municípios conurbados não têm sequer estrutura ambiental. Qualifica a proposta de cooperação regional das demais sessões — a articulação não seria entre pares, e sim de Maringá como prestador de capacidade, no modelo do corpo técnico compartilhado descrito em ENT-007.",
    "ts": "00:33:29",
    "keywords": [
     "cooperacao regional",
@@ -6611,7 +6611,7 @@
    "question": "PRI1",
    "type": "declaracao",
    "excerpt": "[participante]: «uma inundação igual aconteceu aqui já em Maringá, [em um bairro] novo (…) tem calçadas impermeáveis e praticamente não tem arborização. Foi planejado [por autor renomado] e o projeto dele foi totalmente modificado»",
-   "paraphrase": "Novo bairro planejado, executado com alteração do projeto original, com calçada impermeável e sem arborização — e com inundação registrada. Quarto caso no corpus de risco produzido por obra recente (após ciclovia, praça central e loteamentos), o que consolida a maladaptação por projeto como vetor ativo em Maringá. SESSÃO SEM TCLE.",
+   "paraphrase": "Novo bairro planejado, executado com alteração do projeto original, com calçada impermeável e sem arborização — e com inundação registrada. Quarto caso no corpus de risco produzido por obra recente (após ciclovia, praça central e loteamentos), o que consolida a maladaptação por projeto como vetor ativo em Maringá.",
    "ts": "00:33:29",
    "keywords": [
     "maladaptacao",
@@ -6630,7 +6630,7 @@
    "question": "PRI4",
    "type": "lacuna",
    "excerpt": "[participante]: «as ideias nós temos. Eu fiz de graça, não cobrei nada, porque realmente eu tô esperando que façam isso»",
-   "paraphrase": "Terceira oferta de trabalho técnico gratuito registrada no corpus (com ENT-006 e ENT-007), e a terceira sem desdobramento. O insumo técnico para o planejamento está disponível a custo zero e o gargalo permanece na capacidade de recebê-lo e convertê-lo em projeto. Dimensão «Muito alta». SESSÃO SEM TCLE.",
+   "paraphrase": "Terceira oferta de trabalho técnico gratuito registrada no corpus (com ENT-006 e ENT-007), e a terceira sem desdobramento. O insumo técnico para o planejamento está disponível a custo zero e o gargalo permanece na capacidade de recebê-lo e convertê-lo em projeto. Dimensão «Muito alta».",
    "ts": "00:41:47",
    "keywords": [
     "oferta tecnica",
@@ -6649,7 +6649,7 @@
    "question": "PRI9",
    "type": "percepcao",
    "excerpt": "[participante]: «eu tenho visto muitas pessoas usando esse dinheiro de forma incorreta (…) deveria haver uma seriedade no tratamento desse recurso para focar realmente na nossa resiliência»",
-   "paraphrase": "Percepção de má aplicação de recurso ambiental, sem elementos verificáveis apresentados na sessão. Registrada exclusivamente como percepção de baixa confiança, em sessão sem TCLE; não deve alimentar o diagnóstico. Seu valor analítico é indireto: a ausência de rastreamento do gasto climático — dimensão «Muito alta» sem evidência positiva no corpus — é o que torna essa percepção impossível de confirmar ou afastar.",
+   "paraphrase": "Percepção de má aplicação de recurso ambiental, sem elementos verificáveis apresentados na sessão. Registrada exclusivamente como percepção de baixa confiança. Seu valor analítico é indireto: a ausência de rastreamento do gasto climático — dimensão «Muito alta» sem evidência positiva no corpus — é o que torna essa percepção impossível de confirmar ou afastar.",
    "ts": "00:41:47",
    "keywords": [
     "rastreamento de gastos",
@@ -6668,7 +6668,7 @@
    "question": "PRI6",
    "type": "oportunidade",
    "excerpt": "[participante]: «isso também pode ser feito por forma de [incentivo], usar um teto verde (…) Isso já é uma outra situação focada aí no que eles tanto querem: evolução econômica»",
-   "paraphrase": "Sugestão de acoplar a exigência ambiental ao vetor de expansão imobiliária que a cidade já tem, em vez de opô-la a ele. Mesma lógica da proposta de ENT-006 (usar o mercado imobiliário como canal do IPTU Verde): trabalhar com o incentivo existente, não contra ele. SESSÃO SEM TCLE.",
+   "paraphrase": "Sugestão de acoplar a exigência ambiental ao vetor de expansão imobiliária que a cidade já tem, em vez de opô-la a ele. Mesma lógica da proposta de ENT-006 (usar o mercado imobiliário como canal do IPTU Verde): trabalhar com o incentivo existente, não contra ele.",
    "ts": "00:41:47",
    "keywords": [
     "incentivo",
@@ -7302,7 +7302,7 @@
    "question": "PUB1",
    "type": "percepcao",
    "excerpt": "[participante]: «quando eu coloco a prefeitura em comparação com a quase totalidade das prefeituras do Brasil, ela conseguiu ter avanços (…) mas de forma geral ela está engatinhando. Porque primeiro a população não conseguiu ainda entender qual é o impacto para a vida dela»",
-   "paraphrase": "Avaliação de maturidade a partir do Legislativo: avanço relativo ao país, estágio inicial em termos absolutos. Ocupa posição intermediária entre a autoavaliação de ENT-008 («muito acima da média») e a de ENT-004 («estágio inicial»), e atribui o limite à ausência de percepção social do impacto. SESSÃO SEM TCLE.",
+   "paraphrase": "Avaliação de maturidade a partir do Legislativo: avanço relativo ao país, estágio inicial em termos absolutos. Ocupa posição intermediária entre a autoavaliação de ENT-008 («muito acima da média») e a de ENT-004 («estágio inicial»), e atribui o limite à ausência de percepção social do impacto.",
    "ts": "00:19:15",
    "keywords": [
     "maturidade",
@@ -7321,7 +7321,7 @@
    "question": "PUB1",
    "type": "lacuna",
    "excerpt": "[participante]: «não existe incorporação concreta nas medidas nem tributárias, que seriam fundamentais, nem urbanísticas, que também é muito importante, e mesmo ambientais»",
-   "paraphrase": "LACUNA DE INSTRUMENTO, DITA PELO LEGISLATIVO. A agenda climática não foi incorporada aos três conjuntos normativos que teriam efeito material — tributário, urbanístico e ambiental. A ação existe como decisão de gestão e não como norma, e por isso não sobrevive à troca de gestão. SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA DE INSTRUMENTO, DITA PELO LEGISLATIVO. A agenda climática não foi incorporada aos três conjuntos normativos que teriam efeito material — tributário, urbanístico e ambiental. A ação existe como decisão de gestão e não como norma, e por isso não sobrevive à troca de gestão.",
    "ts": "00:19:15",
    "keywords": [
     "legislacao",
@@ -7340,7 +7340,7 @@
    "question": "PUB8",
    "type": "declaracao",
    "excerpt": "[participante]: «até muito pouco tempo as questões de licenças ambientais estavam ligadas ao estado (…) Maringá foi assumindo e criando esse organismo municipal. Só que ainda tem tanta demanda para ele resolver da burocracia que ele não conseguiu avançar em implementar algumas soluções»",
-   "paraphrase": "CONTEXTO DECISIVO. O órgão ambiental municipal é recente e assumiu a competência de licenciamento antes exercida pelo Estado. Explica estruturalmente a sobrecarga descrita em ENT-008: a unidade que deveria formular a política climática está absorvendo o passivo de um licenciamento recém-municipalizado. SESSÃO SEM TCLE.",
+   "paraphrase": "CONTEXTO DECISIVO. O órgão ambiental municipal é recente e assumiu a competência de licenciamento antes exercida pelo Estado. Explica estruturalmente a sobrecarga descrita em ENT-008: a unidade que deveria formular a política climática está absorvendo o passivo de um licenciamento recém-municipalizado.",
    "ts": "00:19:15",
    "keywords": [
     "municipalizacao",
@@ -7359,7 +7359,7 @@
    "question": "PUB8",
    "type": "declaracao",
    "excerpt": "[participante]: «[o instituto] só começou e conseguiu se implantar em 2024. Em 2025 [com a nova gestão] teve que refazer, porque o quadro técnico tinha um perfil que não estava muito adequado. Basicamente eles estão começando a produzir agora»",
-   "paraphrase": "Confirmação, de outra fonte, da recomposição do quadro técnico do órgão ambiental na virada de gestão — o mesmo evento que ENT-009 descreve como afastamento deliberado de servidores. As duas sessões concordam sobre o fato e divergem sobre a intenção; ambas sem TCLE. A verificação documental (atos de nomeação e exoneração) é o que decide. SESSÃO SEM TCLE.",
+   "paraphrase": "Confirmação, de outra fonte, da recomposição do quadro técnico do órgão ambiental na virada de gestão — o mesmo evento que ENT-009 descreve como afastamento deliberado de servidores. As duas sessões concordam sobre o fato e divergem sobre a intenção. A verificação documental (atos de nomeação e exoneração) é o que decide.",
    "ts": "00:34:53",
    "keywords": [
     "quadro tecnico",
@@ -7378,7 +7378,7 @@
    "question": "PUB2",
    "type": "declaracao",
    "excerpt": "[participante]: «ela tem pequenos córregos que vão ser muito mais impactados pela seca do que pela abundância (…) enquanto ela ia aos poucos caindo, [a chuva] cai tudo de uma vez só. Num dia só ela chove o mês inteiro e depois fica sem chover»",
-   "paraphrase": "Descrição do duplo regime que a análise técnica de ENT-010-ENT-011 quantificaria depois: mesma precipitação mensal concentrada em menos dias. Converge de forma independente com o «duplo risco hídrico» da consultoria e reforça que a seca dos córregos é risco tão relevante quanto o alagamento. SESSÃO SEM TCLE.",
+   "paraphrase": "Descrição do duplo regime que a análise técnica de ENT-010-ENT-011 quantificaria depois: mesma precipitação mensal concentrada em menos dias. Converge de forma independente com o «duplo risco hídrico» da consultoria e reforça que a seca dos córregos é risco tão relevante quanto o alagamento.",
    "ts": "00:24:21",
    "keywords": [
     "seca",
@@ -7397,7 +7397,7 @@
    "question": "PUB2",
    "type": "declaracao",
    "excerpt": "[participante]: «é preciso lembrar que a gente tinha cinco pontos de gravidade, hoje tem 40»",
-   "paraphrase": "ACHADO QUANTITATIVO DE TENDÊNCIA. Os pontos críticos de drenagem passaram de cinco para cerca de quarenta. Compatível com os 38 pontos mapeados pela consultoria (ENT-010-ENT-011) e com os 40 projetos executivos de erosão de ENT-008 — e acrescenta a série temporal que faltava: o passivo multiplicou por oito. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO QUANTITATIVO DE TENDÊNCIA. Os pontos críticos de drenagem passaram de cinco para cerca de quarenta. Compatível com os 38 pontos mapeados pela consultoria (ENT-010-ENT-011) e com os 40 projetos executivos de erosão de ENT-008 — e acrescenta a série temporal que faltava: o passivo multiplicou por oito.",
    "ts": "00:24:21",
    "keywords": [
     "pontos criticos",
@@ -7416,7 +7416,7 @@
    "question": "PUB2",
    "type": "lacuna",
    "excerpt": "[participante]: «não temos uma defesa civil organizada para tratar de qualquer tipo de novo episódio inesperado. Por exemplo, se vier um ciclone, nós não temos nenhum preparo para isso (…) não temos uma ideia de como podemos fazer uma proteção para isso, para minimizar, para treinar»",
-   "paraphrase": "LACUNA. Ausência de protocolo e de treinamento para evento extremo de tipo novo. Diverge da avaliação positiva de ENT-005 sobre a resposta da defesa civil, e a diferença é de objeto: a estrutura responde bem ao evento conhecido e não tem preparo para o evento sem precedente — que é justamente o que a mudança do regime eólico anuncia. SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA. Ausência de protocolo e de treinamento para evento extremo de tipo novo. Diverge da avaliação positiva de ENT-005 sobre a resposta da defesa civil, e a diferença é de objeto: a estrutura responde bem ao evento conhecido e não tem preparo para o evento sem precedente — que é justamente o que a mudança do regime eólico anuncia.",
    "ts": "00:24:21",
    "keywords": [
     "defesa civil",
@@ -7436,7 +7436,7 @@
    "question": "PUB3",
    "type": "declaracao",
    "excerpt": "[participante]: «há um levantamento feito pela [universidade pública] voltado ao problema dos raios. Há um aumento muito grande da quantidade de raios (…) e esse fenômeno ninguém fala, ninguém percebe, porque não aconteceu nenhum desastre ainda»",
-   "paraphrase": "RISCO EMERGENTE NÃO MAPEADO. Estudo acadêmico local aponta aumento de descargas atmosféricas, sem qualquer tratamento na agenda pública porque ainda não produziu vítima. Terceiro caso no corpus de dado científico local existente e não incorporado (com a ilha de calor e o poço de infiltração) — e o único sobre um risco que nenhum instrumento municipal considera. SESSÃO SEM TCLE.",
+   "paraphrase": "RISCO EMERGENTE NÃO MAPEADO. Estudo acadêmico local aponta aumento de descargas atmosféricas, sem qualquer tratamento na agenda pública porque ainda não produziu vítima. Terceiro caso no corpus de dado científico local existente e não incorporado (com a ilha de calor e o poço de infiltração) — e o único sobre um risco que nenhum instrumento municipal considera.",
    "ts": "00:24:21",
    "keywords": [
     "raios",
@@ -7455,7 +7455,7 @@
    "question": "PUB2",
    "type": "declaracao",
    "excerpt": "[participante]: «é possível aqui você fazer uma perfuração de 200 m, 150 m (…) e isso tem tido uma diminuição muito grande (…) a cidade tem o maior número de poços artesianos no centro por metro quadrado (…) as pessoas furaram poços artesianos e foram enfraquecendo esse aquífero (…) muitas dessas [águas] já estão contaminadas e a população que usa não tem conhecimento disso»",
-   "paraphrase": "CONVERGÊNCIA INDEPENDENTE. Segunda fonte a apontar a explotação difusa do aquífero raso por poços prediais como risco (a primeira é ENT-007), agora com dois acréscimos: rebaixamento já observado e contaminação de águas em uso sem conhecimento do usuário. Risco hídrico e sanitário simultâneo, sem instrumento municipal que o alcance. SESSÃO SEM TCLE.",
+   "paraphrase": "CONVERGÊNCIA INDEPENDENTE. Segunda fonte a apontar a explotação difusa do aquífero raso por poços prediais como risco (a primeira é ENT-007), agora com dois acréscimos: rebaixamento já observado e contaminação de águas em uso sem conhecimento do usuário. Risco hídrico e sanitário simultâneo, sem instrumento municipal que o alcance.",
    "ts": "00:24:21",
    "keywords": [
     "aquifero",
@@ -7474,7 +7474,7 @@
    "question": "PUB2",
    "type": "declaracao",
    "excerpt": "[participante]: «nós temos verdadeiras voçorocas escondidas em vários pontos da cidade (…) tem hortas comunitárias [onde] quando a gente chega e começa a andar, a gente descobre um buraco de 7 m, 8 m, com certeza»",
-   "paraphrase": "Passivo de erosão de grande porte não visível a partir da via pública, inclusive em áreas de uso comunitário. Converge com ENT-008 («é só quem está lá dentro que entende o tamanho da responsabilidade»): o dano existe, é subdimensionado por sensoriamento remoto e coexiste com uso social do espaço. SESSÃO SEM TCLE.",
+   "paraphrase": "Passivo de erosão de grande porte não visível a partir da via pública, inclusive em áreas de uso comunitário. Converge com ENT-008 («é só quem está lá dentro que entende o tamanho da responsabilidade»): o dano existe, é subdimensionado por sensoriamento remoto e coexiste com uso social do espaço.",
    "ts": "00:30:13",
    "keywords": [
     "vocoroca",
@@ -7493,7 +7493,7 @@
    "question": "PUB6",
    "type": "declaracao",
    "excerpt": "[participante]: «o próprio [bosque municipal] tem uma voçoroca tão grande que eu não acredito que ela possa ser corrigida com nada menos do que 10, 15 milhões de reais. Tanto é que a ideia [do Executivo] é fazer uma passarela por cima do bosque»",
-   "paraphrase": "ORDEM DE GRANDEZA. Um único ponto de erosão em área verde pública é estimado em R$ 10 a 15 milhões, e a solução em estudo é contornar o problema com passarela em vez de corrigi-lo. Dá escala ao passivo e sustenta o argumento de ENT-008 sobre a inadequação do financiamento por editais de pequeno porte. SESSÃO SEM TCLE.",
+   "paraphrase": "ORDEM DE GRANDEZA. Um único ponto de erosão em área verde pública é estimado em R$ 10 a 15 milhões, e a solução em estudo é contornar o problema com passarela em vez de corrigi-lo. Dá escala ao passivo e sustenta o argumento de ENT-008 sobre a inadequação do financiamento por editais de pequeno porte.",
    "ts": "00:30:13",
    "keywords": [
     "vocoroca",
@@ -7513,7 +7513,7 @@
    "question": "PUB3",
    "type": "lacuna",
    "excerpt": "[participante]: «a [universidade pública] tem vários estudos, mas eles foram feitos sem um projeto específico de pesquisa, então é uma colcha de retalhos. Alguém tem que conseguir pegar todos esses estudos e criar uma ordem disso (…) está feito a nível de tese de doutorado ou de mestrado, soltas, avulsas»",
-   "paraphrase": "LACUNA DE CURADORIA. O conhecimento local existe, é acessível e não é organizado nem agregado — a barreira não é produção nem acesso, é sistematização. Converge com ENT-006 e ENT-009 e reformula a recomendação: antes de encomendar estudo novo, mapear e consolidar o que já foi produzido sobre Maringá. Dimensão «Muito alta». SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA DE CURADORIA. O conhecimento local existe, é acessível e não é organizado nem agregado — a barreira não é produção nem acesso, é sistematização. Converge com ENT-006 e ENT-009 e reformula a recomendação: antes de encomendar estudo novo, mapear e consolidar o que já foi produzido sobre Maringá. Dimensão «Muito alta».",
    "ts": "00:33:16",
    "keywords": [
     "curadoria",
@@ -7532,7 +7532,7 @@
    "question": "PUB5",
    "type": "lacuna",
    "excerpt": "[entrevistador]: «quanto você gastou ano passado em ações climáticas?» / [participante]: «não acredito que a gente tenha uma relação também de custo disso, que seria fundamental no decorrer do tempo. Nós não temos isso»",
-   "paraphrase": "LACUNA CONFIRMADA PELO LEGISLATIVO. Não existe apuração do gasto climático municipal, e quem analisa o orçamento na Câmara desconhece qualquer relação de custo. Dimensão «Muito alta» — e esta é a evidência mais direta do corpus sobre ela, vinda justamente do poder que examina a peça orçamentária. SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA CONFIRMADA PELO LEGISLATIVO. Não existe apuração do gasto climático municipal, e quem analisa o orçamento na Câmara desconhece qualquer relação de custo. Dimensão «Muito alta» — e esta é a evidência mais direta do corpus sobre ela, vinda justamente do poder que examina a peça orçamentária.",
    "ts": "00:34:53",
    "keywords": [
     "rastreamento de gastos",
@@ -7551,7 +7551,7 @@
    "question": "PUB5",
    "type": "lacuna",
    "excerpt": "[entrevistador]: «a hora que você faz uma análise do orçamento, você vê questões climáticas priorizadas ali?» / [participante]: «Nenhuma.»",
-   "paraphrase": "LACUNA CATEGÓRICA. Não há priorização climática identificável na peça orçamentária que tramita na Câmara. Resposta de uma palavra, de quem tem a atribuição legal de examinar o orçamento — a evidência mais forte do corpus para a dimensão de integração entre orçamento, PPA, LDO e ação climática. Dimensão «Muito alta». SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA CATEGÓRICA. Não há priorização climática identificável na peça orçamentária que tramita na Câmara. Resposta de uma palavra, de quem tem a atribuição legal de examinar o orçamento — a evidência mais forte do corpus para a dimensão de integração entre orçamento, PPA, LDO e ação climática. Dimensão «Muito alta».",
    "ts": "00:34:53",
    "keywords": [
     "orcamento",
@@ -7571,7 +7571,7 @@
    "question": "PUB5",
    "type": "declaracao",
    "excerpt": "[participante]: «há uma rejeição muito grande por parte de todo o secretariado, do secretário de fazenda que existe, de permitir que você carimbe recurso. Eles querem recurso livre. E eu entendo também, se eu tivesse lá ia querer — mas para mim esse é um caminho fundamental»",
-   "paraphrase": "ACHADO ESTRUTURANTE. A resistência à vinculação orçamentária é institucional e explícita, vinda da área fazendária. Identifica o obstáculo político concreto ao orçamento verde e à marcação climática de despesa — dimensão «Muito alta» que seguia sem evidência codificada — e mostra que a barreira não é técnica, é de preferência por discricionariedade fiscal. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO ESTRUTURANTE. A resistência à vinculação orçamentária é institucional e explícita, vinda da área fazendária. Identifica o obstáculo político concreto ao orçamento verde e à marcação climática de despesa — dimensão «Muito alta» que seguia sem evidência codificada — e mostra que a barreira não é técnica, é de preferência por discricionariedade fiscal.",
    "ts": "00:40:58",
    "keywords": [
     "orcamento verde",
@@ -7591,7 +7591,7 @@
    "question": "PUB7",
    "type": "oportunidade",
    "excerpt": "[participante]: «nós temos um fundo de inovação que quase não tem dinheiro nenhum (…) nós poderíamos criar prioridades desse fundo e fazer com que viessem mais recursos para ele através da prestação de serviço. Há uma empresa que foi criada para fazer parcerias com a inovação»",
-   "paraphrase": "OPORTUNIDADE DE VEÍCULO. Existe fundo municipal de inovação subfinanciado e uma empresa criada para parcerias de inovação — estrutura de veículo financeiro já constituída e ociosa, que poderia receber prioridades climáticas e receita de prestação de serviço. Primeira evidência do corpus para a dimensão de estruturas especiais e veículos financeiros. SESSÃO SEM TCLE.",
+   "paraphrase": "OPORTUNIDADE DE VEÍCULO. Existe fundo municipal de inovação subfinanciado e uma empresa criada para parcerias de inovação — estrutura de veículo financeiro já constituída e ociosa, que poderia receber prioridades climáticas e receita de prestação de serviço. Primeira evidência do corpus para a dimensão de estruturas especiais e veículos financeiros.",
    "ts": "00:40:58",
    "keywords": [
     "fundo de inovacao",
@@ -7610,7 +7610,7 @@
    "question": "PUB6",
    "type": "declaracao",
    "excerpt": "[participante]: «eu fiz um projeto que foi aprovado pela [empresa binacional de energia], mas ainda não virou, [e] é para tratar de jardins de chuva focado na área de drenagem»",
-   "paraphrase": "Há projeto de jardins de chuva aprovado por instituição de porte e ainda não executado. Confirma que a captação junto a grandes operadores é viável para Maringá, e que o gargalo se dá depois da aprovação — na execução, não na obtenção do recurso. SESSÃO SEM TCLE.",
+   "paraphrase": "Há projeto de jardins de chuva aprovado por instituição de porte e ainda não executado. Confirma que a captação junto a grandes operadores é viável para Maringá, e que o gargalo se dá depois da aprovação — na execução, não na obtenção do recurso.",
    "ts": "00:37:50",
    "keywords": [
     "jardim de chuva",
@@ -7629,7 +7629,7 @@
    "question": "PUB7",
    "type": "divergencia",
    "excerpt": "[participante]: «alguns países (…) estariam dispostos a investir e fazer financiamentos sustentáveis (…) selecionaram no Brasil algumas cidades (…) no meio dessa selecionaram Maringá (…) precisava ter um certificado específico (…) o dinheiro viria via [banco público federal], já com acordo com o governo brasileiro. Já estava bem adiantado, mas ninguém deu muita importância, ninguém percebeu que ali havia um negócio (…) o primeiro passo era a prefeitura ter caminhado para criar a maneira de fazer a certificação»",
-   "paraphrase": "ACHADO. Oportunidade concreta de financiamento climático internacional, com Maringá entre as cidades selecionadas e intermediação de banco público federal, perdida por não se ter constituído a certificação exigida. É o custo da lacuna de capacidade medido em uma janela específica — e o argumento mais direto para tratar certificação e habilitação como investimento, não como formalidade. Verificar na Matriz 2. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO. Oportunidade concreta de financiamento climático internacional, com Maringá entre as cidades selecionadas e intermediação de banco público federal, perdida por não se ter constituído a certificação exigida. É o custo da lacuna de capacidade medido em uma janela específica — e o argumento mais direto para tratar certificação e habilitação como investimento, não como formalidade. Verificar na Matriz 2.",
    "ts": "00:40:58",
    "keywords": [
     "financiamento internacional",
@@ -7648,7 +7648,7 @@
    "question": "PUB7",
    "type": "percepcao",
    "excerpt": "[participante]: «o cidadão quer desconto (…) ele está separando o lixo, no caso do IPTU verde, porque quer o desconto. Então a gente não acrescenta dinheiro (…) a gente fica numa luta de renúncia fiscal que não vai avançar. Eu não consigo ver como o IPTU verde poderia nos ajudar nos grandes projetos»",
-   "paraphrase": "CRÍTICA FISCAL AO INSTRUMENTO. O IPTU Verde induz comportamento e reduz receita — não financia investimento. Contraponto necessário às quatro menções elogiosas do corpus: o instrumento é bom no que faz e não resolve a dimensão de mobilização de receita para projeto de porte. SESSÃO SEM TCLE.",
+   "paraphrase": "CRÍTICA FISCAL AO INSTRUMENTO. O IPTU Verde induz comportamento e reduz receita — não financia investimento. Contraponto necessário às quatro menções elogiosas do corpus: o instrumento é bom no que faz e não resolve a dimensão de mobilização de receita para projeto de porte.",
    "ts": "00:44:36",
    "keywords": [
     "IPTU verde",
@@ -7667,7 +7667,7 @@
    "question": "PUB7",
    "type": "oportunidade",
    "excerpt": "[participante]: «nosso IPTU verde não pode atingir empresas, só para CPF (…) e se eu criasse o IPTU verde empresarial? Em vez das pequenas medidas no seu empreendimento, ele teria que fazer determinados investimentos [para] ter o desconto (…) aquilo que custa para o poder público 100, para ele vai custar 70 (…) ele investe agora para receber o desconto no decorrer do tempo. No fundo, ele tá me financiando»",
-   "paraphrase": "ACHADO ESTRUTURANTE. Desenho de instrumento que converte renúncia futura de IPTU em investimento privado antecipado em infraestrutura climática, capturando o diferencial de custo de execução privada. É financiamento antecipado com contrapartida em obra — e responde diretamente à crítica que o próprio participante faz ao IPTU Verde atual. Converge com a proposta de compensação por intervenção de ENT-004 e merece exame jurídico-fiscal no Roadmap. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO ESTRUTURANTE. Desenho de instrumento que converte renúncia futura de IPTU em investimento privado antecipado em infraestrutura climática, capturando o diferencial de custo de execução privada. É financiamento antecipado com contrapartida em obra — e responde diretamente à crítica que o próprio participante faz ao IPTU Verde atual. Converge com a proposta de compensação por intervenção de ENT-004 e merece exame jurídico-fiscal no Roadmap.",
    "ts": "00:44:36",
    "keywords": [
     "IPTU verde empresarial",
@@ -7686,7 +7686,7 @@
    "question": "PUB7",
    "type": "declaracao",
    "excerpt": "[participante]: «nós temos uma empresa muito grande aqui (…) é uma montadora na área de energia solar (…) é uma empresa de bilhão, muito grande (…) como ela está focada em vender para o Brasil inteiro, a gente escuta falar pouco dela, ela não costuma participar das coisas, mas nós temos potencialmente alguém que pode nos ajudar nessa área»",
-   "paraphrase": "ATIVO PRIVADO NÃO MOBILIZADO. Há na cidade empresa de porte bilionário no setor de energia solar, sem participação na agenda local. Converge com ENT-005 sobre o capital organizacional privado disponível e não acionado — aqui identificado em um setor diretamente ligado à mitigação. SESSÃO SEM TCLE.",
+   "paraphrase": "ATIVO PRIVADO NÃO MOBILIZADO. Há na cidade empresa de porte bilionário no setor de energia solar, sem participação na agenda local. Converge com ENT-005 sobre o capital organizacional privado disponível e não acionado — aqui identificado em um setor diretamente ligado à mitigação.",
    "ts": "00:37:50",
    "keywords": [
     "energia solar",
@@ -7705,7 +7705,7 @@
    "question": "PUB6",
    "type": "declaracao",
    "excerpt": "[participante]: «teve um grupo antigo, ligado à Federação das Indústrias, que estava trabalhando a questão eólica aqui»",
-   "paraphrase": "Registro de iniciativa empresarial anterior em energia eólica, sem continuidade conhecida. Mais um caso de mobilização privada que existiu e não se sustentou — o padrão de descontinuidade que atravessa o corpus. SESSÃO SEM TCLE.",
+   "paraphrase": "Registro de iniciativa empresarial anterior em energia eólica, sem continuidade conhecida. Mais um caso de mobilização privada que existiu e não se sustentou — o padrão de descontinuidade que atravessa o corpus.",
    "ts": "00:37:50",
    "keywords": [
     "eolica",
@@ -7724,7 +7724,7 @@
    "question": "PUB8",
    "type": "lacuna",
    "excerpt": "[participante]: «as pessoas usam as ODS para discursar, mas não há uma visão clara (…) eu pego o negócio e vou encaixando nas ODS para poder valorar. É diferente de eu ter alguém que pega e fala: essa ODS, vamos fazer isso. Eu acho que falta um departamento para isso, ou uma pessoa, um gerenciamento global de todas as secretarias»",
-   "paraphrase": "LACUNA DE COORDENAÇÃO, TERCEIRA FORMULAÇÃO. Ausência de instância transversal de gestão da agenda, com a observação de que o enquadramento nas ODS é feito depois do fato, para justificar. Converge com a proposta de comitê de ENT-010-ENT-011 e com a sobreposição de atribuições de ENT-008. Dimensão «Muito alta». SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA DE COORDENAÇÃO, TERCEIRA FORMULAÇÃO. Ausência de instância transversal de gestão da agenda, com a observação de que o enquadramento nas ODS é feito depois do fato, para justificar. Converge com a proposta de comitê de ENT-010-ENT-011 e com a sobreposição de atribuições de ENT-008. Dimensão «Muito alta».",
    "ts": "00:49:59",
    "keywords": [
     "coordenacao",
@@ -7743,7 +7743,7 @@
    "question": "PUB8",
    "type": "percepcao",
    "excerpt": "[participante]: «eu olho e vejo o [instituto de planejamento] gastando uma energia imensa para brigar com o urbanismo, com a sociedade organizada que quer crescimento (…) e está deixando de gastar tempo com coisa que vai gerar para a frente, porque ela tem capacidade de fazer pesquisa (…) quando você mede, é diferente de quando você tem uma ideia»",
-   "paraphrase": "Diagnóstico sobre alocação de capacidade: o instituto de planejamento consome sua capacidade técnica em conflito regulatório corrente em vez de produzir a base analítica que arbitraria esse mesmo conflito. Aponta uma capacidade instalada mal alocada — e não ausente. SESSÃO SEM TCLE.",
+   "paraphrase": "Diagnóstico sobre alocação de capacidade: o instituto de planejamento consome sua capacidade técnica em conflito regulatório corrente em vez de produzir a base analítica que arbitraria esse mesmo conflito. Aponta uma capacidade instalada mal alocada — e não ausente.",
    "ts": "01:00:22",
    "keywords": [
     "instituto de planejamento",
@@ -7762,7 +7762,7 @@
    "question": "PUB9",
    "type": "percepcao",
    "excerpt": "[participante]: «acho que nós estamos no top 10 desse negócio. Nós somos uma grande referência (…) todo mundo nos reconhece, você não tem a menor dúvida. E por isso o diálogo acontece»",
-   "paraphrase": "O reconhecimento externo de Maringá é descrito como ativo que abre portas de interlocução. Converge com ENT-005 e ENT-007 sobre o capital reputacional da cidade — e as três sessões acrescentam a mesma ressalva: reputação sem entrega se converte em passivo. SESSÃO SEM TCLE.",
+   "paraphrase": "O reconhecimento externo de Maringá é descrito como ativo que abre portas de interlocução. Converge com ENT-005 e ENT-007 sobre o capital reputacional da cidade — e as três sessões acrescentam a mesma ressalva: reputação sem entrega se converte em passivo.",
    "ts": "00:52:47",
    "keywords": [
     "reputacao",
@@ -7781,7 +7781,7 @@
    "question": "PUB9",
    "type": "declaracao",
    "excerpt": "[participante]: «eu fui para a Holanda a pedido [do Executivo] junto com um grupo (…) um secretário que não era muito ligado para isso (…) ele voltou de lá com a cabeça feita de que puxa vida, isso é um legado que vale a pena fazer»",
-   "paraphrase": "Missão técnica internacional com efeito declarado de conversão de um quadro dirigente inicialmente cético. Converge com a visita técnica relatada em ENT-005: aprendizagem entre pares funciona em Maringá como instrumento de formação de dirigente, e não apenas de transferência técnica. SESSÃO SEM TCLE.",
+   "paraphrase": "Missão técnica internacional com efeito declarado de conversão de um quadro dirigente inicialmente cético. Converge com a visita técnica relatada em ENT-005: aprendizagem entre pares funciona em Maringá como instrumento de formação de dirigente, e não apenas de transferência técnica.",
    "ts": "01:00:22",
    "keywords": [
     "missao tecnica",
@@ -7800,7 +7800,7 @@
    "question": "PUB10",
    "type": "percepcao",
    "excerpt": "[participante]: «o primeiro lugar disso é a cultura (…) não há por parte nem dos empresários, nem da maioria dos técnicos, nem da população um conhecimento realmente disso. Então é a educação (…) não é educação ambiental de não jogue o lixo na rua (…) Só que isso não me dá voto, porque quando eu alcançar isso, eu já passei»",
-   "paraphrase": "BARREIRA NÚMERO UM, SEGUNDO O LEGISLATIVO, COM SUA PRÓPRIA EXPLICAÇÃO. A formação é apontada como condição habilitante primeira, e imediatamente qualificada pelo desalinhamento entre o horizonte do resultado e o do mandato. Converge literalmente com ENT-009 («não dá voto») e nomeia por que a prevenção perde na disputa orçamentária. SESSÃO SEM TCLE.",
+   "paraphrase": "BARREIRA NÚMERO UM, SEGUNDO O LEGISLATIVO, COM SUA PRÓPRIA EXPLICAÇÃO. A formação é apontada como condição habilitante primeira, e imediatamente qualificada pelo desalinhamento entre o horizonte do resultado e o do mandato. Converge literalmente com ENT-009 («não dá voto») e nomeia por que a prevenção perde na disputa orçamentária.",
    "ts": "00:52:47",
    "keywords": [
     "educacao ambiental",
@@ -7819,7 +7819,7 @@
    "question": "PUB10",
    "type": "oportunidade",
    "excerpt": "[participante]: «essa conscientização pode começar da própria mudança de conceito e de entendimento do servidor e da equipe, que daí transforma isso»",
-   "paraphrase": "Proposta de começar a formação pelo corpo funcional, e não pela população — o servidor como multiplicador. Recomendação de baixo custo e efeito direto sobre a maladaptação por desconhecimento registrada em ENT-006. SESSÃO SEM TCLE.",
+   "paraphrase": "Proposta de começar a formação pelo corpo funcional, e não pela população — o servidor como multiplicador. Recomendação de baixo custo e efeito direto sobre a maladaptação por desconhecimento registrada em ENT-006.",
    "ts": "00:53:59",
    "keywords": [
     "capacitacao",
@@ -7838,7 +7838,7 @@
    "question": "PUB10",
    "type": "percepcao",
    "excerpt": "[participante]: «eu preciso fazer de forma de incentivo (…) se eu só fizer de forma punitiva, nós vivemos num país sem fronteiras: eu tenho gente investindo [em outro estado, em outro país] (…) talvez tenha que ter incentivo e ao mesmo tempo restrições»",
-   "paraphrase": "Leitura de que a regulação ambiental isolada empurra o investimento para fora do município, e de que o desenho eficaz combina incentivo e restrição. Converge com a proposta de ENT-009 de acoplar exigência ambiental ao vetor de expansão já existente. SESSÃO SEM TCLE.",
+   "paraphrase": "Leitura de que a regulação ambiental isolada empurra o investimento para fora do município, e de que o desenho eficaz combina incentivo e restrição. Converge com a proposta de ENT-009 de acoplar exigência ambiental ao vetor de expansão já existente.",
    "ts": "00:53:59",
    "keywords": [
     "incentivo",
@@ -7857,7 +7857,7 @@
    "question": "PUB10",
    "type": "percepcao",
    "excerpt": "[participante]: «o terceiro problema é a falta de ver aquilo resolvendo o meu problema no aqui agora. Como é que eu consigo mostrar para ele que está dando resultado?»",
-   "paraphrase": "Terceira barreira apontada: ausência de evidência visível de resultado. Converge com ENT-005 («tem que mostrar»), ENT-004 (a baixa entrega percebida corrói a disposição privada) e ENT-008 (comunicação como condição habilitante) — quatro sessões convergindo em que medir e comunicar resultado é parte do financiamento, não acessório dele. SESSÃO SEM TCLE.",
+   "paraphrase": "Terceira barreira apontada: ausência de evidência visível de resultado. Converge com ENT-005 («tem que mostrar»), ENT-004 (a baixa entrega percebida corrói a disposição privada) e ENT-008 (comunicação como condição habilitante) — quatro sessões convergindo em que medir e comunicar resultado é parte do financiamento, não acessório dele.",
    "ts": "00:58:51",
    "keywords": [
     "resultado",
@@ -8394,7 +8394,7 @@
    "question": "SOC1",
    "type": "declaracao",
    "excerpt": "[participante]: «quando a gente pensa em grupo mais impactado, falando a partir de Maringá, é um pouco difícil colocar isso, porque Maringá não tem um aglomerado de população em situação de vulnerabilidade tão visível (…) a gente tem que expandir o olhar para essa região metropolitana imediata (…) cidades dormitório: a população só volta para casa para dormir, mas toda a dinâmica dela se desenvolve aqui»",
-   "paraphrase": "ACHADO ESTRUTURAL. A população mais vulnerável ao risco climático de Maringá trabalha em Maringá e mora fora dela. Explica por que o recorte municipal não encontra vulnerabilidade concentrada — ela foi exportada pela dinâmica metropolitana — e converge com ENT-010-ENT-011, que projeta a vulnerabilidade na faixa de conurbação. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO ESTRUTURAL. A população mais vulnerável ao risco climático de Maringá trabalha em Maringá e mora fora dela. Explica por que o recorte municipal não encontra vulnerabilidade concentrada — ela foi exportada pela dinâmica metropolitana — e converge com ENT-010-ENT-011, que projeta a vulnerabilidade na faixa de conurbação.",
    "ts": "00:08:22",
    "keywords": [
     "cidade dormitorio",
@@ -8413,7 +8413,7 @@
    "question": "SOC2",
    "type": "declaracao",
    "excerpt": "[participante]: «tem um plano de arborização super consistente e consolidado, mas que tem sofrido muito com ventos fortes (…) isso evidencia que a cidade, apesar de ter esse plano, já vinha de certo modo não olhando para ele como deveria (…) a gente acaba perdendo muitas árvores e essas árvores são retiradas, mas elas não são repostas»",
-   "paraphrase": "QUINTA CONVERGÊNCIA SOBRE ARBORIZAÇÃO. O plano existe, é bom e não é observado na etapa de reposição. Converge com ENT-006, ENT-007, ENT-008 e ENT-009 — cinco sessões de quatro setores. Nenhum outro objeto do corpus reúne esse grau de concordância. SESSÃO SEM TCLE.",
+   "paraphrase": "QUINTA CONVERGÊNCIA SOBRE ARBORIZAÇÃO. O plano existe, é bom e não é observado na etapa de reposição. Converge com ENT-006, ENT-007, ENT-008 e ENT-009 — cinco sessões de quatro setores. Nenhum outro objeto do corpus reúne esse grau de concordância.",
    "ts": "00:08:22",
    "keywords": [
     "plano de arborizacao",
@@ -8432,7 +8432,7 @@
    "question": "SOC2",
    "type": "declaracao",
    "excerpt": "[participante]: «muitas vezes os próprios moradores ficam inseguros e solicitam retiradas que às vezes a prefeitura aceita, mas sem falar sobre um replantio, sobre a importância de manutenção desse plano»",
-   "paraphrase": "ACHADO. A supressão arbórea é induzida por pedido de morador amedrontado pelo risco de queda, e deferida sem contrapartida de replantio nem mediação técnica. O risco climático está produzindo, por via administrativa, a perda do ativo que reduz esse mesmo risco. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO. A supressão arbórea é induzida por pedido de morador amedrontado pelo risco de queda, e deferida sem contrapartida de replantio nem mediação técnica. O risco climático está produzindo, por via administrativa, a perda do ativo que reduz esse mesmo risco.",
    "ts": "00:08:22",
    "keywords": [
     "supressao",
@@ -8452,7 +8452,7 @@
    "question": "SOC1",
    "type": "declaracao",
    "excerpt": "[participante]: «a cidade já sofreu com essa relação de chuva intensa que ocasionou depois um problema de abastecimento de água. A cidade teve uns episódios recentes impactantes»",
-   "paraphrase": "TERCEIRA CONFIRMAÇÃO INDEPENDENTE. O desabastecimento de água causado por chuva intensa é relatado por ENT-005, ENT-009 e agora ENT-014, de três setores distintos. É o evento de infraestrutura crítica mais bem triangulado do corpus e não aparece em nenhuma das sessões do poder público. SESSÃO SEM TCLE.",
+   "paraphrase": "TERCEIRA CONFIRMAÇÃO INDEPENDENTE. O desabastecimento de água causado por chuva intensa é relatado por ENT-005, ENT-009 e agora ENT-014, de três setores distintos. É o evento de infraestrutura crítica mais bem triangulado do corpus e não aparece em nenhuma das sessões do poder público.",
    "ts": "00:08:22",
    "keywords": [
     "abastecimento",
@@ -8471,7 +8471,7 @@
    "question": "SOC2",
    "type": "percepcao",
    "excerpt": "[participante]: «acho que a gente tem que discutir carbono zero, técnicas sustentáveis, mas a gente tem que olhar para o que a gente já tem e garantir que isso permaneça (…) tenho receio de a gente perder a noção do patrimônio que a gente tem hoje, do quanto esse planejamento inicial é uma coisa preciosa, por a gente olhar só para o futuro»",
-   "paraphrase": "CRÍTICA DE PRIORIZAÇÃO. A agenda de mitigação e inovação estaria absorvendo a atenção que a manutenção do ativo urbano existente demanda. Reposiciona a discussão de investimento climático em Maringá: o retorno maior pode estar em conservar a infraestrutura verde herdada, não em construir o novo. SESSÃO SEM TCLE.",
+   "paraphrase": "CRÍTICA DE PRIORIZAÇÃO. A agenda de mitigação e inovação estaria absorvendo a atenção que a manutenção do ativo urbano existente demanda. Reposiciona a discussão de investimento climático em Maringá: o retorno maior pode estar em conservar a infraestrutura verde herdada, não em construir o novo.",
    "ts": "00:13:07",
    "keywords": [
     "carbono zero",
@@ -8491,7 +8491,7 @@
    "question": "SOC3",
    "type": "declaracao",
    "excerpt": "[participante]: «por mais que as regiões mais periféricas não sejam ruins, essa qualidade toda não seguiu para as bordas»",
-   "paraphrase": "Terceira formulação convergente da desigualdade territorial (com ENT-007 e ENT-009): a qualidade urbana que dá reputação à cidade se concentra na área central. O gradiente centro–borda é o recorte distributivo mais recorrente do corpus. SESSÃO SEM TCLE.",
+   "paraphrase": "Terceira formulação convergente da desigualdade territorial (com ENT-007 e ENT-009): a qualidade urbana que dá reputação à cidade se concentra na área central. O gradiente centro–borda é o recorte distributivo mais recorrente do corpus.",
    "ts": "00:13:07",
    "keywords": [
     "desigualdade territorial",
@@ -8510,7 +8510,7 @@
    "question": "SOC2",
    "type": "divergencia",
    "excerpt": "[participante]: «quando eu penso nessas legislações mais recentes da gestão (…) eu vejo que tem um pouquinho de um descolamento da realidade (…) pensar em redução de carbono para as próximas edificações é uma coisa que as construtoras vão pensar (…) só que essa parcela mais periférica da população muitas vezes está precisando de coisas anteriores, mais básicas»",
-   "paraphrase": "DIVERGÊNCIA DISTRIBUTIVA. A norma climática recente se dirige à construção nova e ao mercado formal, e não alcança a população cuja moradia é precária. Registra que instrumento climático mal calibrado pode aprofundar a desigualdade que deveria enfrentar. SESSÃO SEM TCLE.",
+   "paraphrase": "DIVERGÊNCIA DISTRIBUTIVA. A norma climática recente se dirige à construção nova e ao mercado formal, e não alcança a população cuja moradia é precária. Registra que instrumento climático mal calibrado pode aprofundar a desigualdade que deveria enfrentar.",
    "ts": "00:16:59",
    "keywords": [
     "legislacao",
@@ -8530,7 +8530,7 @@
    "question": "SOC3",
    "type": "divergencia",
    "excerpt": "[participante]: «existe área ainda irregular na cidade? Existe. Então tem questões fundiárias ainda. Existem casas que não estão regularizadas ou com uma infraestrutura que não atende toda a sua família (…) a gente tem uma família (…) são 15 pessoas morando numa casa de dois cômodos»",
-   "paraphrase": "QUARTA POSIÇÃO SOBRE A MESMA DIVERGÊNCIA. Afirma existirem áreas irregulares e passivo fundiário em Maringá, contra o registro oficial de zero ocupações relatado em ENT-010-ENT-011 e a negação de ocupação em fundo de vale em ENT-008, e ao lado do relato de ENT-007. Três fontes de sociedade civil e consultoria contra o dado oficial: a divergência precisa ser resolvida documentalmente antes que o plano de adaptação fixe seu recorte de sensibilidade. SESSÃO SEM TCLE.",
+   "paraphrase": "QUARTA POSIÇÃO SOBRE A MESMA DIVERGÊNCIA. Afirma existirem áreas irregulares e passivo fundiário em Maringá, contra o registro oficial de zero ocupações relatado em ENT-010-ENT-011 e a negação de ocupação em fundo de vale em ENT-008, e ao lado do relato de ENT-007. Três fontes de sociedade civil e consultoria contra o dado oficial: a divergência precisa ser resolvida documentalmente antes que o plano de adaptação fixe seu recorte de sensibilidade.",
    "ts": "00:16:59",
    "keywords": [
     "area irregular",
@@ -8549,7 +8549,7 @@
    "question": "SOC3",
    "type": "declaracao",
    "excerpt": "[participante]: «numa casa precária que numa chuva ou num vento é atingida de outra forma que eu sou atingida. [Na área central] cai uma árvore aqui na frente, eu fico sem energia um, dois dias. Essa pessoa perde o telhado, ela perde a casa»",
-   "paraphrase": "Formulação precisa do impacto diferencial: o mesmo evento produz interrupção de serviço no centro e perda de moradia na borda. É o argumento distributivo que justifica priorizar territorialmente o investimento em adaptação — e o corpus não registra nenhum instrumento municipal que faça essa distinção. SESSÃO SEM TCLE.",
+   "paraphrase": "Formulação precisa do impacto diferencial: o mesmo evento produz interrupção de serviço no centro e perda de moradia na borda. É o argumento distributivo que justifica priorizar territorialmente o investimento em adaptação — e o corpus não registra nenhum instrumento municipal que faça essa distinção.",
    "ts": "00:19:33",
    "keywords": [
     "impacto diferencial",
@@ -8568,7 +8568,7 @@
    "question": "SOC7",
    "type": "oportunidade",
    "excerpt": "[participante]: «tem um trabalho muito ligado à moradia digna (…) da conjunção do [instituto de planejamento] com a Secretaria de Urbanismo e Habitação, de tratar a moradia para além da casa em si (…) qualificar essas bordas com melhoria habitacional, mas com equipamentos (…) entender que a política habitacional não está descolada dessas discussões de sustentabilidade ambiental. É parar de pensar nas políticas públicas de forma muito segmentada»",
-   "paraphrase": "CONVERGÊNCIA DE PROPOSTA. Integração entre política habitacional e agenda climática, com melhoria habitacional e equipamentos públicos nas bordas. Converge com a proposta de ATHIS como instrumento de adaptação de ENT-007 — duas sessões do mesmo setor, independentes, apontando o mesmo desenho. É a recomendação de adaptação com recorte distributivo mais consistente do corpus. SESSÃO SEM TCLE.",
+   "paraphrase": "CONVERGÊNCIA DE PROPOSTA. Integração entre política habitacional e agenda climática, com melhoria habitacional e equipamentos públicos nas bordas. Converge com a proposta de ATHIS como instrumento de adaptação de ENT-007 — duas sessões do mesmo setor, independentes, apontando o mesmo desenho. É a recomendação de adaptação com recorte distributivo mais consistente do corpus.",
    "ts": "00:20:41",
    "keywords": [
     "habitacao",
@@ -8588,7 +8588,7 @@
    "question": "SOC5",
    "type": "lacuna",
    "excerpt": "[entrevistador]: «se você precisa de algum dado (…) onde caiu árvore, ponto de alagamento, um alerta — isso é fácil e acessível para a sociedade?» / [participante]: «eu acho que esse acesso não existe exatamente (…) não concentrado num lugar»",
-   "paraphrase": "LACUNA. Não há ponto único de acesso a dado climático para a sociedade, confirmado por profissional que atua em política urbana na cidade. Converge com ENT-004, ENT-009, ENT-010-ENT-011 e ENT-013 — cinco sessões. Dimensão «Muito alta». SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA. Não há ponto único de acesso a dado climático para a sociedade, confirmado por profissional que atua em política urbana na cidade. Converge com ENT-004, ENT-009, ENT-010-ENT-011 e ENT-013 — cinco sessões. Dimensão «Muito alta».",
    "ts": "00:23:08",
    "keywords": [
     "acesso a dados",
@@ -8607,7 +8607,7 @@
    "question": "SOC6",
    "type": "lacuna",
    "excerpt": "[participante]: «tem alguns fóruns já estabelecidos, a gente tem um conselho municipal de planejamento territorial, mas não é a pauta climática que está ali. Se discute o planejamento urbano como um todo (…) não existe um fórum estabelecido para discussão de emergências climáticas»",
-   "paraphrase": "LACUNA DE INSTÂNCIA, TERCEIRA CONFIRMAÇÃO. Não há fórum dedicado à agenda climática; existem conselhos setoriais que a tangenciam. Converge com a proposta de comitê de ENT-010-ENT-011 e com a de incorporar a pauta ao conselho econômico de ENT-005 — a cidade tem instâncias e nenhuma delas tem o tema. SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA DE INSTÂNCIA, TERCEIRA CONFIRMAÇÃO. Não há fórum dedicado à agenda climática; existem conselhos setoriais que a tangenciam. Converge com a proposta de comitê de ENT-010-ENT-011 e com a de incorporar a pauta ao conselho econômico de ENT-005 — a cidade tem instâncias e nenhuma delas tem o tema.",
    "ts": "00:24:25",
    "keywords": [
     "conselho",
@@ -8626,7 +8626,7 @@
    "question": "SOC6",
    "type": "percepcao",
    "excerpt": "[participante]: «sempre há uma dificuldade de engajamento da sociedade civil, mesmo por mais que seja bem organizada aqui (…) as pessoas não sentem ainda que a discussão climática é tão urgente, apesar de terem tido episódios visíveis (…) pela cidade ser uma cidade modelo»",
-   "paraphrase": "ACHADO SOBRE A CAUSA DA BAIXA ADESÃO. O prestígio da cidade produz complacência: quem vive em uma cidade tida como modelo não se percebe em risco. Explica, melhor que qualquer outra formulação do corpus, por que a mobilização climática não decola em Maringá apesar de eventos visíveis. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO SOBRE A CAUSA DA BAIXA ADESÃO. O prestígio da cidade produz complacência: quem vive em uma cidade tida como modelo não se percebe em risco. Explica, melhor que qualquer outra formulação do corpus, por que a mobilização climática não decola em Maringá apesar de eventos visíveis.",
    "ts": "00:24:25",
    "keywords": [
     "engajamento",
@@ -8645,7 +8645,7 @@
    "question": "SOC7",
    "type": "oportunidade",
    "excerpt": "[participante]: «[o conselho] pode ser um parceiro numa ação que o poder público faça. Ele não pode ser o executor (…) mas ele pode promover conversas, ele pode patrocinar por editais (…) pode abrir um edital para que organizações da sociedade civil ou mesmo o poder público submetam projetos de discussão de questões climáticas e cidades»",
-   "paraphrase": "OFERTA CONCRETA COM INSTRUMENTO. O conselho profissional pode financiar por edital projetos climáticos de terceiros e do próprio poder público, dentro de suas finalidades legais. É fonte de recurso local, já existente e não acionada — e converge com a estratégia de ENT-008 de captar por meio de entidade parceira. SESSÃO SEM TCLE.",
+   "paraphrase": "OFERTA CONCRETA COM INSTRUMENTO. O conselho profissional pode financiar por edital projetos climáticos de terceiros e do próprio poder público, dentro de suas finalidades legais. É fonte de recurso local, já existente e não acionada — e converge com a estratégia de ENT-008 de captar por meio de entidade parceira.",
    "ts": "00:27:44",
    "keywords": [
     "edital",
@@ -8664,7 +8664,7 @@
    "question": "SOC8",
    "type": "lacuna",
    "excerpt": "[participante]: «eu acho que hoje ela não existe [a cooperação regional]. É muito curioso, porque a gente está muito perto e muito distante ao mesmo tempo (…) foi na ocasião do plano de mobilidade que a gente percebeu que a gente estava olhando para a realidade de [outras capitais regionais], mas não estava considerando a região metropolitana imediata»",
-   "paraphrase": "LACUNA COM EXEMPLO DOCUMENTADO. O plano setorial mais recente da cidade tomou como referência capitais distantes e ignorou os municípios conurbados. Converge com ENT-006, ENT-007 e ENT-009: a escala metropolitana não entra nos instrumentos de Maringá — nem quando o objeto é mobilidade pendular. SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA COM EXEMPLO DOCUMENTADO. O plano setorial mais recente da cidade tomou como referência capitais distantes e ignorou os municípios conurbados. Converge com ENT-006, ENT-007 e ENT-009: a escala metropolitana não entra nos instrumentos de Maringá — nem quando o objeto é mobilidade pendular.",
    "ts": "00:30:18",
    "keywords": [
     "cooperacao regional",
@@ -8683,7 +8683,7 @@
    "question": "SOC8",
    "type": "percepcao",
    "excerpt": "[participante]: «Maringá ficou tanto com essa ficha de melhor cidade para se viver que a diferenciação para as pessoas às vezes é interessante: não, aquilo é [o vizinho], nós somos Maringá (…) de um lado parece que serve para um conformismo, por outro serve como uma distinção social (…) a integração não existe, e ela tem que existir, porque Maringá não tem esse aglomerado de precariedade visível justamente porque existem as cidades ao lado fazendo esse papel»",
-   "paraphrase": "ACHADO CENTRAL SOBRE A ESCALA. O título de melhor cidade para se viver opera como barreira à cooperação regional, porque a distinção em relação aos vizinhos é socialmente valorizada. Nomeia o obstáculo político — e não técnico — à integração metropolitana, e é a leitura mais aguda do corpus sobre por que ela não avança. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO CENTRAL SOBRE A ESCALA. O título de melhor cidade para se viver opera como barreira à cooperação regional, porque a distinção em relação aos vizinhos é socialmente valorizada. Nomeia o obstáculo político — e não técnico — à integração metropolitana, e é a leitura mais aguda do corpus sobre por que ela não avança.",
    "ts": "00:31:10",
    "keywords": [
     "cooperacao regional",
@@ -8702,7 +8702,7 @@
    "question": "SOC2",
    "type": "percepcao",
    "excerpt": "[participante]: «me assusta um pouco esse título de melhor cidade para se viver às vezes, porque ninguém problematiza isso»",
-   "paraphrase": "O capital reputacional da cidade, tratado como ativo em ENT-005 e ENT-012, é aqui lido como obstáculo à percepção do problema. Registra os dois lados do mesmo atributo — ele abre portas externas e fecha o debate interno. SESSÃO SEM TCLE.",
+   "paraphrase": "O capital reputacional da cidade, tratado como ativo em ENT-005 e ENT-012, é aqui lido como obstáculo à percepção do problema. Registra os dois lados do mesmo atributo — ele abre portas externas e fecha o debate interno.",
    "ts": "00:31:10",
    "keywords": [
     "reputacao",
@@ -8721,7 +8721,7 @@
    "question": "SOC9",
    "type": "percepcao",
    "excerpt": "[participante]: «eu acho que ela tem [condição] (…) tem técnicos, servidores de carreira muito bons e qualificados (…) uma arquiteta urbanista com grande qualificação à frente de um instituto de planejamento que é referência nacional (…) tem um alinhamento de astros ali que precisa ser aproveitado»",
-   "paraphrase": "Avaliação de que a capacidade técnica de base existe e está bem dirigida, e de que a conjuntura política é favorável. Diverge da leitura de escassez de ENT-008 e ENT-004 em um ponto importante: a qualificação existe, o que falta é quantidade e alocação. SESSÃO SEM TCLE.",
+   "paraphrase": "Avaliação de que a capacidade técnica de base existe e está bem dirigida, e de que a conjuntura política é favorável. Diverge da leitura de escassez de ENT-008 e ENT-004 em um ponto importante: a qualificação existe, o que falta é quantidade e alocação.",
    "ts": "00:38:44",
    "keywords": [
     "capacidade tecnica",
@@ -8740,7 +8740,7 @@
    "question": "SOC9",
    "type": "percepcao",
    "excerpt": "[participante]: «foi uma gestão eleita com grande aceitação popular (…) é uma gestão que tem um respeito da população, só que se não fizer também vai perder esse respeito. Então é a hora de mostrar»",
-   "paraphrase": "O capital político da gestão é identificado como janela de oportunidade com prazo. Converge com ENT-005 («não pode ser só coach») e ENT-007 (o mito do planejamento): três sessões descrevendo a mesma condição habilitante política e o mesmo risco de sua perda. SESSÃO SEM TCLE.",
+   "paraphrase": "O capital político da gestão é identificado como janela de oportunidade com prazo. Converge com ENT-005 («não pode ser só coach») e ENT-007 (o mito do planejamento): três sessões descrevendo a mesma condição habilitante política e o mesmo risco de sua perda.",
    "ts": "00:40:00",
    "keywords": [
     "capital politico",
@@ -8759,7 +8759,7 @@
    "question": "SOC9",
    "type": "percepcao",
    "excerpt": "[participante]: «tem uma olhada para o futuro que é muito legal, muito importante, mas se não se colar na realidade não vai se efetivar, ou vai se efetivar para muito pouca gente — e daí é como se não tivesse efetivado»",
-   "paraphrase": "Síntese da crítica: política climática sem alcance distributivo equivale a política não implementada. Estabelece um critério de avaliação para o plano de ação — não basta medir entrega, é preciso medir a quem ela chegou. SESSÃO SEM TCLE.",
+   "paraphrase": "Síntese da crítica: política climática sem alcance distributivo equivale a política não implementada. Estabelece um critério de avaliação para o plano de ação — não basta medir entrega, é preciso medir a quem ela chegou.",
    "ts": "00:40:00",
    "keywords": [
     "efetividade",
@@ -8778,7 +8778,7 @@
    "question": "SOC4",
    "type": "oportunidade",
    "excerpt": "[participante]: «tentar resgatar uma qualidade de infraestrutura urbana também para essas bordas, não só a que existe na região central, garantir que isso chegue nas regiões mais periféricas»",
-   "paraphrase": "Prioridade de investimento proposta: extensão da qualidade de infraestrutura urbana — arborização, drenagem, espaço público — às áreas periféricas. Converge com o critério de equidade territorial que ENT-007 aplica ao enterramento da rede elétrica. SESSÃO SEM TCLE.",
+   "paraphrase": "Prioridade de investimento proposta: extensão da qualidade de infraestrutura urbana — arborização, drenagem, espaço público — às áreas periféricas. Converge com o critério de equidade territorial que ENT-007 aplica ao enterramento da rede elétrica.",
    "ts": "00:20:41",
    "keywords": [
     "infraestrutura urbana",
@@ -8797,7 +8797,7 @@
    "question": "SOC2",
    "type": "declaracao",
    "excerpt": "[participante]: «a prefeitura tem tido uma proatividade, uma resposta rápida quando o evento acontece»",
-   "paraphrase": "Avaliação positiva da capacidade de resposta imediata, convergente com ENT-005 e ENT-013 e divergente de ENT-006. A leitura consolidada do corpus é consistente: Maringá responde bem ao evento e não age sobre a causa. SESSÃO SEM TCLE.",
+   "paraphrase": "Avaliação positiva da capacidade de resposta imediata, convergente com ENT-005 e ENT-013 e divergente de ENT-006. A leitura consolidada do corpus é consistente: Maringá responde bem ao evento e não age sobre a causa.",
    "ts": "00:13:07",
    "keywords": [
     "resposta",
@@ -8815,7 +8815,7 @@
    "question": "SOC2",
    "type": "lacuna",
    "excerpt": "[participante]: «é uma população que prefere arrancar a árvore para ela não cair e destruir a sua casa ou deixar a família impactada por dias, sem energia»",
-   "paraphrase": "A percepção de risco individual está em conflito direto com o interesse coletivo de manutenção da cobertura arbórea, e não há mediação pública dessa tensão. Identifica o público-alvo e o conteúdo exato de uma campanha de sensibilização eficaz — e liga a lacuna de comunicação a uma perda patrimonial mensurável. SESSÃO SEM TCLE.",
+   "paraphrase": "A percepção de risco individual está em conflito direto com o interesse coletivo de manutenção da cobertura arbórea, e não há mediação pública dessa tensão. Identifica o público-alvo e o conteúdo exato de uma campanha de sensibilização eficaz — e liga a lacuna de comunicação a uma perda patrimonial mensurável.",
    "ts": "00:13:07",
    "keywords": [
     "percepcao de risco",
@@ -9506,7 +9506,7 @@
    "question": "PRI1",
    "type": "declaracao",
    "excerpt": "[participante]: «uma questão da mudança meteorológica que gera aqueles ventos mais fortes, que geram queda de árvores (…) nós não tínhamos esses ventos tão fortes no passado (…) a questão também de sazonalidade de chuvas: períodos que nós tínhamos chuvas mais regulares, agora a gente tem períodos muito chuvosos e outros pouco chuvosos»",
-   "paraphrase": "Sétima confirmação do par vento–arborização como risco principal, agora do setor privado organizado, somada à irregularidade sazonal da chuva. Converge com a série histórica de ENT-010-ENT-011. SESSÃO SEM TCLE.",
+   "paraphrase": "Sétima confirmação do par vento–arborização como risco principal, agora do setor privado organizado, somada à irregularidade sazonal da chuva. Converge com a série histórica de ENT-010-ENT-011.",
    "ts": "00:09:11",
    "keywords": [
     "vento",
@@ -9525,7 +9525,7 @@
    "question": "PRI1",
    "type": "declaracao",
    "excerpt": "[participante]: «a questão do ciclo de chuvas vai impactar tanto na captação de água (…) e também para a agricultura da nossa região»",
-   "paraphrase": "O setor econômico identifica dois vetores de impacto que o corpus público não trata: abastecimento e produção agrícola regional. Converge com a vulnerabilidade de captação relatada em ENT-005, ENT-009 e ENT-014, e acrescenta a dimensão econômica regional — ausente de todos os instrumentos municipais citados. SESSÃO SEM TCLE.",
+   "paraphrase": "O setor econômico identifica dois vetores de impacto que o corpus público não trata: abastecimento e produção agrícola regional. Converge com a vulnerabilidade de captação relatada em ENT-005, ENT-009 e ENT-014, e acrescenta a dimensão econômica regional — ausente de todos os instrumentos municipais citados.",
    "ts": "00:09:11",
    "keywords": [
     "captacao de agua",
@@ -9544,7 +9544,7 @@
    "question": "PRI2",
    "type": "divergencia",
    "excerpt": "[participante]: «a gente expandiu a área da mata [ciliar] de 30 para 60 m (…) esses 30 não utilizados para nada viraram um problema, porque o município não comprou essa área, ficou na mão do cidadão. Ele não pode fazer nada com essa área, tem obrigação de fazer a limpeza, de tirar espécies invasoras, paga o IPTU sobre essa área — e aí vira aquele contrassenso: a pessoa fica mais com raiva do que com benefício»",
-   "paraphrase": "ACHADO REGULATÓRIO. A exigência ambiental municipal acima da norma federal — celebrada em ENT-009 — criou passivo privado sem compensação: obrigação de manejo, incidência de IPTU e proibição de uso. Registra que a condição habilitante normativa produziu resistência ao invés de adesão, e que o desenho fiscal do instrumento nunca foi feito. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO REGULATÓRIO. A exigência ambiental municipal acima da norma federal — celebrada em ENT-009 — criou passivo privado sem compensação: obrigação de manejo, incidência de IPTU e proibição de uso. Registra que a condição habilitante normativa produziu resistência ao invés de adesão, e que o desenho fiscal do instrumento nunca foi feito.",
    "ts": "00:10:37",
    "keywords": [
     "mata ciliar",
@@ -9564,7 +9564,7 @@
    "question": "PRI6",
    "type": "oportunidade",
    "excerpt": "[participante]: «na minha área ambiental eu poderia ter uma isenção de IPTU; você poderia usar aquela área ambiental como um crédito (…) que gere um potencial construtivo num prédio usando aquela área, desde que ela [seja] mantida por X anos. Criar políticas de incentivo — porque aí você não vai precisar do poder fiscalizador do estado (…) você tá cuidando porque você tem um benefício»",
-   "paraphrase": "ACHADO ESTRUTURANTE. Transferência de potencial construtivo e isenção fiscal condicionadas à conservação de área ambiental privada, com prazo. Converte passivo em ativo, substitui fiscalização por incentivo e não exige desembolso do município. Converge com a outorga onerosa já regulamentada em ENT-015 e com o IPTU Verde empresarial de ENT-012 — três desenhos convergentes de compensação por conservação. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO ESTRUTURANTE. Transferência de potencial construtivo e isenção fiscal condicionadas à conservação de área ambiental privada, com prazo. Converte passivo em ativo, substitui fiscalização por incentivo e não exige desembolso do município. Converge com a outorga onerosa já regulamentada em ENT-015 e com o IPTU Verde empresarial de ENT-012 — três desenhos convergentes de compensação por conservação.",
    "ts": "00:21:33",
    "keywords": [
     "potencial construtivo",
@@ -9584,7 +9584,7 @@
    "question": "PRI6",
    "type": "lacuna",
    "excerpt": "[entrevistador]: «e o fato do IPTU verde ser só para CPF, não para CNPJ?» / [participante]: «qual a diferença? [A empresa] não tem que ter usina solar, não tem que ter aproveitamento de água de chuva, não tem que ter segregação de lixo? Você tem que incentivar. E tem que tirar a burocracia do IPTU Verde — tem que ser algo simples, fácil, acessível»",
-   "paraphrase": "SEGUNDA CONVERGÊNCIA SOBRE A LACUNA DO INSTRUMENTO. O IPTU Verde não alcança pessoa jurídica e é burocrático — mesmo diagnóstico de ENT-012, agora do lado do contribuinte empresarial. Duas fontes independentes, de setores distintos, apontam a mesma correção no único instrumento econômico-climático da cidade. SESSÃO SEM TCLE.",
+   "paraphrase": "SEGUNDA CONVERGÊNCIA SOBRE A LACUNA DO INSTRUMENTO. O IPTU Verde não alcança pessoa jurídica e é burocrático — mesmo diagnóstico de ENT-012, agora do lado do contribuinte empresarial. Duas fontes independentes, de setores distintos, apontam a mesma correção no único instrumento econômico-climático da cidade.",
    "ts": "00:27:31",
    "keywords": [
     "IPTU verde",
@@ -9603,7 +9603,7 @@
    "question": "PRI6",
    "type": "percepcao",
    "excerpt": "[entrevistador]: «hoje você acha que tem mais punição do que incentivo?» / [participante]: «Certeza. Não tem incentivo nenhum»",
-   "paraphrase": "Avaliação categórica do setor privado organizado: a relação com a agenda ambiental municipal é exclusivamente punitiva. Contrasta com ENT-015, que descreve consciência privada elevada e legislação de compensação já aprovada — as duas leituras convivem se os instrumentos novos ainda não chegaram a quem os percebe. Divergência a resolver com a cronologia das leis. SESSÃO SEM TCLE.",
+   "paraphrase": "Avaliação categórica do setor privado organizado: a relação com a agenda ambiental municipal é exclusivamente punitiva. Contrasta com ENT-015, que descreve consciência privada elevada e legislação de compensação já aprovada — as duas leituras convivem se os instrumentos novos ainda não chegaram a quem os percebe. Divergência a resolver com a cronologia das leis.",
    "ts": "00:24:18",
    "keywords": [
     "incentivo",
@@ -9622,7 +9622,7 @@
    "question": "PRI9",
    "type": "declaracao",
    "excerpt": "[participante]: «burocracia, acho que é a principal barreira: qualquer coisa demora muito. Alvarás, liberações, autorizações (…) eu tenho um empreendimento agora mesmo, tá 8 meses parado esperando autorização de corte de árvore (…) já tem laudo, já tem engenheiro, já tem tudo lá e a coisa não vai»",
-   "paraphrase": "BARREIRA NÚMERO UM SEGUNDO O SETOR PRIVADO, COM MEDIDA. Oito meses de espera por autorização de supressão arbórea com laudo pronto. Converge com a fila de poda relatada em ENT-007 e com a restrição de equipe do órgão ambiental descrita em ENT-008 — a mesma escassez de capacidade que atrasa o serviço público atrasa o investimento privado, e produz aqui o mesmo efeito perverso: pressão pela via informal. SESSÃO SEM TCLE.",
+   "paraphrase": "BARREIRA NÚMERO UM SEGUNDO O SETOR PRIVADO, COM MEDIDA. Oito meses de espera por autorização de supressão arbórea com laudo pronto. Converge com a fila de poda relatada em ENT-007 e com a restrição de equipe do órgão ambiental descrita em ENT-008 — a mesma escassez de capacidade que atrasa o serviço público atrasa o investimento privado, e produz aqui o mesmo efeito perverso: pressão pela via informal.",
    "ts": "00:35:18",
    "keywords": [
     "burocracia",
@@ -9642,7 +9642,7 @@
    "question": "PRI9",
    "type": "percepcao",
    "excerpt": "[participante]: «eu não sei se é falta de pessoal, se é falta de infraestrutura (…) é falta de investimento tecnológico, se é falta de botar um processo mais prático»",
-   "paraphrase": "O setor privado percebe a lentidão sem identificar sua causa. ENT-008 e ENT-012 a fornecem: municipalização recente do licenciamento e equipe insuficiente. A modernização do licenciamento, citada em ENT-008 como um dos quatro projetos da pasta, é a resposta direta a esta reclamação. SESSÃO SEM TCLE.",
+   "paraphrase": "O setor privado percebe a lentidão sem identificar sua causa. ENT-008 e ENT-012 a fornecem: municipalização recente do licenciamento e equipe insuficiente. A modernização do licenciamento, citada em ENT-008 como um dos quatro projetos da pasta, é a resposta direta a esta reclamação.",
    "ts": "00:35:18",
    "keywords": [
     "licenciamento",
@@ -9661,7 +9661,7 @@
    "question": "PRI2",
    "type": "divergencia",
    "excerpt": "[participante]: «o município liberou que, após uma aprovação, o próprio cidadão pudesse fazer a retirada da árvore. Isso é algo positivo»",
-   "paraphrase": "DIVERGÊNCIA DE AVALIAÇÃO SOBRE A MESMA MEDIDA. O setor privado avalia positivamente a delegação da supressão arbórea ao particular; ENT-014 registra a mesma prática como perda do ativo urbano, deferida sem contrapartida de replantio. Não há divergência quanto ao fato, apenas quanto ao juízo — e a diferença desaparece se a autorização passar a exigir replantio, que é a correção que o próprio corpus sugere. SESSÃO SEM TCLE.",
+   "paraphrase": "DIVERGÊNCIA DE AVALIAÇÃO SOBRE A MESMA MEDIDA. O setor privado avalia positivamente a delegação da supressão arbórea ao particular; ENT-014 registra a mesma prática como perda do ativo urbano, deferida sem contrapartida de replantio. Não há divergência quanto ao fato, apenas quanto ao juízo — e a diferença desaparece se a autorização passar a exigir replantio, que é a correção que o próprio corpus sugere.",
    "ts": "00:10:37",
    "keywords": [
     "supressao",
@@ -9680,7 +9680,7 @@
    "question": "PRI3",
    "type": "oportunidade",
    "excerpt": "[participante]: «nós precisamos ter um sistema de acompanhamento das árvores (…) já teve no passado mapeamento das árvores que estão comprometidas para serem retiradas e replantadas (…) e a questão da poda ser mais eficiente, para evitar os danos, [nas que] têm que ser podadas para não cair em cima dos pontos de luz»",
-   "paraphrase": "Convergência do setor privado com a proposta de inventário e manejo preventivo de ENT-007 e com o cadastro arbóreo em atualização relatado em ENT-015 — e a menção a mapeamento anterior reforça a hipótese de ENT-010-ENT-011 de que o inventário já existe e não circula. SESSÃO SEM TCLE.",
+   "paraphrase": "Convergência do setor privado com a proposta de inventário e manejo preventivo de ENT-007 e com o cadastro arbóreo em atualização relatado em ENT-015 — e a menção a mapeamento anterior reforça a hipótese de ENT-010-ENT-011 de que o inventário já existe e não circula.",
    "ts": "00:16:48",
    "keywords": [
     "inventario arboreo",
@@ -9699,7 +9699,7 @@
    "question": "PRI4",
    "type": "lacuna",
    "excerpt": "[participante]: «quando chega, chega sempre de surpresa. Vai ter amanhã um alerta de vendaval, tá, beleza — mas o que a cidade vai fazer? Não vai fazer nada, porque ela não se preparou com tempo suficiente (…) você não resolve de um dia para o outro, você tem que ter um trabalho constante e permanente»",
-   "paraphrase": "LACUNA DE PREPARO, COM O NEXO EXATO. O alerta existe e não encontra estrutura de resposta preventiva, porque a preparação exige manutenção contínua e não ação de véspera. É precisamente a lacuna que a rede de estações meteorológicas e o cadastro arbóreo de ENT-015 pretendem fechar — e mostra que o dado sozinho não resolve. SESSÃO SEM TCLE.",
+   "paraphrase": "LACUNA DE PREPARO, COM O NEXO EXATO. O alerta existe e não encontra estrutura de resposta preventiva, porque a preparação exige manutenção contínua e não ação de véspera. É precisamente a lacuna que a rede de estações meteorológicas e o cadastro arbóreo de ENT-015 pretendem fechar — e mostra que o dado sozinho não resolve.",
    "ts": "00:17:45",
    "keywords": [
     "alerta",
@@ -9718,7 +9718,7 @@
    "question": "PRI3",
    "type": "oportunidade",
    "excerpt": "[participante]: «questão da destinação do lixo (…) a gente visitou usinas de reciclagem no Japão (…) aproveita-se tudo, transforma-se tudo (…) eu me sinto incomodado de ter um lixão ainda na cidade»",
-   "paraphrase": "Prioridade de investimento apontada pelo setor privado: encerramento do aterro e usina de tratamento com recuperação de material. Converge com o programa de resíduos descrito em ENT-008 e ENT-013 — e mostra que a agenda de resíduos tem apoio empresarial declarado, o que a torna a candidata mais viável a investimento privado. SESSÃO SEM TCLE.",
+   "paraphrase": "Prioridade de investimento apontada pelo setor privado: encerramento do aterro e usina de tratamento com recuperação de material. Converge com o programa de resíduos descrito em ENT-008 e ENT-013 — e mostra que a agenda de resíduos tem apoio empresarial declarado, o que a torna a candidata mais viável a investimento privado.",
    "ts": "00:15:38",
    "keywords": [
     "residuos",
@@ -9738,7 +9738,7 @@
    "question": "PRI5",
    "type": "declaracao",
    "excerpt": "[participante]: «quando eu estava na presidência [da associação], nós chegamos, naquele ano, a ser o município do Brasil com maior número de empresas filiadas ao Pacto Global da ONU. Então o empresariado local é aderente à questão ambiental, não só ambiental, mas também [às] ODS»",
-   "paraphrase": "ACHADO. Maringá teria liderado o país em adesão empresarial ao Pacto Global da ONU. É a evidência mais forte do corpus sobre maturidade do setor privado local em agenda ambiental — e um ativo de credibilidade diretamente utilizável na estruturação de arranjos de financiamento privado. Verificar o dado na Matriz 2. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO. Maringá teria liderado o país em adesão empresarial ao Pacto Global da ONU. É a evidência mais forte do corpus sobre maturidade do setor privado local em agenda ambiental — e um ativo de credibilidade diretamente utilizável na estruturação de arranjos de financiamento privado. Verificar o dado na Matriz 2.",
    "ts": "00:19:05",
    "keywords": [
     "Pacto Global",
@@ -9757,7 +9757,7 @@
    "question": "PRI7",
    "type": "declaracao",
    "excerpt": "[participante]: «nós temos 400 voluntários lá dentro, que doam o nosso tempo para a entidade, divididos em câmaras técnicas (…) o tema ambiental acaba sendo um tema transversal, porque todo mundo tem algum impacto (…) o meio ambiente está sempre sendo discutido em quase todas as câmaras técnicas»",
-   "paraphrase": "ESTRUTURA DISPONÍVEL E JÁ TRANSVERSAL. Conselho de desenvolvimento econômico com quatrocentos voluntários organizados em câmaras técnicas setoriais, com pauta ambiental já presente de forma transversal. Confirma e qualifica a proposta de ENT-005 de levar a agenda climática a essa instância: a transversalidade já existe, falta a pauta ser explícita e deliberativa. SESSÃO SEM TCLE.",
+   "paraphrase": "ESTRUTURA DISPONÍVEL E JÁ TRANSVERSAL. Conselho de desenvolvimento econômico com quatrocentos voluntários organizados em câmaras técnicas setoriais, com pauta ambiental já presente de forma transversal. Confirma e qualifica a proposta de ENT-005 de levar a agenda climática a essa instância: a transversalidade já existe, falta a pauta ser explícita e deliberativa.",
    "ts": "00:19:05",
    "keywords": [
     "conselho",
@@ -9776,7 +9776,7 @@
    "question": "PRI7",
    "type": "declaracao",
    "excerpt": "[participante]: «a gente não tem nenhum tipo de recurso próprio lá como entidade. A gente é formatado por membros da sociedade civil organizada e por membros da própria prefeitura»",
-   "paraphrase": "Composição mista e ausência de recurso próprio da entidade. Diverge do relato de ENT-005, segundo o qual há lei municipal que financia secretaria executiva e corpo técnico do conselho. A divergência importa: define se a instância teria ou não meios para assumir uma pauta climática. Verificar a lei na Matriz 2. SESSÃO SEM TCLE.",
+   "paraphrase": "Composição mista e ausência de recurso próprio da entidade. Diverge do relato de ENT-005, segundo o qual há lei municipal que financia secretaria executiva e corpo técnico do conselho. A divergência importa: define se a instância teria ou não meios para assumir uma pauta climática. Verificar a lei na Matriz 2.",
    "ts": "00:19:05",
    "keywords": [
     "conselho",
@@ -9795,7 +9795,7 @@
    "question": "PRI7",
    "type": "lacuna",
    "excerpt": "[participante]: «acho que eles precisam ser fortalecidos (…) o município tem assim um ouvido, mas eu acho que tinha que ter uma oitiva mais aberta (…) não é só uma visão unilateral de um servidor público que acha que tem problema ambiental de todas as maneiras, sem ouvir o todo para poder trazer as soluções»",
-   "paraphrase": "O canal de diálogo entre setor privado organizado e administração ambiental é avaliado como insuficiente. Converge com a carta sem resposta de ENT-007 e as 25 propostas sem desdobramento de ENT-009 — três setores distintos relatando ausência de fluxo institucional de recepção e resposta a proposta externa. SESSÃO SEM TCLE.",
+   "paraphrase": "O canal de diálogo entre setor privado organizado e administração ambiental é avaliado como insuficiente. Converge com a carta sem resposta de ENT-007 e as 25 propostas sem desdobramento de ENT-009 — três setores distintos relatando ausência de fluxo institucional de recepção e resposta a proposta externa.",
    "ts": "00:28:43",
    "keywords": [
     "dialogo",
@@ -9814,7 +9814,7 @@
    "question": "PRI7",
    "type": "declaracao",
    "excerpt": "[participante]: «dos maiores ativos de Maringá se chama associativismo e cooperativismo (…) a sociedade civil e o município trabalhando juntos. Não importa quem seja o governante, não importa qual seja a ideologia: se está na cadeira, a gente está lá para ajudar»",
-   "paraphrase": "Terceira confirmação do capital associativo como principal ativo da cidade (com ENT-005 e ENT-007), com o acréscimo decisivo de que ele é apartidário e sobrevive à alternância. É a condição habilitante mais resistente à descontinuidade identificada no corpus — e a única que não depende de quem governa. SESSÃO SEM TCLE.",
+   "paraphrase": "Terceira confirmação do capital associativo como principal ativo da cidade (com ENT-005 e ENT-007), com o acréscimo decisivo de que ele é apartidário e sobrevive à alternância. É a condição habilitante mais resistente à descontinuidade identificada no corpus — e a única que não depende de quem governa.",
    "ts": "00:30:09",
    "keywords": [
     "associativismo",
@@ -9833,7 +9833,7 @@
    "question": "PRI8",
    "type": "lacuna",
    "excerpt": "[participante]: «Maringá é um pouco isolada em relação ao seu entorno nesse espírito associativista e cooperativista. Nós não temos uma região com espírito associativista regional tão forte quanto a região do sudoeste [do estado] (…) Maringá [é] um epicentro estadual, mas não consegue que todas as cidades vizinhas tenham [o mesmo]»",
-   "paraphrase": "ACHADO SOBRE A ESCALA REGIONAL. O capital associativo de Maringá não se estende aos municípios vizinhos, ao contrário de outra região do mesmo estado. Converge com ENT-009 (vizinhos sem estrutura ambiental) e com ENT-014 (a distinção em relação ao entorno é socialmente valorizada): o principal ativo institucional da cidade termina no seu limite municipal, e é isso que trava a cooperação regional. SESSÃO SEM TCLE.",
+   "paraphrase": "ACHADO SOBRE A ESCALA REGIONAL. O capital associativo de Maringá não se estende aos municípios vizinhos, ao contrário de outra região do mesmo estado. Converge com ENT-009 (vizinhos sem estrutura ambiental) e com ENT-014 (a distinção em relação ao entorno é socialmente valorizada): o principal ativo institucional da cidade termina no seu limite municipal, e é isso que trava a cooperação regional.",
    "ts": "00:32:39",
    "keywords": [
     "cooperacao regional",
@@ -9852,7 +9852,7 @@
    "question": "PRI8",
    "type": "declaracao",
    "excerpt": "[participante]: «o estado do Paraná é um estado muito organizado, muito estruturado. Você tem realmente a proteção das matas nas áreas agrícolas de uma maneira muito rigorosa, não importa qual município (…) porque existe uma [regul]ação estadual muito forte»",
-   "paraphrase": "Avaliação positiva da regulação ambiental estadual, com aplicação uniforme no território. Registra o Estado como ente com capacidade regulatória efetiva — condição habilitante vertical que contrasta com a fragilidade de fiscalização municipal apontada em ENT-009 e ENT-016. Dimensão «Muito alta». SESSÃO SEM TCLE.",
+   "paraphrase": "Avaliação positiva da regulação ambiental estadual, com aplicação uniforme no território. Registra o Estado como ente com capacidade regulatória efetiva — condição habilitante vertical que contrasta com a fragilidade de fiscalização municipal apontada em ENT-009 e ENT-016. Dimensão «Muito alta».",
    "ts": "00:32:39",
    "keywords": [
     "governo estadual",
@@ -9871,7 +9871,7 @@
    "question": "PRI6",
    "type": "oportunidade",
    "excerpt": "[participante]: «Maringá tem um ativo importante hoje, que é área ambiental (…) mas que ativo ligado à área ambiental eu consigo levar também para gerar mais [arrecadação] do turismo? (…) isso vai impactar positivamente na nova reforma tributária para o município»",
-   "paraphrase": "OPORTUNIDADE FISCAL. Conversão do patrimônio ambiental em atrativo turístico, com efeito sobre a arrecadação municipal na nova estrutura tributária. É uma rota de monetização do ativo verde que nenhuma outra sessão levanta, e que alinha conservação a receita própria — exatamente o que a dimensão de diversificação de receitas ambientais requer. SESSÃO SEM TCLE.",
+   "paraphrase": "OPORTUNIDADE FISCAL. Conversão do patrimônio ambiental em atrativo turístico, com efeito sobre a arrecadação municipal na nova estrutura tributária. É uma rota de monetização do ativo verde que nenhuma outra sessão levanta, e que alinha conservação a receita própria — exatamente o que a dimensão de diversificação de receitas ambientais requer.",
    "ts": "00:15:38",
    "keywords": [
     "turismo",
@@ -9891,7 +9891,7 @@
    "question": "PRI3",
    "type": "oportunidade",
    "excerpt": "[participante]: «viabilizar as pessoas terem algo lá para valorizar a interação da comunidade com o fundo de vale (…) vai ter projeto de arborismo, vai ter projeto de trilha suspensa na mata. São coisas que geram atratividade para o município»",
-   "paraphrase": "Convergência espontânea com o projeto de passarela suspensa em bosque urbano descrito em ENT-015 — que está pronto e sem recurso. O setor privado organizado sinaliza interesse no mesmo tipo de intervenção, o que abre caminho para financiamento compartilhado do projeto já elaborado. SESSÃO SEM TCLE.",
+   "paraphrase": "Convergência espontânea com o projeto de passarela suspensa em bosque urbano descrito em ENT-015 — que está pronto e sem recurso. O setor privado organizado sinaliza interesse no mesmo tipo de intervenção, o que abre caminho para financiamento compartilhado do projeto já elaborado.",
    "ts": "00:26:38",
    "keywords": [
     "trilha suspensa",
@@ -9911,7 +9911,7 @@
    "question": "PRI2",
    "type": "percepcao",
    "excerpt": "[participante]: «não é proibir o uso — a forma de chegar lá é que vai resolver o problema. Pelo contrário: porque ali você não leva o meio ambiente para as pessoas, você afasta as pessoas do meio ambiente»",
-   "paraphrase": "Tese sobre o desenho da política de conservação: a restrição absoluta de uso reduz o apoio social à própria conservação. Dialoga diretamente com a lacuna de percepção causa–consequência apontada em ENT-008 — se o cidadão não interage com o ativo, não o defende. SESSÃO SEM TCLE.",
+   "paraphrase": "Tese sobre o desenho da política de conservação: a restrição absoluta de uso reduz o apoio social à própria conservação. Dialoga diretamente com a lacuna de percepção causa–consequência apontada em ENT-008 — se o cidadão não interage com o ativo, não o defende.",
    "ts": "00:13:07",
    "keywords": [
     "conservacao",
@@ -9930,7 +9930,7 @@
    "question": "PRI2",
    "type": "percepcao",
    "excerpt": "[participante]: «não é que o ambiental atrapalha o econômico, mas o ambiental sem celeridade, sem uma regra clara, sem velocidade, ele interfere de maneira negativa»",
-   "paraphrase": "Formulação precisa da posição do setor privado: o problema não é a exigência ambiental, é a imprevisibilidade de prazo e de critério na sua aplicação. Converge com ENT-015, que trata a eliminação da subjetividade nas compensações como forma de reduzir resistência privada — os dois lados descrevem a mesma solução. SESSÃO SEM TCLE.",
+   "paraphrase": "Formulação precisa da posição do setor privado: o problema não é a exigência ambiental, é a imprevisibilidade de prazo e de critério na sua aplicação. Converge com ENT-015, que trata a eliminação da subjetividade nas compensações como forma de reduzir resistência privada — os dois lados descrevem a mesma solução.",
    "ts": "00:10:37",
    "keywords": [
     "celeridade",
@@ -9949,7 +9949,7 @@
    "question": "PRI6",
    "type": "oportunidade",
    "excerpt": "[participante]: «aí as empresas entram botando mais dinheiro (…) eu posso usar isso como um brand meu, de empresa socialmente responsável, ligada ao meio ambiente (…) tem muito espaço para o incentivo às empresas adotarem ações ambientais de fato»",
-   "paraphrase": "O retorno reputacional é apontado como motor do investimento privado ambiental, desde que haja instrumento que o reconheça. Converge com o prêmio setorial de ENT-015 e com a adesão ao Pacto Global: o setor já responde a incentivo reputacional, e o município ainda não o oferece formalmente. SESSÃO SEM TCLE.",
+   "paraphrase": "O retorno reputacional é apontado como motor do investimento privado ambiental, desde que haja instrumento que o reconheça. Converge com o prêmio setorial de ENT-015 e com a adesão ao Pacto Global: o setor já responde a incentivo reputacional, e o município ainda não o oferece formalmente.",
    "ts": "00:21:33",
    "keywords": [
     "investimento privado",
