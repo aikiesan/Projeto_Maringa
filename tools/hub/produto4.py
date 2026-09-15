@@ -33,8 +33,8 @@ DOCX = ROOT / "anexos" / "Produto_4.docx"
 # a mesma trava de tools/p4_ancorar, pela mesma razao: existe uma copia de 328
 # paragrafos, sem o capitulo 4, as Consideracoes Finais e os Anexos, e ela e mais
 # nova no disco.
-PARAGRAFOS_ESPERADOS = 367
-ULTIMO_TITULO = "Nota sobre a anonimização das transcrições (Anexo 05)"
+PARAGRAFOS_ESPERADOS = 360
+ULTIMO_TITULO = "Nota sobre a anonimização das transcrições (Anexo 03)"
 TITULO_SECAO3 = "ANÁLISE E RESUMO"
 TITULO_CAP4 = "RELAÇÃO COM O PLANO DE AÇÃO"
 

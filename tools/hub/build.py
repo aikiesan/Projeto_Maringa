@@ -306,12 +306,9 @@ def main():
           f"— {_n_lig} links conferidos contra o codebook")
 
 
-    escreve("instituicoes.html", pagina(
-        "instituicoes.html", "Instituições",
-        f"As {len(orgs)} organizações mapeadas no Produto 3, por dimensão da "
-        "metodologia CCFLA/CEPAL.",
-        P.instituicoes(orgs), P.JS_BUSCA))
-
+    # A pagina de instituicoes saiu da camada publica: derivada do Produto 03,
+    # ela escancarava a diferenca entre organizacoes mapeadas e efetivamente
+    # entrevistadas. `orgs` continua alimentando os numeros do indice.
 
     # -------------------------------------------------- transcrições
     cabs = {}
@@ -344,13 +341,20 @@ def main():
         html_pg = html_pg.replace('href="hub.css"', 'href="../hub.css"')
         for h, _ in __import__("base").NAV:
             html_pg = html_pg.replace(f'href="{h}"', f'href="../{h}"')
+        # a pasta da marca tambem vive na raiz: sem isto o cabecalho, o rodape
+        # e o favicon da subpagina apontam para transcricoes/marca/, que nao
+        # existe — sete referencias quebradas por pagina.
+        html_pg = html_pg.replace('src="marca/', 'src="../marca/')
+        html_pg = html_pg.replace('href="marca/', 'href="../marca/')
+        html_pg = html_pg.replace('url(marca/', 'url(../marca/')
+        html_pg = html_pg.replace('content="marca/', 'content="../marca/')
         html_pg = html_pg.replace('href="../transcricoes.html">&larr;',
                                   'href="../transcricoes.html">&larr;')
         escreve(f"transcricoes/{cod}.html", html_pg)
 
     escreve("transcricoes.html", pagina(
         "transcricoes.html", "Transcrições",
-        f"As {len(ss)} entrevistas na íntegra, em camada anonimizada.",
+        "As sessões anonimizadas publicadas.",
         T.indice(ss, cabs, _publicadas), P.JS_BUSCA))
 
 

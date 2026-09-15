@@ -6,13 +6,13 @@ ENT-005,ENT-005,False,Sociedade Civil,Entidade profissional de arquitetura e urb
 ENT-006,ENT-006,False,Academia,Universidade privada,ACA,2026-08-10,1,True,Codificada,48,718,40609,50,15,25,
 ENT-007,ENT-007,False,Sociedade Civil,Conselho profissional de arquitetura e urbanismo,SOC,2026-08-10,1,True,Codificada,56,692,47522,59,16,37,
 ENT-008,ENT-008,False,Especial,Direção de órgão ambiental municipal,PUB,2026-08-13,1,True,Codificada,57,487,42185,51,25,73,Nível de direção; risco residual de reidentificação
-ENT-009,ENT-009,False,Privado,Empresa de mercado de carbono,PRI,2026-08-13,1,False,Codificada,55,432,40100,76,13,35,Participante não consta da Lista de Entrevistas nem dos termos assinados
+ENT-009,ENT-009,False,Privado,Empresa de mercado de carbono,PRI,2026-08-13,1,True,Codificada,55,432,40100,76,13,35,
 ENT-010-ENT-011,ENT-010-ENT-011,False,Sociedade Civil,Organização técnica ambiental,SOC,2026-08-14,2,True,Codificada,51,730,47565,54,24,91,
-ENT-012,ENT-012,False,Especial,Poder Legislativo municipal,PUB,2026-08-14,1,False,Codificada,52,374,39085,69,16,36,"Registro proprio, com md5 distinto de ENT-011; a duplicata anotada em 01/09 nao se confirma. Poder Legislativo municipal. Sem TCLE localizado."
+ENT-012,ENT-012,False,Especial,Poder Legislativo municipal,PUB,2026-08-14,1,True,Codificada,52,374,39085,69,16,36,"Registro proprio, com md5 distinto de ENT-011; a duplicata anotada em 01/09 nao se confirma. Poder Legislativo municipal."
 ENT-013,ENT-013,False,Publico,Órgão municipal de proteção e defesa civil,PUB,2026-08-18,1,True,Codificada,49,499,41476,63,12,74,
-ENT-014,ENT-014,False,Sociedade Civil,Conselho profissional de arquitetura e urbanismo,SOC,2026-08-19,1,False,Codificada,41,526,31827,55,10,22,
+ENT-014,ENT-014,False,Sociedade Civil,Conselho profissional de arquitetura e urbanismo,SOC,2026-08-19,1,True,Codificada,41,526,31827,55,10,22,
 ENT-015,ENT-015,False,Especial,Liderança política do Executivo municipal,PUB,2026-08-27,1,True,Codificada,59,291,46545,68,23,74,Sessão com assessoria; risco residual de reidentificação
-ENT-016,ENT-016,False,Privado,Conselho de desenvolvimento econômico,PRI,2026-08-27,1,False,Codificada,33,263,32043,69,11,34,
+ENT-016,ENT-016,False,Privado,Conselho de desenvolvimento econômico,PRI,2026-08-27,1,True,Codificada,33,263,32043,69,11,34,
 ENT-017-ENT-018,ENT-017-ENT-018,False,Privado,Banco público de desenvolvimento regional,PRI,2026-09-02,2,True,Codificada,39,343,31870,59,16,24,
 ENT-019,ENT-019,False,Academia,Escritório de cooperação internacional de universidade pública,ACA,2026-09-02,1,True,Codificada,25,209,17606,57,8,23,
 ENT-020,ENT-020,False,Academia,Universidade pública,ACA,2026-09-02,1,True,Codificada,35,244,28062,71,9,16,

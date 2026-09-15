@@ -69,8 +69,8 @@ def conteudo(texto: str) -> set[str]:
 # d.paragraphs) e o regex sobre word/document.xml ve 714, porque apanha tambem os
 # <w:p> de dentro das 8 tabelas. Os dois numeros estao certos, contam coisas
 # diferentes. A trava usa a contagem DESTE extrator.
-PARAGRAFOS_ESPERADOS = 714      # = 367 em python-docx
-ULTIMO_TITULO = "Nota sobre a anonimização das transcrições (Anexo 05)"
+PARAGRAFOS_ESPERADOS = 638      # = 360 em python-docx
+ULTIMO_TITULO = "Nota sobre a anonimização das transcrições (Anexo 03)"
 
 
 def conferir_docx(path: Path, paras: list[tuple[str, str]]) -> None:
