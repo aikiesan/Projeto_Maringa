@@ -191,7 +191,7 @@ cada uma um trecho anonimizado com marca de tempo, vinculado a uma dimensão e c
 quanto à maturidade que revela e à confiança que merece.</p>
 <p>A unidade de registro não é a entrevista nem a resposta: é a evidência. Por isso
 {m['n_tri']} dimensões já têm evidência de mais de uma sessão, que é onde a
-triangulação vale, e {m['n_div']} registros foram marcados como divergência, preservadas em vez de
+triangulação vale, e {m['n_div']} evidências têm alinhamento divergente, preservadas em vez de
 resolvidas por predominância de fonte.</p>
 
 <h2>Distribuição por eixo</h2>
@@ -207,7 +207,7 @@ resolvidas por predominância de fonte.</p>
     <strong>{tipos.get('lacuna',0)}</strong> lacunas ·
     <strong>{tipos.get('oportunidade',0)}</strong> oportunidades ·
     <strong>{tipos.get('percepcao',0)}</strong> percepções ·
-    <strong>{tipos.get('divergencia',0)}</strong> divergências.</p></div>
+    <strong>{tipos.get('divergencia',0)}</strong> do tipo divergência.</p></div>
   <div class="card"><h3 style="margin-top:0">A ausência é resultado</h3>
     <p class="mut" style="font-size:13.5px;margin:0">Uma dimensão «Muito alta» que atravessa
     o corpus sem evidência é achado do diagnóstico, não falha de coleta. A aba
@@ -356,6 +356,9 @@ def aba_divergencias(d, m) -> str:
 <p>Conflito entre fontes sobre a mesma condição habilitante. A consolidação do Produto&nbsp;2
 mantém a divergência registrada em vez de resolvê-la por predominância de fonte: onde duas
 fontes discordam, o que se verifica é o documento, não a autoridade de quem falou.</p>
+<p>A medida publicada de divergência é o <strong>alinhamento</strong> da evidência. Esta aba
+reúne também os registros classificados com o <strong>tipo</strong> divergência cujo alinhamento
+é outro: são duas leituras distintas do mesmo corpus, e a contagem abaixo separa as duas.</p>
 <p class="count" id="divcount"></p>
 <div id="divlist"></div>
 """
@@ -579,8 +582,15 @@ function initEv(){
 
 /* --------------------------------------------------------- divergências */
 function initDiv(){
-  const list = D.evidence.filter(e => e.type === "divergencia" || e.alignment === "divergente");
-  document.getElementById("divcount").textContent = list.length + " registros";
+  // a lista e a UNIAO: as 50 evidencias de alinhamento divergente mais as
+  // tipificadas como divergencia cujo alinhamento e outro. Estreitar a lista
+  // para o alinhamento tiraria essas ultimas da unica aba que as reune.
+  const al = D.evidence.filter(e => e.alignment === "divergente");
+  const so = D.evidence.filter(e => e.type === "divergencia" && e.alignment !== "divergente");
+  const list = al.concat(so);
+  document.getElementById("divcount").textContent =
+    list.length + " registros: " + al.length + " com alinhamento divergente e "
+    + so.length + " tipificados como divergência com outro alinhamento";
   document.getElementById("divlist").innerHTML = list.map(evcard).join("");
 }
 
@@ -661,7 +671,12 @@ def main() -> int:
         "axname": {a["num"]: a["name"] for a in d["axes"]},
         "horas": f"{minutos // 60}h{minutos % 60:02d}",
         "n_tri": sum(1 for c, s in intbydim.items() if len(s) > 1),
-        "n_div": sum(1 for e in ev if e["type"] == "divergencia" or e.get("alignment") == "divergente"),
+        # a medida publicada de divergencia e o ALINHAMENTO, nao o tipo: e o
+        # numero do Produto 04, do Anexo 05 e de produto4.html. A uniao com
+        # `type == "divergencia"` dava 53, que nao corresponde a numero
+        # documentado nenhum e dividia o nome com a contagem por tipo.
+        "n_div": sum(1 for e in ev if e.get("alignment") == "divergente"),
+        "n_tipo_div": sum(1 for e in ev if e["type"] == "divergencia"),
     }
     hoje = date.today()
     stamp = f"{MESES[hoje.month - 1].capitalize()} de {hoje.year}"
@@ -689,7 +704,7 @@ def main() -> int:
         (len(ev), "evidências rastreáveis"),
         (f"{len(bydim)}/55", "dimensões com evidência"),
         (m["n_tri"], "dimensões trianguladas"),
-        (m["n_div"], "divergências preservadas"),
+        (m["n_div"], "evidências com alinhamento divergente"),
     ]
     kpi_html = "".join(f'<div class="kpi"><b>{esc(a)}</b><span>{esc(b)}</span></div>' for a, b in kpis)
 
@@ -745,7 +760,7 @@ def main() -> int:
     print(f"public/index.html: {'CIFRADA com senha' if senha else 'EM CLARO — sem senha configurada'}")
     print(f"index.html: {len(html)//1024} KB · {len(abas)} abas · {len(ev)} evidências de "
           f"{len(byint)} sessões · {len(bydim)}/55 dimensões · {m['n_tri']} trianguladas · "
-          f"{m['n_div']} divergências")
+          f"{m['n_div']} com alinhamento divergente")
     return 0
 
 
