@@ -59,6 +59,22 @@ troca(r'\$\{esc\(i\.sector \|\| ""\)\} · \$\{esc\(i\.institution_type \|\| ""\)
       '${esc(i.sector || "")}', 1,
       "tipo institucional fora do rodape do card")
 
+# data da sessao fora da camada aberta.
+#
+# Mesma mecanica do cracha acima, por outro caminho. Agendas de gabinete, de
+# diretoria e de conselho sao publicas: com a data ao lado do setor e da
+# duracao, quem conhece a estrutura do municipio estreita a uma ou duas pessoas
+# o conjunto de quem pode ter falado naquela manha. E a data nao responde nada
+# sobre o conteudo — as 17 sessoes cabem numa janela de quatro semanas e nenhuma
+# leitura do painel depende de saber em qual delas. Sai das duas superficies: o
+# JSON embutido e a coluna da tabela do corpus. A pagina de transcricoes faz a
+# mesma remocao, em tools/hub/transcricoes.py.
+troca(r'"date": "\d{4}-\d{2}-\d{2}", ', '', 17, "data fora do JSON")
+troca(r'(</span></td><td>[^<]*</td>)<td class="num">\d\d/\d\d</td>', r'\1', 17,
+      "coluna Data fora da tabela do corpus")
+troca(r'<th>Setor</th><th>Data</th>', '<th>Setor</th>', 1,
+      "cabecalho Data fora da tabela do corpus")
+
 # o rotulo tambem vaza pela nota de uma sessao, que e texto livre e escapa das
 # regras acima porque nao esta no campo institution_type.
 troca(r' ?Poder Legislativo municipal\.', '', 1,

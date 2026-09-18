@@ -58,7 +58,7 @@ def converte(caminho):
     if paras and paras[0].startswith("TRANSCRIÇÃO ANONIMIZADA"):
         linhas = paras[0].split("\n")
         for ln in linhas:
-            for campo in ("Setor", "Data", "Duração", "Participantes"):
+            for campo in ("Setor", "Duração", "Participantes"):
                 m = re.search(campo + r":\s*([^·]+)", ln)
                 if m:
                     cab[campo] = m.group(1).strip()
@@ -99,11 +99,11 @@ def pagina_transcricao(cod, cab, corpo, sessao=None):
     if sessao:
         meta = (f"Setor: {ROTULO_SETOR.get(sessao['setor_publico'], sessao['setor_publico'])} · "
                 ""    # tipo institucional removido: ver tools/hub/dados.py
-                f"Data: {sessao['date']} · Duração: {sessao['minutes']} min · "
+                f"Duração: {sessao['minutes']} min · "
                 f"Participantes: {sessao['n_participants']}")
     else:
         meta = " · ".join(f"{k}: {v}" for k, v in cab.items()
-                          if k in ("Setor", "Data", "Duração"))
+                          if k in ("Setor", "Duração"))
     return f"""
 <p class="sm"><a href="transcricoes.html">&larr; Todas as transcrições</a></p>
 <h1>{cod}</h1>
@@ -132,6 +132,12 @@ def pagina_transcricao(cod, cab, corpo, sessao=None):
 MARCA_RETIDA = "não publicada nesta camada · consta do anexo de entrega"
 
 
+# A data da sessao nao entra em nenhuma das duas superficies desta pagina — nem
+# no indice, nem no cabecalho de cada transcricao. Ela nao responde nada sobre o
+# conteudo (o corpus inteiro cabe numa janela de quatro semanas) e, cruzada com
+# agendas publicas, funciona como o cracha que o tipo institucional ja deixou de
+# ser em tools/hub/dados.py. A mesma remocao vale para o painel, em
+# tools/publico.py.
 def indice(sessoes, cabecalhos, publicadas=None):
     """O índice lista as 17, com as retidas marcadas e sem link.
 
@@ -155,7 +161,6 @@ def indice(sessoes, cabecalhos, publicadas=None):
             f'<tr data-g="{E(setor)}">'
             f'{celula}'
             f'<td>{E(setor)}</td>'
-            f'<td class="num">{E(s["date"])}</td>'
             f'<td class="num">{E(s["minutes"])} min</td>'
             f'<td class="num">{cab.get("turnos", "n/d")}</td>'
             f'<td class="num">{E(s["n_participants"])}</td></tr>')
@@ -184,7 +189,9 @@ aqui{retidas_frase}.</p>
 <div class="nota">
   <p><strong>O que foi feito com estes textos.</strong> Nomes de participantes, de
   entrevistadores e de terceiros citados foram substituídos por rótulos; contatos e
-  links, suprimidos. Em {n_com_corte} sessões há trechos suprimidos porque o cargo, a
+  links, suprimidos. A data de cada sessão também não é publicada: agendas de
+  gabinete, de diretoria e de conselho são públicas, e a data ao lado do setor e da
+  duração estreitaria o conjunto de quem pode ter falado naquela manhã. Em {n_com_corte} sessões há trechos suprimidos porque o cargo, a
   filiação declarada ou o local de trabalho identificavam o participante
   independentemente do nome; cada corte está marcado no texto e registrado em relação
   anexa ao produto.</p>
@@ -210,7 +217,7 @@ aqui{retidas_frase}.</p>
 <p class="conta" id="conta"></p>
 <div class="tw"><table id="tab">
 <thead><tr><th>Sessão</th><th>Setor</th>
-<th class="num">Data</th><th class="num">Duração</th><th class="num">Turnos</th>
+<th class="num">Duração</th><th class="num">Turnos</th>
 <th class="num">Particip.</th></tr></thead>
 <tbody>{"".join(linhas)}</tbody></table></div>
 
